@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Ecosystem</title>
+  <meta http-equiv="refresh" content="0; url=platform_landing_page/code.html" />
+  <link rel="canonical" href="platform_landing_page/code.html" />
+  <style>
+    html, body { margin: 0; height: 100%; font-family: 'Inter', system-ui, sans-serif;
+                 background: #faf9ff; color: #051a3e; }
+    .wrap { display: grid; place-items: center; height: 100%; gap: 16px; padding: 24px; }
+    .spinner {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 3px solid #d8e2ff; border-top-color: #003d9b;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    a { color: #003d9b; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Loading Nexus Ecosystem…</p>
+    <p><a href="platform_landing_page/code.html">Continue to the landing page →</a></p>
+  </main>
+  <script>location.replace('platform_landing_page/code.html');</script>
+</body>
+</html>

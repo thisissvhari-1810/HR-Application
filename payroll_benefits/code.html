@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Ecosystem — Payroll &amp; Benefits</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../shared/nav.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: #051a3e; margin: 0;
+    }
+    .mesh-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(at 0% 0%, rgba(216, 226, 255, 0.55) 0, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(229, 222, 255, 0.55) 0, transparent 50%),
+        #faf9ff;
+    }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 40px) 64px; }
+
+    .page-header {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end;
+      gap: 16px; margin-bottom: 24px;
+    }
+    .page-header h1 { font-size: 28px; margin: 0; font-weight: 700; }
+    .page-header p  { font-size: 14px; color: #535f73; margin: 4px 0 0; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 12px; border: none;
+      font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: transform 120ms, box-shadow 200ms;
+    }
+    .btn--primary { background: #003d9b; color: #fff; box-shadow: 0 6px 18px rgba(0,61,155,0.28); }
+    .btn--primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(0,61,155,0.35); }
+    .btn--ghost   { background: rgba(255,255,255,0.65); color: #003d9b; border: 1px solid rgba(195,198,214,0.5); }
+    .btn--ghost:hover { background: #fff; }
+
+    .grid { display: grid; gap: 20px; }
+    .grid--kpis { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 24px; }
+    .grid--main { grid-template-columns: 1fr; }
+    @media (min-width: 1024px) { .grid--main { grid-template-columns: 2fr 1fr; } }
+
+    .card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(195, 198, 214, 0.4);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 14px rgba(5, 26, 62, 0.04);
+    }
+    .card h2 { font-size: 16px; font-weight: 700; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+    .card h2 .material-symbols-outlined { color: #003d9b; font-size: 20px; }
+
+    .kpi__label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #535f73; font-weight: 600; }
+    .kpi__value { font-size: 28px; font-weight: 700; color: #051a3e; margin: 6px 0 4px;
+                  background: linear-gradient(135deg,#003d9b,#432f9c);
+                  -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .kpi__delta { font-size: 12px; color: #2e7d32; display: inline-flex; align-items: center; gap: 4px; }
+    .kpi__delta.is-down { color: #c2410c; }
+
+    .next-payday {
+      background: linear-gradient(135deg, #003d9b 0%, #432f9c 100%);
+      color: #fff; border: none; padding: 28px;
+      box-shadow: 0 16px 40px rgba(0,61,155,0.25);
+    }
+    .next-payday h2 { color: #fff; }
+    .next-payday h2 .material-symbols-outlined { color: #fff; }
+    .next-payday__amount { font-size: 36px; font-weight: 700; margin: 12px 0 4px; }
+    .next-payday__sub { opacity: 0.85; font-size: 14px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid rgba(195,198,214,0.4); }
+    th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #535f73; font-weight: 600; }
+    td .pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600;
+    }
+    .pill--paid    { background: rgba(46,125,50,0.12);   color: #2e7d32; }
+    .pill--pending { background: rgba(194,65,12,0.12);   color: #c2410c; }
+
+    .benefits { display: grid; gap: 12px; }
+    .benefit {
+      display: flex; align-items: center; gap: 14px; padding: 14px;
+      border-radius: 14px; border: 1px solid rgba(195,198,214,0.4);
+      background: rgba(255,255,255,0.6); transition: background 200ms;
+    }
+    .benefit:hover { background: #fff; }
+    .benefit__icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: rgba(0,82,204,0.1); color: #003d9b;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .benefit__name { font-weight: 600; font-size: 14px; }
+    .benefit__meta { font-size: 12px; color: #535f73; }
+    .benefit__status {
+      margin-left: auto; font-size: 11px; padding: 3px 10px; border-radius: 999px;
+      background: rgba(46,125,50,0.12); color: #2e7d32; font-weight: 600;
+    }
+
+    .ytd { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+    .ytd__cell { padding: 14px; border-radius: 14px; background: rgba(0,61,155,0.05); }
+    .ytd__cell strong { font-size: 18px; display: block; color: #003d9b; }
+    .ytd__cell span   { font-size: 11px; text-transform: uppercase; color: #535f73; letter-spacing: 0.06em; }
+  </style>
+
+  <script src="../shared/nav-data.js" defer></script>
+  <script src="../shared/nav.js" defer></script>
+</head>
+
+<body data-shell="app" data-module="payroll">
+  <div class="mesh-bg"></div>
+
+  <main class="wrap">
+
+    <div class="page-header">
+      <div>
+        <h1>Payroll &amp; Benefits</h1>
+        <p>Your compensation, deductions, tax documents and benefit enrollments — all in one place.</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="btn btn--ghost" href="#documents">
+          <span class="material-symbols-outlined">download</span> Tax documents
+        </a>
+        <button class="btn btn--primary" type="button">
+          <span class="material-symbols-outlined">add</span> Enroll in benefit
+        </button>
+      </div>
+    </div>
+
+    <section class="grid grid--kpis">
+      <div class="card">
+        <div class="kpi__label">Gross YTD</div>
+        <div class="kpi__value">$92,480</div>
+        <div class="kpi__delta"><span class="material-symbols-outlined" style="font-size:14px;">trending_up</span> 4.2% vs. last year</div>
+      </div>
+      <div class="card">
+        <div class="kpi__label">Net last pay</div>
+        <div class="kpi__value">$5,128</div>
+        <div class="kpi__delta"><span class="material-symbols-outlined" style="font-size:14px;">trending_up</span> +$112 vs. prior</div>
+      </div>
+      <div class="card">
+        <div class="kpi__label">Deductions YTD</div>
+        <div class="kpi__value">$18,206</div>
+        <div class="kpi__delta is-down"><span class="material-symbols-outlined" style="font-size:14px;">trending_flat</span> No change</div>
+      </div>
+      <div class="card">
+        <div class="kpi__label">PTO accrued</div>
+        <div class="kpi__value">14.5d</div>
+        <div class="kpi__delta">Refreshes Jan 1</div>
+      </div>
+    </section>
+
+    <section class="grid grid--main">
+      <div>
+        <div class="card">
+          <h2><span class="material-symbols-outlined">receipt_long</span> Recent pay statements</h2>
+          <table>
+            <thead>
+              <tr><th>Period</th><th>Pay date</th><th>Gross</th><th>Net</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Aug 1 — Aug 15</td><td>Aug 20</td><td>$6,520</td><td>$5,128</td>
+                <td><span class="pill pill--paid"><span class="material-symbols-outlined" style="font-size:13px;">check</span>Paid</span></td>
+                <td><a href="#" style="color:#003d9b;font-weight:600;">View</a></td>
+              </tr>
+              <tr>
+                <td>Jul 16 — Jul 31</td><td>Aug 5</td><td>$6,520</td><td>$5,016</td>
+                <td><span class="pill pill--paid"><span class="material-symbols-outlined" style="font-size:13px;">check</span>Paid</span></td>
+                <td><a href="#" style="color:#003d9b;font-weight:600;">View</a></td>
+              </tr>
+              <tr>
+                <td>Jul 1 — Jul 15</td><td>Jul 20</td><td>$6,520</td><td>$5,016</td>
+                <td><span class="pill pill--paid"><span class="material-symbols-outlined" style="font-size:13px;">check</span>Paid</span></td>
+                <td><a href="#" style="color:#003d9b;font-weight:600;">View</a></td>
+              </tr>
+              <tr>
+                <td>Jun 16 — Jun 30</td><td>Jul 5</td><td>$6,300</td><td>$4,890</td>
+                <td><span class="pill pill--paid"><span class="material-symbols-outlined" style="font-size:13px;">check</span>Paid</span></td>
+                <td><a href="#" style="color:#003d9b;font-weight:600;">View</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="ytd">
+            <div class="ytd__cell"><strong>$92,480</strong><span>Gross YTD</span></div>
+            <div class="ytd__cell"><strong>$18,206</strong><span>Deductions YTD</span></div>
+            <div class="ytd__cell"><strong>$74,274</strong><span>Net YTD</span></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;" id="documents">
+          <h2><span class="material-symbols-outlined">folder</span> Tax documents</h2>
+          <table>
+            <thead><tr><th>Document</th><th>Year</th><th>Format</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>W-2 wage &amp; tax statement</td><td>2025</td><td>PDF</td><td><a href="#" style="color:#003d9b;font-weight:600;">Download</a></td></tr>
+              <tr><td>W-2 wage &amp; tax statement</td><td>2024</td><td>PDF</td><td><a href="#" style="color:#003d9b;font-weight:600;">Download</a></td></tr>
+              <tr><td>401(k) annual statement</td><td>2024</td><td>PDF</td><td><a href="#" style="color:#003d9b;font-weight:600;">Download</a></td></tr>
+              <tr><td>HSA contributions summary</td><td>2024</td><td>PDF</td><td><a href="#" style="color:#003d9b;font-weight:600;">Download</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <div class="card next-payday">
+          <h2><span class="material-symbols-outlined">event</span> Next payday</h2>
+          <div class="next-payday__amount">$5,128.40</div>
+          <div class="next-payday__sub">Estimated · September 5 · Direct deposit · Bank ••4821</div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+          <h2><span class="material-symbols-outlined">health_and_safety</span> Enrolled benefits</h2>
+          <div class="benefits">
+            <div class="benefit">
+              <span class="benefit__icon"><span class="material-symbols-outlined">medical_services</span></span>
+              <div>
+                <div class="benefit__name">Medical — PPO Platinum</div>
+                <div class="benefit__meta">Coverage tier: Family · $312/pay</div>
+              </div>
+              <span class="benefit__status">Active</span>
+            </div>
+            <div class="benefit">
+              <span class="benefit__icon"><span class="material-symbols-outlined">dentistry</span></span>
+              <div>
+                <div class="benefit__name">Dental — Premium</div>
+                <div class="benefit__meta">Coverage tier: Family · $48/pay</div>
+              </div>
+              <span class="benefit__status">Active</span>
+            </div>
+            <div class="benefit">
+              <span class="benefit__icon"><span class="material-symbols-outlined">visibility</span></span>
+              <div>
+                <div class="benefit__name">Vision</div>
+                <div class="benefit__meta">Coverage tier: Family · $12/pay</div>
+              </div>
+              <span class="benefit__status">Active</span>
+            </div>
+            <div class="benefit">
+              <span class="benefit__icon"><span class="material-symbols-outlined">savings</span></span>
+              <div>
+                <div class="benefit__name">401(k) Retirement</div>
+                <div class="benefit__meta">8% with 4% company match</div>
+              </div>
+              <span class="benefit__status">Active</span>
+            </div>
+            <div class="benefit">
+              <span class="benefit__icon"><span class="material-symbols-outlined">child_care</span></span>
+              <div>
+                <div class="benefit__name">Dependent care FSA</div>
+                <div class="benefit__meta">$5,000 annual contribution</div>
+              </div>
+              <span class="benefit__status">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

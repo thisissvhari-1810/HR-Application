@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Ecosystem — Welcome, Alex</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../shared/nav.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: #051a3e;
+      margin: 0;
+    }
+    .mesh-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(at 10% 10%, rgba(216, 226, 255, 0.65) 0, transparent 50%),
+        radial-gradient(at 90% 0%, rgba(229, 222, 255, 0.6) 0, transparent 50%),
+        radial-gradient(at 80% 90%, rgba(212, 224, 248, 0.6) 0, transparent 55%),
+        radial-gradient(at 0% 100%, rgba(213, 204, 255, 0.55) 0, transparent 50%),
+        #faf9ff;
+    }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 40px) 64px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 32px;
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 12px 40px rgba(5, 26, 62, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 900px) { .hero { grid-template-columns: 1.4fr 1fr; align-items: center; padding: 48px; } }
+    .hero::before {
+      content: ''; position: absolute; top: -120px; right: -120px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(67, 47, 156, 0.18), transparent 70%);
+    }
+    .hero__eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      background: rgba(0, 61, 155, 0.08); color: #003d9b;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1; font-weight: 700; margin: 18px 0 12px;
+      background: linear-gradient(135deg, #003d9b 0%, #432f9c 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { color: #434654; font-size: 16px; line-height: 1.6; margin: 0; max-width: 56ch; }
+    .hero__stats {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px;
+    }
+    .stat {
+      padding: 16px; border-radius: 16px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(195,198,214,0.4);
+    }
+    .stat__label { font-size: 11px; text-transform: uppercase; color: #535f73; letter-spacing: 0.08em; font-weight: 600; }
+    .stat__value { font-size: 24px; font-weight: 700; color: #003d9b; margin-top: 4px; }
+    .stat__trend { font-size: 12px; color: #2e7d32; margin-top: 4px; }
+    .hero__art {
+      position: relative; min-height: 240px;
+      border-radius: 24px; overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(0,82,204,0.35), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(91,73,181,0.35), transparent 60%),
+        linear-gradient(135deg, #d8e2ff, #e5deff);
+      display: grid; place-items: center;
+    }
+    .hero__art .icon-orb {
+      width: 100%; max-width: 280px; aspect-ratio: 1; border-radius: 50%;
+      background: rgba(255,255,255,0.4); backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.7);
+      display: grid; place-items: center; box-shadow: 0 20px 50px rgba(0,61,155,0.18);
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero__art .material-symbols-outlined { font-size: 96px; color: #003d9b; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .section-title {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin: 48px 0 20px;
+    }
+    .section-title h2 { font-size: 22px; font-weight: 700; margin: 0; color: #051a3e; }
+    .section-title p  { margin: 4px 0 0; color: #535f73; font-size: 14px; }
+
+    .role-grid {
+      display: grid; gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .role-card {
+      position: relative; display: flex; flex-direction: column; gap: 16px;
+      padding: 28px; border-radius: 24px; text-decoration: none; color: inherit;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(195, 198, 214, 0.4);
+      box-shadow: 0 6px 20px rgba(5, 26, 62, 0.05);
+      transition: transform 240ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                  box-shadow 240ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                  border-color 240ms;
+      overflow: hidden;
+    }
+    .role-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(5, 26, 62, 0.10);
+      border-color: rgba(0, 61, 155, 0.4);
+    }
+    .role-card__icon {
+      width: 56px; height: 56px; border-radius: 18px;
+      display: grid; place-items: center; color: #fff;
+      box-shadow: 0 8px 22px rgba(0, 61, 155, 0.3);
+    }
+    .role-card__icon .material-symbols-outlined { font-size: 28px; }
+    .role-card[data-role="employee"]  .role-card__icon { background: linear-gradient(135deg, #0052cc, #003d9b); }
+    .role-card[data-role="hr"]        .role-card__icon { background: linear-gradient(135deg, #00897b, #00695c); box-shadow: 0 8px 22px rgba(0,137,123,0.35); }
+    .role-card[data-role="exec"]      .role-card__icon { background: linear-gradient(135deg, #432f9c, #5b49b5); box-shadow: 0 8px 22px rgba(67,47,156,0.35); }
+    .role-card[data-role="admin"]     .role-card__icon { background: linear-gradient(135deg, #c2410c, #ea580c); box-shadow: 0 8px 22px rgba(194,65,12,0.35); }
+
+    .role-card__title { font-size: 18px; font-weight: 700; margin: 0; color: #051a3e; }
+    .role-card__desc  { font-size: 13px; color: #535f73; margin: 0; line-height: 1.55; }
+    .role-card__meta  {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
+    }
+    .role-card__chip {
+      font-size: 11px; padding: 4px 10px; border-radius: 999px;
+      background: rgba(0, 61, 155, 0.08); color: #003d9b; font-weight: 500;
+    }
+    .role-card__cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-weight: 600; color: #003d9b; font-size: 13px; margin-top: auto;
+    }
+    .role-card__cta .material-symbols-outlined { font-size: 18px; transition: transform 200ms; }
+    .role-card:hover .role-card__cta .material-symbols-outlined { transform: translateX(4px); }
+
+    .recent {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .recent__card {
+      padding: 18px; border-radius: 18px; text-decoration: none; color: inherit;
+      background: rgba(255,255,255,0.7); border: 1px solid rgba(195,198,214,0.4);
+      transition: background 200ms, transform 200ms;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .recent__card:hover { background: #fff; transform: translateY(-2px); }
+    .recent__icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: rgba(0,61,155,0.08); color: #003d9b;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .recent__label { font-size: 14px; font-weight: 600; }
+    .recent__sub   { font-size: 12px; color: #535f73; margin-top: 2px; }
+  </style>
+
+  <script src="../shared/nav-data.js" defer></script>
+  <script src="../shared/nav.js" defer></script>
+</head>
+
+<body data-shell="app" data-module="welcome">
+  <div class="mesh-bg"></div>
+
+  <main class="wrap">
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <span class="hero__eyebrow">
+          <span class="material-symbols-outlined" style="font-size:14px;">waving_hand</span>
+          Tuesday morning · You're all caught up
+        </span>
+        <h1 id="hero-title">Welcome back, Alex.</h1>
+        <p>You operate across four workspaces today. Pick the experience you need — or jump straight into your most-used modules below. Nexus AI has already prepped your briefings.</p>
+
+        <div class="hero__stats">
+          <div class="stat">
+            <div class="stat__label">Today's tasks</div>
+            <div class="stat__value">7</div>
+            <div class="stat__trend">3 priority · 4 routine</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">Unread messages</div>
+            <div class="stat__value">12</div>
+            <div class="stat__trend">2 from leadership</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">Approvals pending</div>
+            <div class="stat__value">4</div>
+            <div class="stat__trend">Awaiting your sign-off</div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">Team headcount</div>
+            <div class="stat__value">128</div>
+            <div class="stat__trend">+6 this quarter</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__art" aria-hidden="true">
+        <div class="icon-orb">
+          <span class="material-symbols-outlined">workspaces</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <div>
+        <h2>Choose a workspace</h2>
+        <p>Each workspace pre-configures the sidebar, dashboards and notifications you need.</p>
+      </div>
+    </div>
+
+    <div class="role-grid">
+
+      <a class="role-card" data-role="employee" href="../personal_employee_dashboard/code.html">
+        <span class="role-card__icon"><span class="material-symbols-outlined">space_dashboard</span></span>
+        <h3 class="role-card__title">Employee Workspace</h3>
+        <p class="role-card__desc">Your personal home for messages, communities, payroll, learning and the company feed.</p>
+        <div class="role-card__meta">
+          <span class="role-card__chip">Messages</span>
+          <span class="role-card__chip">Reels</span>
+          <span class="role-card__chip">Payroll</span>
+        </div>
+        <span class="role-card__cta">Enter workspace <span class="material-symbols-outlined">arrow_forward</span></span>
+      </a>
+
+      <a class="role-card" data-role="hr" href="../hr_administration_dashboard/code.html">
+        <span class="role-card__icon"><span class="material-symbols-outlined">badge</span></span>
+        <h3 class="role-card__title">HR Workspace</h3>
+        <p class="role-card__desc">Recruitment, approvals, employee ecosystem and the organization chart — all in one console.</p>
+        <div class="role-card__meta">
+          <span class="role-card__chip">Recruitment</span>
+          <span class="role-card__chip">Approvals</span>
+          <span class="role-card__chip">Org chart</span>
+        </div>
+        <span class="role-card__cta">Enter workspace <span class="material-symbols-outlined">arrow_forward</span></span>
+      </a>
+
+      <a class="role-card" data-role="exec" href="../executive_dashboard/code.html">
+        <span class="role-card__icon"><span class="material-symbols-outlined">trending_up</span></span>
+        <h3 class="role-card__title">Executive Workspace</h3>
+        <p class="role-card__desc">Boardroom-grade KPIs, AI-driven analytics, and a high-level view of the entire organization.</p>
+        <div class="role-card__meta">
+          <span class="role-card__chip">AI analytics</span>
+          <span class="role-card__chip">Company feed</span>
+          <span class="role-card__chip">Org structure</span>
+        </div>
+        <span class="role-card__cta">Enter workspace <span class="material-symbols-outlined">arrow_forward</span></span>
+      </a>
+
+      <a class="role-card" data-role="admin" href="../managerial_insights_dashboard/code.html">
+        <span class="role-card__icon"><span class="material-symbols-outlined">admin_panel_settings</span></span>
+        <h3 class="role-card__title">Admin Workspace</h3>
+        <p class="role-card__desc">Platform governance: analytics, ecosystem health, recruitment ops, approval chains and structure.</p>
+        <div class="role-card__meta">
+          <span class="role-card__chip">Analytics</span>
+          <span class="role-card__chip">Ecosystem</span>
+          <span class="role-card__chip">Governance</span>
+        </div>
+        <span class="role-card__cta">Enter workspace <span class="material-symbols-outlined">arrow_forward</span></span>
+      </a>
+
+    </div>
+
+    <div class="section-title">
+      <div>
+        <h2>Jump back in</h2>
+        <p>Your most-used modules from the last 7 days.</p>
+      </div>
+    </div>
+
+    <div class="recent">
+      <a class="recent__card" href="../enterprise_messaging_chat/code.html">
+        <span class="recent__icon"><span class="material-symbols-outlined">chat</span></span>
+        <div>
+          <div class="recent__label">Messages</div>
+          <div class="recent__sub">12 unread threads</div>
+        </div>
+      </a>
+      <a class="recent__card" href="../company_news_feed/code.html">
+        <span class="recent__icon"><span class="material-symbols-outlined">newspaper</span></span>
+        <div>
+          <div class="recent__label">Company feed</div>
+          <div class="recent__sub">3 new posts today</div>
+        </div>
+      </a>
+      <a class="recent__card" href="../performance_review_center/code.html">
+        <span class="recent__icon"><span class="material-symbols-outlined">flag</span></span>
+        <div>
+          <div class="recent__label">Performance goals</div>
+          <div class="recent__sub">Q3 review due Friday</div>
+        </div>
+      </a>
+      <a class="recent__card" href="../payroll_benefits/code.html">
+        <span class="recent__icon"><span class="material-symbols-outlined">payments</span></span>
+        <div>
+          <div class="recent__label">Payroll & benefits</div>
+          <div class="recent__sub">Next payday in 4 days</div>
+        </div>
+      </a>
+      <a class="recent__card" href="../ai_intelligence_hub/code.html">
+        <span class="recent__icon"><span class="material-symbols-outlined">analytics</span></span>
+        <div>
+          <div class="recent__label">AI analytics</div>
+          <div class="recent__sub">2 new insights ready</div>
+        </div>
+      </a>
+      <a class="recent__card" href="../organizational_hierarchy_chart/code.html">
+        <span class="recent__icon"><span class="material-symbols-outlined">account_tree</span></span>
+        <div>
+          <div class="recent__label">Org structure</div>
+          <div class="recent__sub">Updated 2 hours ago</div>
+        </div>
+      </a>
+    </div>
+
+  </main>
+</body>
+</html>

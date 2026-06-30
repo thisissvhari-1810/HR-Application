@@ -1,0 +1,611 @@
+/* ==========================================================================
+   Nexus Ecosystem — Shared Navigation Shell
+   --------------------------------------------------------------------------
+   Implements the unified application layout: glass top navbar, left sidebar,
+   breadcrumbs, mobile drawer and a slim public top-bar for unauthenticated
+   pages. All selectors are namespaced with `nx-` to avoid clashing with the
+   Tailwind utilities used inside individual page bodies.
+   ========================================================================== */
+
+:root {
+  /* Color tokens (mirror the global DESIGN.md palette). */
+  --nx-surface:                  #faf9ff;
+  --nx-surface-low:              #f1f3ff;
+  --nx-surface-container:        #e9edff;
+  --nx-surface-container-high:   #e1e8ff;
+  --nx-surface-container-highest:#d8e2ff;
+  --nx-on-surface:               #051a3e;
+  --nx-on-surface-variant:       #434654;
+  --nx-outline:                  #737685;
+  --nx-outline-variant:          #c3c6d6;
+  --nx-primary:                  #003d9b;
+  --nx-primary-container:        #0052cc;
+  --nx-on-primary:               #ffffff;
+  --nx-on-primary-container:     #c4d2ff;
+  --nx-secondary:                #535f73;
+  --nx-secondary-container:      #d4e0f8;
+  --nx-on-secondary-container:   #1d3054;
+  --nx-tertiary:                 #432f9c;
+  --nx-tertiary-container:       #5b49b5;
+  --nx-error:                    #ba1a1a;
+
+  /* Layout tokens. */
+  --nx-navbar-h:        72px;
+  --nx-sidebar-w:       280px;
+  --nx-sidebar-rail-w:  76px;
+  --nx-breadcrumb-h:    48px;
+  --nx-radius-sm:       8px;
+  --nx-radius-md:       12px;
+  --nx-radius-lg:       16px;
+  --nx-radius-xl:       24px;
+  --nx-radius-pill:     9999px;
+  --nx-z-navbar:        1000;
+  --nx-z-sidebar:       950;
+  --nx-z-drawer-back:   900;
+  --nx-z-popover:       1100;
+
+  /* Motion. */
+  --nx-ease:            cubic-bezier(0.22, 0.61, 0.36, 1);
+  --nx-dur:             220ms;
+}
+
+/* --------------------------------------------------------------------------
+   Body offsets (app shell only)
+   -------------------------------------------------------------------------- */
+body[data-shell="app"] {
+  margin: 0;
+  min-height: 100vh;
+  padding-top: var(--nx-navbar-h);
+  background-color: var(--nx-surface);
+  color: var(--nx-on-surface);
+}
+
+@media (min-width: 768px) {
+  body[data-shell="app"] {
+    padding-left: var(--nx-sidebar-w);
+  }
+}
+
+/* Suppress legacy page-local headers / sidebars from the original mocks so
+   only the shared shell is visible. nav.js applies `data-nx-hidden` to the
+   first <header> and first <aside> when they exist as direct ancestors. */
+body[data-shell="app"] [data-nx-hidden="true"] {
+  display: none !important;
+}
+
+/* Some legacy main areas use `md:ml-sidebar-width` or `pt-[88px]`; reset them. */
+body[data-shell="app"] main {
+  margin-left: 0 !important;
+  padding-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Top Navbar (app shell)
+   -------------------------------------------------------------------------- */
+.nx-navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--nx-navbar-h);
+  z-index: var(--nx-z-navbar);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  background: rgba(250, 249, 255, 0.78);
+  backdrop-filter: blur(30px) saturate(140%);
+  -webkit-backdrop-filter: blur(30px) saturate(140%);
+  border-bottom: 1px solid rgba(195, 198, 214, 0.35);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 4px 18px rgba(5, 26, 62, 0.04);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .nx-navbar { left: var(--nx-sidebar-w); }
+}
+
+.nx-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--nx-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nx-navbar__brand-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--nx-primary) 0%, var(--nx-tertiary) 100%);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0, 61, 155, 0.35);
+}
+@media (min-width: 768px) {
+  .nx-navbar__brand { display: none; } /* brand lives in sidebar on desktop */
+}
+
+.nx-navbar__hamburger {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--nx-radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--nx-on-surface-variant);
+  cursor: pointer;
+  transition: background var(--nx-dur) var(--nx-ease);
+}
+.nx-navbar__hamburger:hover { background: var(--nx-surface-container-high); }
+@media (min-width: 768px) {
+  .nx-navbar__hamburger { display: none; }
+}
+
+.nx-navbar__search {
+  flex: 1;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: var(--nx-radius-pill);
+  background: var(--nx-surface-low);
+  border: 1px solid transparent;
+  transition: border-color var(--nx-dur) var(--nx-ease),
+              background var(--nx-dur) var(--nx-ease),
+              box-shadow var(--nx-dur) var(--nx-ease);
+}
+.nx-navbar__search:focus-within {
+  border-color: var(--nx-primary);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 61, 155, 0.12);
+}
+.nx-navbar__search .material-symbols-outlined { color: var(--nx-outline); font-size: 22px; }
+.nx-navbar__search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: var(--nx-on-surface);
+  font-family: inherit;
+}
+.nx-navbar__search kbd {
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--nx-surface-container);
+  font-size: 11px;
+  color: var(--nx-on-surface-variant);
+  border: 1px solid var(--nx-outline-variant);
+  font-family: inherit;
+}
+@media (max-width: 640px) {
+  .nx-navbar__search kbd { display: none; }
+}
+
+.nx-navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.nx-icon-btn {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  border-radius: var(--nx-radius-pill);
+  color: var(--nx-on-surface-variant);
+  cursor: pointer;
+  transition: background var(--nx-dur) var(--nx-ease),
+              transform 120ms var(--nx-ease);
+}
+.nx-icon-btn:hover  { background: var(--nx-surface-container-high); }
+.nx-icon-btn:active { transform: scale(0.94); }
+.nx-icon-btn .material-symbols-outlined { font-size: 22px; }
+.nx-icon-btn__badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--nx-radius-pill);
+  background: var(--nx-error);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--nx-surface);
+}
+
+.nx-navbar__profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 6px 4px 10px;
+  border-radius: var(--nx-radius-pill);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--nx-dur) var(--nx-ease),
+              border-color var(--nx-dur) var(--nx-ease);
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+}
+.nx-navbar__profile:hover {
+  background: var(--nx-surface-container);
+  border-color: var(--nx-outline-variant);
+}
+.nx-navbar__profile-meta { display: none; line-height: 1.1; text-align: right; }
+.nx-navbar__profile-meta strong { font-size: 13px; color: var(--nx-on-surface); font-weight: 600; }
+.nx-navbar__profile-meta span   { font-size: 11px; color: var(--nx-on-surface-variant); }
+@media (min-width: 1024px) {
+  .nx-navbar__profile-meta { display: block; }
+}
+.nx-navbar__profile img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(5, 26, 62, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar (app shell)
+   -------------------------------------------------------------------------- */
+.nx-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--nx-sidebar-w);
+  z-index: var(--nx-z-sidebar);
+  display: flex;
+  flex-direction: column;
+  background: rgba(241, 243, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-right: 1px solid rgba(195, 198, 214, 0.35);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  transform: translateX(-100%);
+  transition: transform var(--nx-dur) var(--nx-ease);
+}
+@media (min-width: 768px) {
+  .nx-sidebar { transform: none; }
+}
+.nx-sidebar.is-open { transform: translateX(0); }
+
+.nx-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(195, 198, 214, 0.25);
+  text-decoration: none;
+  color: inherit;
+}
+.nx-sidebar__brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--nx-primary) 0%, var(--nx-tertiary) 100%);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 22px;
+  box-shadow: 0 6px 18px rgba(0, 61, 155, 0.28);
+  flex-shrink: 0;
+}
+.nx-sidebar__brand-mark .material-symbols-outlined { font-size: 22px; }
+.nx-sidebar__brand-text { line-height: 1.2; }
+.nx-sidebar__brand-text strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--nx-primary);
+}
+.nx-sidebar__brand-text span {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--nx-secondary);
+  margin-top: 2px;
+}
+
+.nx-sidebar__close {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--nx-on-surface-variant);
+  cursor: pointer;
+}
+.nx-sidebar__close:hover { background: var(--nx-surface-container-high); }
+@media (min-width: 768px) { .nx-sidebar__close { display: none; } }
+
+.nx-sidebar__nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nx-outline-variant) transparent;
+}
+.nx-sidebar__nav::-webkit-scrollbar { width: 6px; }
+.nx-sidebar__nav::-webkit-scrollbar-thumb {
+  background: var(--nx-outline-variant);
+  border-radius: 6px;
+}
+
+.nx-nav-group__title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--nx-secondary);
+  padding: 4px 14px 6px;
+  margin: 0;
+}
+.nx-nav-group__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nx-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-radius: var(--nx-radius-md);
+  color: var(--nx-on-surface-variant);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  transition: background var(--nx-dur) var(--nx-ease),
+              color var(--nx-dur) var(--nx-ease),
+              transform 120ms var(--nx-ease);
+}
+.nx-nav-item:hover {
+  background: rgba(0, 61, 155, 0.06);
+  color: var(--nx-primary);
+  transform: translateX(2px);
+}
+.nx-nav-item .material-symbols-outlined {
+  font-size: 22px;
+  color: inherit;
+  flex-shrink: 0;
+}
+.nx-nav-item__role {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--nx-radius-pill);
+  background: var(--nx-surface-container-high);
+  color: var(--nx-secondary);
+}
+.nx-nav-item.is-active {
+  background: linear-gradient(135deg, rgba(0, 61, 155, 0.12) 0%, rgba(67, 47, 156, 0.12) 100%);
+  color: var(--nx-primary);
+  font-weight: 600;
+}
+.nx-nav-item.is-active::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--nx-primary) 0%, var(--nx-tertiary) 100%);
+}
+.nx-nav-item.is-active .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
+.nx-nav-item.is-trail {
+  color: var(--nx-primary);
+  background: rgba(0, 61, 155, 0.04);
+}
+
+.nx-sidebar__footer {
+  padding: 12px;
+  border-top: 1px solid rgba(195, 198, 214, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile drawer backdrop
+   -------------------------------------------------------------------------- */
+.nx-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 26, 62, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: var(--nx-z-drawer-back);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--nx-dur) var(--nx-ease);
+}
+.nx-backdrop.is-open { opacity: 1; pointer-events: auto; }
+@media (min-width: 768px) { .nx-backdrop { display: none; } }
+
+/* --------------------------------------------------------------------------
+   Breadcrumbs
+   -------------------------------------------------------------------------- */
+.nx-breadcrumbs {
+  position: sticky;
+  top: var(--nx-navbar-h);
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 12px 24px;
+  min-height: var(--nx-breadcrumb-h);
+  background: rgba(250, 249, 255, 0.7);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(195, 198, 214, 0.25);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 13px;
+}
+.nx-breadcrumbs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: var(--nx-radius-sm);
+  color: var(--nx-on-surface-variant);
+  text-decoration: none;
+  transition: background var(--nx-dur) var(--nx-ease),
+              color var(--nx-dur) var(--nx-ease);
+}
+.nx-breadcrumbs a:hover {
+  background: var(--nx-surface-container);
+  color: var(--nx-primary);
+}
+.nx-breadcrumbs a .material-symbols-outlined { font-size: 16px; }
+.nx-breadcrumbs__sep {
+  color: var(--nx-outline);
+  font-size: 16px;
+  user-select: none;
+}
+.nx-breadcrumbs__current {
+  padding: 4px 8px;
+  border-radius: var(--nx-radius-sm);
+  color: var(--nx-primary);
+  font-weight: 600;
+  background: rgba(0, 61, 155, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Public top bar (landing, sign-in, register, 2FA)
+   -------------------------------------------------------------------------- */
+.nx-public-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--nx-z-navbar);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  background: rgba(250, 249, 255, 0.78);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-bottom: 1px solid rgba(195, 198, 214, 0.3);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+.nx-public-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--nx-primary);
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+}
+.nx-public-nav__brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--nx-primary), var(--nx-tertiary));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 61, 155, 0.3);
+}
+.nx-public-nav__links {
+  display: none;
+  gap: 4px;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .nx-public-nav__links { display: flex; }
+}
+.nx-public-nav__links a {
+  padding: 8px 14px;
+  border-radius: var(--nx-radius-pill);
+  color: var(--nx-on-surface-variant);
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background var(--nx-dur) var(--nx-ease),
+              color var(--nx-dur) var(--nx-ease);
+}
+.nx-public-nav__links a:hover {
+  background: var(--nx-surface-container);
+  color: var(--nx-primary);
+}
+.nx-public-nav__links a.is-active {
+  background: var(--nx-secondary-container);
+  color: var(--nx-on-secondary-container);
+}
+.nx-public-nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--nx-radius-pill);
+  background: var(--nx-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 61, 155, 0.28);
+  transition: transform 120ms var(--nx-ease), box-shadow var(--nx-dur) var(--nx-ease);
+}
+.nx-public-nav__cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 61, 155, 0.35); }
+.nx-public-nav__cta .material-symbols-outlined { font-size: 18px; }
+
+body[data-shell="public"] { padding-top: 64px; }
+
+/* --------------------------------------------------------------------------
+   Utility: focus ring for keyboard users
+   -------------------------------------------------------------------------- */
+.nx-navbar a:focus-visible,
+.nx-sidebar a:focus-visible,
+.nx-breadcrumbs a:focus-visible,
+.nx-public-nav a:focus-visible,
+.nx-icon-btn:focus-visible,
+.nx-navbar__profile:focus-visible {
+  outline: 2px solid var(--nx-primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .nx-sidebar, .nx-backdrop, .nx-nav-item, .nx-icon-btn, .nx-public-nav__cta {
+    transition: none !important;
+  }
+}

@@ -121,8 +121,11 @@
         }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
+<link rel="stylesheet" href="../shared/nav.css" />
+<script src="../shared/nav-data.js" defer></script>
+<script src="../shared/nav.js" defer></script>
 </head>
-<body class="bg-surface-bright text-on-background min-h-screen">
+<body data-shell="app" data-module="performance" class="bg-surface-bright text-on-background min-h-screen">
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-[1000] bg-surface/80 backdrop-blur-[30px] border-b border-white/10 shadow-sm flex justify-between items-center h-[72px] px-gutter">
 <div class="flex items-center gap-8">
