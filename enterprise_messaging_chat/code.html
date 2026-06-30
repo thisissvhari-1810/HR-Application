@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Ecosystem | Messaging</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#4633a0",
+                        "outline": "#737685",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-container-high": "#e1e8ff",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#faf9ff",
+                        "on-secondary-container": "#576377",
+                        "tertiary-fixed-dim": "#c9bfff",
+                        "error-container": "#ffdad6",
+                        "background": "#faf9ff",
+                        "outline-variant": "#c3c6d6",
+                        "tertiary": "#432f9c",
+                        "surface-container-highest": "#d8e2ff",
+                        "secondary": "#535f73",
+                        "on-tertiary-fixed": "#1a0063",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#101c2d",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "on-background": "#051a3e",
+                        "primary-container": "#0052cc",
+                        "inverse-surface": "#1d3054",
+                        "surface-tint": "#0c56d0",
+                        "inverse-on-surface": "#edf0ff",
+                        "secondary-fixed-dim": "#bbc7de",
+                        "on-surface": "#051a3e",
+                        "on-primary-fixed": "#001848",
+                        "surface-variant": "#d8e2ff",
+                        "secondary-fixed": "#d7e3fb",
+                        "on-secondary-fixed-variant": "#3b475b",
+                        "surface-dim": "#ccdaff",
+                        "primary-fixed": "#dae2ff",
+                        "on-primary-container": "#c4d2ff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e9edff",
+                        "surface": "#faf9ff",
+                        "secondary-container": "#d4e0f8",
+                        "primary": "#003d9b",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e5deff",
+                        "on-surface-variant": "#434654",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#d5ccff",
+                        "inverse-primary": "#b2c5ff",
+                        "tertiary-container": "#5b49b5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-margin-mobile": "16px",
+                        "navbar-height": "72px",
+                        "container-margin-desktop": "32px",
+                        "unit": "8px",
+                        "sidebar-width": "280px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(250, 249, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ai-gradient-border {
+            position: relative;
+            background: #ffffff;
+            border-radius: 12px;
+        }
+        .ai-gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            background: linear-gradient(135deg, #003d9b, #5b49b5);
+            border-radius: 13px;
+            z-index: -1;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c3c6d6; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-hidden">
+<!-- Global App Shell -->
+<div class="flex h-screen w-full">
+<!-- Predicted SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-sidebar-width flex flex-col p-4 z-50 bg-surface-container-low/90 dark:bg-surface-container-low backdrop-blur-xl border-r border-outline-variant/20">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dataset</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-black text-primary">Nexus AI</h1>
+<p class="font-label-md text-label-md opacity-70">Enterprise Assistant</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer active:opacity-80 transition-transform duration-200 hover:translate-x-1">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer active:opacity-80 transition-transform duration-200 hover:translate-x-1">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-md text-label-md">Social</span>
+</div>
+<!-- ACTIVE TAB: Messaging -->
+<div class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container rounded-lg font-semibold cursor-pointer active:opacity-80 transition-transform duration-200 hover:translate-x-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer active:opacity-80 transition-transform duration-200 hover:translate-x-1">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Projects</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer active:opacity-80 transition-transform duration-200 hover:translate-x-1">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Learning</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer active:opacity-80 transition-transform duration-200 hover:translate-x-1">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">HR</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer active:opacity-80 transition-transform duration-200 hover:translate-x-1">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">Nexus AI</span>
+</div>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/20 space-y-1">
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="ml-sidebar-width flex-1 flex flex-col h-full bg-surface-bright">
+<!-- Predicted TopNavBar -->
+<header class="sticky top-0 z-[1000] flex items-center justify-between px-gutter h-navbar-height w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-title-lg text-title-lg font-bold text-primary">Nexus Ecosystem</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high/50 transition-colors px-2 py-1 rounded" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high/50 transition-colors px-2 py-1 rounded" href="#">Social</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Projects</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<input class="bg-surface-container-low border-none rounded-full px-4 py-2 w-64 text-body-md focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search enterprise..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-outline scale-90">search</span>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer">notifications</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer">settings</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container cursor-pointer active:scale-95 duration-200">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged female executive with a confident smile, set against a blurred high-end office interior with soft natural lighting. The image style is polished and modern, adhering to a premium corporate aesthetic with a clean color palette of white, blues, and subtle greys." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw7bXgL0EOtmmu7Amy3F63XyDZ1hHQT4hqVCv3tCgZ-VATEc8P2LptEw9tsJt7c_HzHCvJ1sKyHcIvs6mkT_nXgPXkBhnihMFrSp5XB77f_D0QfAvZHeMzRONxo9-i9XoV5LeixCzyQB5kBG4Cp0oG6oEYY9d5RDO0luh6YwwwttRwyckLRebCO0OPlbsogDX65SMstnGXX7WGft9BkPbO2L-MdcF-pa2mKAzxyBQPy10kVOIRn0JzZZTnWCjq3HzIz1avga6IjTJt"/>
+</div>
+</div>
+</header>
+<!-- Content Area: Messaging Layout -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Chat List Sidebar -->
+<div class="w-80 border-r border-outline-variant/20 flex flex-col bg-surface-container-lowest">
+<div class="p-4 border-b border-outline-variant/20 flex items-center justify-between">
+<h2 class="font-title-lg text-title-lg">Messages</h2>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary">edit_square</span>
+</button>
+</div>
+<div class="overflow-y-auto flex-1">
+<!-- AI Assistant Entry -->
+<div class="p-4 mx-2 my-2 rounded-xl bg-gradient-to-br from-primary-container to-tertiary-container text-white cursor-pointer hover:shadow-md transition-all active:scale-[0.98]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<p class="font-bold">Nexus AI</p>
+<p class="text-xs opacity-80">Assistant is online</p>
+</div>
+<div class="ml-auto flex h-2 w-2 rounded-full bg-green-400"></div>
+</div>
+</div>
+<!-- Active Chat -->
+<div class="p-4 mx-2 rounded-xl bg-surface-container-high border-l-4 border-primary cursor-pointer">
+<div class="flex gap-3">
+<div class="relative">
+<img class="w-12 h-12 rounded-full" data-alt="A group avatar placeholder showing four small circles overlapping, each containing a different professional person's face, symbolizing a diverse collaborative team. The visual style is clean, vector-like, and high-fidelity, using a primary blue and soft grey color scheme consistent with a modern SaaS dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-KwNZDcHVybJ-FW_nRnEESGvnSawy0PgYS1sll03yVrwhJHv0Un-S-SsNx5xeZZW6ArPYdY8kcx9GHxQ2bdPvnZK8dyG_E3p09MIs7vAOvdbtt0NdWukVKAFz8EVDqQw_ly_RBSFutyZw8z5N04VmVN4vdLinMiAf5G_PT3hHNUxPqlI8-Hwgz3m4sNgcR-mfV0Onc5_J9B7l7pBQwuAkSRKgzkDb5h8Bc_zQdsidX1sq8SAdyagUqLtduMU2YblxZS_qPvwS1cir"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="font-semibold truncate">Product Strategy Group</p>
+<span class="text-[10px] text-outline">10:45 AM</span>
+</div>
+<p class="text-sm text-outline truncate">Sarah: Let's review the final Q4 targets tomorrow.</p>
+</div>
+</div>
+</div>
+<!-- Chat Items -->
+<div class="space-y-1 p-2">
+<!-- User 1 -->
+<div class="flex gap-3 p-3 hover:bg-surface-container-low rounded-xl cursor-pointer group transition-colors">
+<div class="relative">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold">MK</div>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-outline rounded-full border-2 border-white"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="font-medium truncate">Marcus Kane</p>
+<span class="text-[10px] text-outline">Yesterday</span>
+</div>
+<p class="text-sm text-outline truncate">Shared 3 files with you.</p>
+</div>
+</div>
+<!-- User 2 -->
+<div class="flex gap-3 p-3 hover:bg-surface-container-low rounded-xl cursor-pointer group transition-colors">
+<div class="relative">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Close-up portrait of a young male software engineer with glasses, looking focused and friendly. The lighting is bright and airy, reflecting a professional high-tech startup environment. The color palette is minimal, focusing on cool tones and soft backgrounds to match the enterprise intelligence platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8gAzasDzu9xLARe3KF3npSvn0BfVzMwy_3lFExKwsPj9m9nvc9Ej_MAe_Xz29cBxxIn5_mufR2MsMnewycbZKIM9b2-Kx7gE8weTCwijZyy1EyAogjV_afUrz8YbJxUmSFZDfvikvGYJEPt6KYDB_r73haMe_YxeiJIpUWjh8LHanmc4Y8sF3RuC6c8aCopAvQNC36uUY7_LsfWOyIILybXCGpTPPAVsT6H2-NKM2uiEwRkQ_0aInt2pG2ob-oE5ZgDuX4g_MG08k"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<p class="font-medium truncate">Alex Rivera</p>
+<span class="text-[10px] text-outline">2d ago</span>
+</div>
+<p class="text-sm text-outline truncate">The API integration is now live in production.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Chat Area -->
+<div class="flex-1 flex flex-col relative">
+<!-- Chat Header -->
+<div class="h-16 px-6 border-b border-outline-variant/20 flex items-center justify-between glass-panel sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">PS</div>
+<div>
+<h3 class="font-semibold">Product Strategy Group</h3>
+<p class="text-[11px] text-outline">12 Members • Online</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:bg-surface-container-high rounded-full"><span class="material-symbols-outlined text-secondary">videocam</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-full"><span class="material-symbols-outlined text-secondary">call</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-full" id="toggle-details"><span class="material-symbols-outlined text-secondary">info</span></button>
+</div>
+</div>
+<!-- Messages Scroll Area -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<div class="flex justify-center">
+<span class="px-3 py-1 bg-surface-container rounded-full text-[10px] uppercase tracking-wider font-bold text-outline">Today</span>
+</div>
+<!-- Received Message -->
+<div class="flex gap-4 max-w-[80%]">
+<img class="w-8 h-8 rounded-full object-cover shrink-0 mt-1" data-alt="Portrait of a female creative director with a vibrant yet professional appearance. She is wearing a modern blazer and the lighting is soft, warm, and inviting. The setting is a bright, minimalist studio. The overall aesthetic is clean and premium, consistent with high-end corporate software branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQh63J_J1byudDkE1bf1fYajc_AT5djyAlb6fZit6fq6PfvevsGehRllI4iJZzBv6CfneUkUX00RTqkfGDY5bf-c1KNhljc5WoDYN-3LMh615VuFzPjwMEh4uVCFkeaSiY1Y3Koi7W6J1aX0rLn8YMPJjzJ00R6yhmms75PEVlYQPolmquPwSZYtG9maLzY8h9QRMXr98wCCXu78g7mJkzn0g2h4BZjU7yVbcJdP63OPN0I4coPaMKHntaTHYcXJIBx72PxR7lO2Dd"/>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-xs">Sarah Chen</span>
+<span class="text-[10px] text-outline">10:42 AM</span>
+</div>
+<div class="p-4 bg-surface-container rounded-2xl rounded-tl-none shadow-sm text-body-md">
+                                    Hey team, I've just uploaded the updated roadmap for Q4. Can everyone take a look before the sync?
+                                </div>
+</div>
+</div>
+<!-- Attachment -->
+<div class="ml-12 max-w-[80%]">
+<div class="p-3 border border-outline-variant/30 rounded-xl flex items-center gap-3 bg-white hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="w-10 h-10 rounded bg-red-50 flex items-center justify-center text-red-500">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold">Q4_Product_Roadmap_v2.pdf</p>
+<p class="text-[10px] text-outline">PDF • 4.2 MB</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">download</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex flex-row-reverse gap-4 max-w-[80%] ml-auto">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] text-outline">10:45 AM</span>
+<span class="font-bold text-xs">You</span>
+</div>
+<div class="p-4 bg-primary text-on-primary rounded-2xl rounded-tr-none shadow-sm text-body-md">
+                                    Thanks Sarah! I've gone through the first section and added some comments regarding the cloud infrastructure milestones.
+                                </div>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">done_all</span>
+<span class="text-[10px] text-outline">Read</span>
+</div>
+</div>
+</div>
+<!-- AI Interaction Bubble -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-tertiary flex items-center justify-center text-white shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="ai-gradient-border p-[1px] shadow-lg">
+<div class="p-4 bg-white rounded-xl text-body-md">
+<p class="font-bold text-primary text-xs mb-2 flex items-center gap-1">
+                                        Nexus AI Insight
+                                        <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+</p>
+                                    Based on your recent progress and Sarah's roadmap, I've identified a potential dependency conflict in Sprint 14. Would you like me to generate a resolution report?
+                                    <div class="mt-4 flex gap-2">
+<button class="px-3 py-1.5 bg-primary-container/10 text-primary text-xs font-bold rounded-lg border border-primary/20 hover:bg-primary-container/20 transition-colors">Yes, generate report</button>
+<button class="px-3 py-1.5 text-outline text-xs font-bold rounded-lg hover:bg-surface-container transition-colors">Dismiss</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 bg-surface-bright/80 backdrop-blur-md">
+<div class="relative glass-panel rounded-2xl border border-outline-variant/30 p-2 shadow-lg focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+<div class="flex items-center gap-2 mb-2 px-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-secondary transition-colors"><span class="material-symbols-outlined text-sm">format_bold</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-secondary transition-colors"><span class="material-symbols-outlined text-sm">format_italic</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-secondary transition-colors"><span class="material-symbols-outlined text-sm">link</span></button>
+<div class="h-4 w-[1px] bg-outline-variant/30 mx-1"></div>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-secondary transition-colors"><span class="material-symbols-outlined text-sm">list</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-secondary transition-colors"><span class="material-symbols-outlined text-sm">code</span></button>
+</div>
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-body-md min-h-[60px] resize-none px-2 py-1 placeholder:text-outline/50" placeholder="Message Product Strategy Group..."></textarea>
+<div class="flex items-center justify-between mt-2 px-2 pb-1">
+<div class="flex items-center gap-1">
+<button class="p-2 hover:bg-surface-container-high rounded-full text-secondary transition-colors"><span class="material-symbols-outlined">add_circle</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-full text-secondary transition-colors"><span class="material-symbols-outlined">mood</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-full text-secondary transition-colors"><span class="material-symbols-outlined">alternate_email</span></button>
+</div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-xl font-bold flex items-center gap-2 hover:brightness-110 active:scale-95 transition-all">
+<span>Send</span>
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Chat Details -->
+<div class="w-80 border-l border-outline-variant/20 flex flex-col bg-surface-container-low transition-all duration-300" id="details-sidebar">
+<div class="p-6 border-b border-outline-variant/20 flex items-center justify-between">
+<h2 class="font-title-lg text-title-lg">Details</h2>
+<button class="material-symbols-outlined text-secondary">close</button>
+</div>
+<div class="overflow-y-auto flex-1">
+<!-- Summary Section -->
+<div class="p-6 text-center">
+<div class="w-20 h-20 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary text-3xl font-black mx-auto mb-4">PS</div>
+<h3 class="font-headline-md text-headline-md">Product Strategy</h3>
+<p class="text-sm text-outline mt-1 italic">"Defining the future of Nexus."</p>
+</div>
+<!-- Accordion Items -->
+<div class="px-4 space-y-2">
+<!-- Members -->
+<div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/10">
+<button class="w-full flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">groups</span>
+<span class="font-semibold text-sm">Members</span>
+</div>
+<span class="text-xs text-outline group-hover:text-primary">12</span>
+</button>
+<div class="mt-4 flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Small circular headshot of a team member, professional lighting, modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgNVKatThMSbqQuNh9ZTWhsEO6EkH2uz5Q7Q-F2gFcDvLAKOkRMnd0nO3yoxDE0AcsCNA1pfDHviqbsvik6ilmSkFT2HDgRn1-WEbfQr1y47esJ1JJ177AtykQP5aCctaKhV2s5yOG6XDEcWMspGnOPcnCLYs4uBOjnLl3oFY3mIqStvTwoyea8KCOfFV0oVVSAjitaE_SATPyYYqkQlqr88TE6XUW-6TkK-nto5k3-Wt2g9kNIfQ1JsTs6pDJTom3DRYxUz9LhxVd"/>
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Small circular headshot of another team member, smiling, professional office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFSKb-QZecMNra8JZZ4IvUhBZUoDHuX-NxV4z41-wDacSyUI6Itjl3_YgEKMNVTay6RIlodIrj1CZr5csd7P8rEAyJizhXTbgMEercNUVgSTCu4-UZnyky8tfUMl5AuzzMj1EW6lQgtyKjn95rVJPUI9KhC5sZFmJ0coK9WaATbZS2VFxbSOrSprC8VTQwUVDAdPTj0rFfyXQfZW1rR5J5F0eS5KaHViA6jW2sSRz3F_AMRfLu832occAJrzQfkHrgP4_yhdWygxom"/>
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Small circular headshot of a diverse team member, professional and clear." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFVpDirM74iU-Nv9F6JmgMYoTl45PYsGjNztbCbedDNjsrujvwBs_WU2AQVCH9TEmSX4vi_tJQ8y3Mggij79Vo5-EwxABjXG0cTXMrso2p3X_E__3B309gDXfk4rYHrmvIcMQ465Y7sMmcLZw0UDz54Ah-04_nzSEwJfjsLGBlzV2fNwZHX9Qeb5X6ZbqvE7xoM3mQkj3GQByDduJadcO7ukiLRpxh2H6NAyVm1GTtbc3AHyP2mKqp_6A01KDyUCKGNEQS3HHHaGtP"/>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container flex items-center justify-center text-[10px] font-bold">+9</div>
+</div>
+</div>
+<!-- Pinned Messages -->
+<div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">push_pin</span>
+<span class="font-semibold text-sm">Pinned</span>
+</div>
+<span class="text-xs text-outline">3</span>
+</div>
+<div class="p-2 bg-surface-container-low rounded-lg text-xs border-l-2 border-primary-container">
+<p class="font-bold">Team Lead Meeting</p>
+<p class="text-outline truncate">Link to Zoom: zoom.us/j/842...</p>
+</div>
+</div>
+<!-- Shared Files -->
+<div class="p-4 bg-white rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">folder_shared</span>
+<span class="font-semibold text-sm">Shared Files</span>
+</div>
+<button class="text-[10px] font-bold text-primary uppercase">View All</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-blue-50 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined text-sm">image</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-medium truncate">mockup_v1.png</p>
+<p class="text-[10px] text-outline">Oct 12, 2024</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-green-50 flex items-center justify-center text-green-500">
+<span class="material-symbols-outlined text-sm">table_chart</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-medium truncate">budget_planning.xlsx</p>
+<p class="text-[10px] text-outline">Oct 10, 2024</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Privacy & Management -->
+<div class="pt-4 border-t border-outline-variant/10 space-y-1">
+<button class="w-full flex items-center gap-3 p-2 hover:bg-red-50 text-error rounded-lg transition-colors group">
+<span class="material-symbols-outlined group-hover:fill-current">logout</span>
+<span class="text-sm font-medium">Leave Group</span>
+</button>
+<button class="w-full flex items-center gap-3 p-2 hover:bg-surface-container text-secondary rounded-lg transition-colors">
+<span class="material-symbols-outlined">block</span>
+<span class="text-sm font-medium">Mute Notifications</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Predicted Footer (Hidden on specialized chat screen to maximize canvas) -->
+</main>
+</div>
+<!-- AI Overlay / Notification Toast -->
+<div class="fixed bottom-6 right-6 z-[2000] ai-gradient-border p-4 shadow-2xl flex items-center gap-4 animate-bounce hover:animate-none cursor-pointer">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<p class="text-xs font-bold text-primary">Nexus AI Active</p>
+<p class="text-sm font-medium">Analyzing conversation context...</p>
+</div>
+</div>
+<script>
+        // Micro-interactions and Sidebar toggles
+        document.getElementById('toggle-details').addEventListener('click', function() {
+            const sidebar = document.getElementById('details-sidebar');
+            if (sidebar.classList.contains('w-80')) {
+                sidebar.classList.remove('w-80');
+                sidebar.classList.add('w-0', 'opacity-0', 'overflow-hidden');
+            } else {
+                sidebar.classList.remove('w-0', 'opacity-0', 'overflow-hidden');
+                sidebar.classList.add('w-80');
+            }
+        });
+
+        // Simple typing effect simulation for AI Assistant
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(ta => {
+            ta.addEventListener('keydown', (e) => {
+                if(e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    ta.value = '';
+                    // Placeholder for send logic
+                    console.log('Message sent');
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Ecosystem - Create Account</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf9ff",
+                    "secondary": "#535f73",
+                    "on-tertiary-fixed-variant": "#4633a0",
+                    "surface": "#faf9ff",
+                    "on-tertiary-fixed": "#1a0063",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e1e8ff",
+                    "on-surface-variant": "#434654",
+                    "outline-variant": "#c3c6d6",
+                    "on-tertiary-container": "#d5ccff",
+                    "surface-dim": "#ccdaff",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "secondary-fixed": "#d7e3fb",
+                    "secondary-fixed-dim": "#bbc7de",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#dae2ff",
+                    "tertiary": "#432f9c",
+                    "on-primary-fixed": "#001848",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#051a3e",
+                    "error": "#ba1a1a",
+                    "outline": "#737685",
+                    "tertiary-fixed-dim": "#c9bfff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "primary": "#003d9b",
+                    "surface-container-highest": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#051a3e",
+                    "inverse-primary": "#b2c5ff",
+                    "on-secondary-fixed-variant": "#3b475b",
+                    "surface-container": "#e9edff",
+                    "on-secondary-container": "#576377",
+                    "inverse-surface": "#1d3054",
+                    "tertiary-container": "#5b49b5",
+                    "surface-tint": "#0c56d0",
+                    "secondary-container": "#d4e0f8",
+                    "background": "#faf9ff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#0052cc",
+                    "tertiary-fixed": "#e5deff",
+                    "on-secondary-fixed": "#101c2d",
+                    "on-primary-container": "#c4d2ff",
+                    "surface-container-low": "#f1f3ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#edf0ff",
+                    "surface-variant": "#d8e2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin-mobile": "16px",
+                    "navbar-height": "72px",
+                    "sidebar-width": "280px",
+                    "gutter": "24px",
+                    "container-margin-desktop": "32px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        input:focus {
+            box-shadow: 0 0 0 4px rgba(0, 61, 155, 0.1);
+        }
+
+        .strength-meter {
+            height: 4px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md min-h-screen selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- Ambient Background -->
+<div class="fixed inset-0 -z-10 overflow-hidden">
+
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-tertiary/5 blur-[120px]"></div>
+</div>
+<!-- Main Navigation Shell (Suppressed for Transactional screen per logic, but branding remains) -->
+<header class="w-full h-navbar-height flex items-center justify-between px-container-margin-desktop sticky top-0 z-[1000] backdrop-blur-md">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<span class="font-title-lg text-title-lg font-extrabold tracking-tight text-primary">Nexus Ecosystem</span>
+</div>
+<div class="hidden md:flex items-center gap-4 text-on-surface-variant font-medium">
+<span>Already have an account?</span>
+<button class="px-4 py-2 rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors cursor-pointer text-primary font-semibold">Sign In</button>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-container-margin-mobile md:px-container-margin-desktop pt-8 pb-16 min-h-[calc(100vh-navbar-height)] flex items-center justify-center">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full">
+<!-- Left Side: Visual/Context -->
+<div class="hidden lg:flex lg:col-span-5 flex-col justify-center space-y-8">
+<div class="space-y-4">
+<h1 class="font-display-lg text-display-lg text-primary leading-tight">Empowering Enterprise <br/><span class="text-tertiary">Intelligence.</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                        Join the next generation of collaborative ecosystems. Nexus AI helps you bridge the gap between complex data and actionable insights.
+                    </p>
+</div>
+<div class="relative w-full aspect-video rounded-3xl overflow-hidden glass-panel p-1">
+<div class="w-full h-full rounded-[1.4rem] overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-end, clean enterprise software interface showing complex data visualizations and 3D architectural nodes. The color palette is dominated by soft primary blues, purples, and crisp whites. The lighting is ethereal and professional, reflecting a high-performance light-mode aesthetic with depth and glassmorphism elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL2_sWjbni27lZjtFKoMUWsf8yJObmpnyapymFZqjE1prD1pKNCjJp5AgLi7fUdDL2NlQmVJqDjY_EMldDTSMrlG4hYl45QHdvfdVuPjVEfINo6luFpy4o9_Fd3FBJQ-UtMvQTeBxPJJQ51KIYnZTFIjTB5UTMKTn7ufZP0FE94e2bvym9FOK50oBvGDI-YP3iu_PKcvqWJhJ38FqmZQvc3FgcFqD8idR_8eoYBeu2mg1c9vus6mqRVku17cRF8gX8oHxW7MqPHRLK"/>
+</div>
+<div class="absolute bottom-4 left-4 right-4 glass-panel rounded-2xl p-4 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">verified_user</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Trusted Security</p>
+<p class="font-body-md text-body-md text-on-surface-variant">SOC2 Type II &amp; GDPR Compliant Infrastructure</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Form -->
+<div class="lg:col-span-7 flex flex-col items-center justify-center">
+<div class="w-full max-w-[540px] glass-panel rounded-[2rem] p-8 md:p-12 relative overflow-hidden">
+<!-- Progress Bar -->
+<div class="absolute top-0 left-0 w-full h-1.5 bg-surface-container flex">
+<div class="h-full bg-primary transition-all duration-500 ease-out" id="progress-indicator" style="width: 33.33%;"></div>
+</div>
+<div class="mb-8">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-widest bg-primary-fixed px-3 py-1 rounded-full" id="step-counter">Step 1 of 3</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-4" id="step-title">Personal Information</h2>
+<p class="font-body-md text-body-md text-on-surface-variant" id="step-desc">Let's start with your basic details.</p>
+</div>
+<form class="space-y-6" id="multi-step-form">
+<!-- Step 1: Personal Info -->
+<div class="step-transition space-y-4" id="step-1">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary ml-1">First Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl px-4 py-3 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="Jane" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary ml-1">Last Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl px-4 py-3 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="Doe" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary ml-1">Work Email Address</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl px-4 py-3 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="jane.doe@enterprise.com" type="email"/>
+</div>
+</div>
+<!-- Step 2: Organization -->
+<div class="step-transition hidden space-y-4" id="step-2">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary ml-1">Organization Name</label>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl px-4 py-3 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="Global Dynamics Inc." type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary ml-1">Organization Invite Code (Optional)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">qr_code</span>
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl pl-12 pr-4 py-3 focus:ring-primary focus:border-primary transition-all outline-none uppercase tracking-widest" placeholder="NXS-XXXX-XXXX" type="text"/>
+</div>
+</div>
+<div class="bg-primary-container/10 p-4 rounded-xl border border-primary-container/20 flex gap-3">
+<span class="material-symbols-outlined text-primary text-body-lg">info</span>
+<p class="text-on-primary-fixed-variant text-body-md leading-relaxed">
+                                    Adding an invite code automatically links you to your department's shared workspace.
+                                </p>
+</div>
+</div>
+<!-- Step 3: Security -->
+<div class="step-transition hidden space-y-4" id="step-3">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-secondary ml-1">Create Password</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl px-4 py-3 focus:ring-primary focus:border-primary transition-all outline-none" id="password-input" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<!-- Password Strength Meter -->
+<div class="pt-2">
+<div class="flex gap-1 h-1">
+<div class="strength-meter flex-1 rounded-full bg-surface-container-highest" id="strength-1"></div>
+<div class="strength-meter flex-1 rounded-full bg-surface-container-highest" id="strength-2"></div>
+<div class="strength-meter flex-1 rounded-full bg-surface-container-highest" id="strength-3"></div>
+<div class="strength-meter flex-1 rounded-full bg-surface-container-highest" id="strength-4"></div>
+</div>
+<p class="text-[10px] font-bold uppercase tracking-tighter text-outline mt-1 text-right" id="strength-text">Strength: Weak</p>
+</div>
+</div>
+<div class="space-y-4 pt-2">
+<label class="flex items-start gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center mt-1">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline rounded-md checked:bg-primary checked:border-primary transition-all cursor-pointer" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<span class="text-body-md text-on-surface-variant leading-snug">
+                                        I agree to the <a class="text-primary font-semibold hover:underline" href="#">Terms of Service</a> and <a class="text-primary font-semibold hover:underline" href="#">Privacy Policy</a>.
+                                    </span>
+</label>
+<label class="flex items-start gap-3 group cursor-pointer">
+<div class="relative flex items-center justify-center mt-1">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline rounded-md checked:bg-primary checked:border-primary transition-all cursor-pointer" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary opacity-0 peer-checked:opacity-100 text-[16px] pointer-events-none" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<span class="text-body-md text-on-surface-variant leading-snug">
+                                        Sign me up for the Nexus Intelligence newsletter for weekly ecosystem updates.
+                                    </span>
+</label>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center justify-between pt-6">
+<button class="hidden font-semibold text-primary px-6 py-3 rounded-xl hover:bg-surface-container-high transition-all flex items-center gap-2 cursor-pointer active:scale-95" id="prev-btn" type="button">
+<span class="material-symbols-outlined">arrow_back</span>
+                                Back
+                            </button>
+<div class="flex-grow"></div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-primary/20 hover:bg-primary-container transition-all cursor-pointer active:scale-95" id="next-btn" type="button">
+<span id="next-text">Continue</span>
+<span class="material-symbols-outlined" id="next-icon">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Footer Help -->
+<div class="mt-12 pt-8 border-t border-outline-variant/30 text-center">
+<p class="font-body-md text-on-surface-variant">
+                            Having trouble? <a class="text-primary font-semibold hover:underline" href="#">Contact Support</a>
+</p>
+</div>
+</div>
+<!-- Platform Badges -->
+<div class="mt-8 flex items-center gap-6 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-4xl">cloud_done</span>
+<span class="material-symbols-outlined text-4xl">encrypted</span>
+<span class="material-symbols-outlined text-4xl">security</span>
+<span class="material-symbols-outlined text-4xl">integration_instructions</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Global Footer -->
+<footer class="w-full py-unit px-container-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 border-t border-outline-variant/10 bg-surface-bright mt-auto">
+<div class="font-body-lg text-body-lg font-semibold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">hub</span>
+            Nexus Ecosystem
+        </div>
+<p class="font-label-md text-label-md text-secondary">© 2024 Nexus Ecosystem. Enterprise Intelligence Platform.</p>
+<div class="flex gap-6 font-label-md text-label-md">
+<a class="text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary hover:text-primary transition-colors" href="#">Security</a>
+<a class="text-secondary hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+<script>
+        const steps = [
+            {
+                id: 'step-1',
+                title: 'Personal Information',
+                desc: 'Let\'s start with your basic details.',
+                counter: 'Step 1 of 3',
+                progress: '33.33%'
+            },
+            {
+                id: 'step-2',
+                title: 'Organization Identity',
+                desc: 'Tell us about your workplace and team.',
+                counter: 'Step 2 of 3',
+                progress: '66.66%'
+            },
+            {
+                id: 'step-3',
+                title: 'Security & Access',
+                desc: 'Finalize your account with a secure password.',
+                counter: 'Step 3 of 3',
+                progress: '100%'
+            }
+        ];
+
+        let currentStepIdx = 0;
+
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const nextText = document.getElementById('next-text');
+        const nextIcon = document.getElementById('next-icon');
+        const stepCounter = document.getElementById('step-counter');
+        const stepTitle = document.getElementById('step-title');
+        const stepDesc = document.getElementById('step-desc');
+        const progressIndicator = document.getElementById('progress-indicator');
+        const passwordInput = document.getElementById('password-input');
+
+        function updateStepUI() {
+            const current = steps[currentStepIdx];
+            
+            // Hide all steps
+            steps.forEach(s => {
+                document.getElementById(s.id).classList.add('hidden');
+            });
+            
+            // Show current step with a small fade in
+            const activeStep = document.getElementById(current.id);
+            activeStep.classList.remove('hidden');
+            activeStep.style.opacity = '0';
+            activeStep.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                activeStep.style.opacity = '1';
+                activeStep.style.transform = 'translateY(0)';
+            }, 50);
+
+            // Update texts
+            stepCounter.textContent = current.counter;
+            stepTitle.textContent = current.title;
+            stepDesc.textContent = current.desc;
+            progressIndicator.style.width = current.progress;
+
+            // Update buttons
+            prevBtn.classList.toggle('hidden', currentStepIdx === 0);
+            
+            if (currentStepIdx === steps.length - 1) {
+                nextText.textContent = 'Create Account';
+                nextIcon.textContent = 'person_add';
+            } else {
+                nextText.textContent = 'Continue';
+                nextIcon.textContent = 'arrow_forward';
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStepIdx < steps.length - 1) {
+                currentStepIdx++;
+                updateStepUI();
+            } else {
+                // Submit Form Logic
+                nextBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Processing...`;
+                nextBtn.classList.add('opacity-80', 'cursor-not-allowed');
+                setTimeout(() => {
+                    alert('Registration Successful! Redirecting to dashboard...');
+                    window.location.reload();
+                }, 2000);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStepIdx > 0) {
+                currentStepIdx--;
+                updateStepUI();
+            }
+        });
+
+        // Password Strength Logic
+        passwordInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            const strengthText = document.getElementById('strength-text');
+            const bars = [
+                document.getElementById('strength-1'),
+                document.getElementById('strength-2'),
+                document.getElementById('strength-3'),
+                document.getElementById('strength-4')
+            ];
+
+            let score = 0;
+            if (val.length > 5) score++;
+            if (val.length > 10) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9!@#$%^&*]/.test(val)) score++;
+
+            bars.forEach((bar, i) => {
+                bar.className = 'strength-meter flex-1 rounded-full bg-surface-container-highest';
+                if (i < score) {
+                    if (score === 1) { bar.classList.replace('bg-surface-container-highest', 'bg-error'); strengthText.textContent = 'Strength: Weak'; strengthText.className = 'text-[10px] font-bold uppercase tracking-tighter text-error mt-1 text-right'; }
+                    if (score === 2) { bar.classList.replace('bg-surface-container-highest', 'bg-orange-500'); strengthText.textContent = 'Strength: Fair'; strengthText.className = 'text-[10px] font-bold uppercase tracking-tighter text-orange-500 mt-1 text-right'; }
+                    if (score === 3) { bar.classList.replace('bg-surface-container-highest', 'bg-primary-container'); strengthText.textContent = 'Strength: Good'; strengthText.className = 'text-[10px] font-bold uppercase tracking-tighter text-primary-container mt-1 text-right'; }
+                    if (score === 4) { bar.classList.replace('bg-surface-container-highest', 'bg-tertiary-container'); strengthText.textContent = 'Strength: Excellent'; strengthText.className = 'text-[10px] font-bold uppercase tracking-tighter text-tertiary-container mt-1 text-right'; }
+                }
+            });
+
+            if (val === '') {
+                strengthText.textContent = 'Strength: Weak';
+                strengthText.className = 'text-[10px] font-bold uppercase tracking-tighter text-outline mt-1 text-right';
+            }
+        });
+    </script>
+</body></html>

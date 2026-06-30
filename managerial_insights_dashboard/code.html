@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Ecosystem | Manager Dashboard</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#0040a2",
+                    "on-tertiary-fixed": "#1a0063",
+                    "surface-tint": "#0c56d0",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-surface": "#051a3e",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e1e8ff",
+                    "surface-container-highest": "#d8e2ff",
+                    "surface": "#faf9ff",
+                    "secondary-container": "#d4e0f8",
+                    "outline-variant": "#c3c6d6",
+                    "on-primary-container": "#c4d2ff",
+                    "surface-container": "#e9edff",
+                    "on-secondary-container": "#576377",
+                    "tertiary-fixed": "#e5deff",
+                    "on-error": "#ffffff",
+                    "primary-container": "#0052cc",
+                    "on-background": "#051a3e",
+                    "on-surface-variant": "#434654",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f1f3ff",
+                    "surface-dim": "#ccdaff",
+                    "secondary": "#535f73",
+                    "tertiary-fixed-dim": "#c9bfff",
+                    "on-tertiary-container": "#d5ccff",
+                    "background": "#faf9ff",
+                    "tertiary-container": "#5b49b5",
+                    "inverse-primary": "#b2c5ff",
+                    "tertiary": "#432f9c",
+                    "surface-variant": "#d8e2ff",
+                    "error": "#ba1a1a",
+                    "outline": "#737685",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#faf9ff",
+                    "on-secondary-fixed-variant": "#3b475b",
+                    "inverse-on-surface": "#edf0ff",
+                    "inverse-surface": "#1d3054",
+                    "secondary-fixed-dim": "#bbc7de",
+                    "on-tertiary-fixed-variant": "#4633a0",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#101c2d",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary": "#003d9b",
+                    "secondary-fixed": "#d7e3fb",
+                    "on-primary-fixed": "#001848",
+                    "primary-fixed": "#dae2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "container-margin-desktop": "32px",
+                    "navbar-height": "72px",
+                    "container-margin-mobile": "16px",
+                    "unit": "8px",
+                    "sidebar-width": "280px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf9ff;
+            color: #051a3e;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .sidebar-active {
+            background-color: #d4e0f8;
+            color: #576377;
+            font-weight: 600;
+        }
+        .ai-border {
+            position: relative;
+        }
+        .ai-border::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 0.75rem;
+            padding: 1px;
+            background: linear-gradient(135deg, #003d9b, #432f9c);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-[1000] flex items-center justify-between px-gutter h-navbar-height w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-title-lg text-title-lg font-bold text-primary">Nexus Ecosystem</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high/50 transition-colors px-2 py-1 rounded font-body-md text-body-md" href="#">Social</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high/50 transition-colors px-2 py-1 rounded font-body-md text-body-md" href="#">Projects</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 rounded-full border-none bg-surface-container-low focus:ring-2 focus:ring-primary/20 w-64 transition-all duration-300 font-body-md" placeholder="Search analytics..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-full cursor-pointer transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high/50 p-2 rounded-full cursor-pointer transition-colors">settings</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-surface-container-high cursor-pointer active:scale-95 transition-transform">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged male executive with a friendly expression, set against a blurred corporate office background. He wears a tailored navy blue suit and a white shirt. The lighting is soft and flattering, emphasizing a high-end enterprise aesthetic with professional clarity and balance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG2EOqXE7IGE-a0eh88hkBc8u2f8JWarVZnjrq7m6lpmyLRxKlcYrSmX4Zv80h3E3caOL5M5skBD5ABVvrJnJczNSF105wZCx9uqpraC23nH9PfRWVb4um2w8vW0tLQMg3uJdm8ZYOjePgJJ6Sam2hKU80JwZyI9bbYt4y6MQXo8VE-vHuZrXqkQ6qkBORCdUu6MHXAMZpSDrkj2Gs6QDdsXOFT_192w4PuM35t46Y39Oc8mzzfxm9UtsTNgs2WkraXF71cglprcYA"/>
+</div>
+</div>
+</nav>
+<div class="flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-sidebar-width flex flex-col p-4 z-50 bg-surface-container-low/90 backdrop-blur-xl border-r border-outline-variant/20 pt-[88px] hidden lg:flex">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md font-black text-primary leading-tight">Nexus AI</p>
+<p class="font-label-md text-label-md text-secondary">Enterprise Assistant</p>
+</div>
+</div>
+<div class="flex-1 space-y-1 overflow-y-auto">
+<div class="sidebar-active flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-md text-label-md">Social</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Projects</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Learning</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">HR</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">Nexus AI</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">settings_suggest</span>
+<span class="font-label-md text-label-md">Admin</span>
+</div>
+</div>
+<div class="pt-4 mt-4 border-t border-outline-variant/20 space-y-1">
+<button class="w-full py-3 bg-primary text-white rounded-xl font-semibold text-body-md hover:shadow-lg active:scale-95 transition-all mb-4">New Request</button>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high hover:translate-x-1 flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-sidebar-width p-gutter space-y-gutter">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Analytics Overview</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Monitoring team efficiency and enterprise health.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface font-semibold rounded-lg text-body-md border border-outline-variant/30 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calendar_month</span> Last 30 Days
+                    </button>
+<button class="px-4 py-2 bg-primary text-white font-semibold rounded-lg text-body-md flex items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-sm">download</span> Export Data
+                    </button>
+</div>
+</header>
+<!-- KPI Cards Bento Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="glass-card p-6 rounded-2xl shadow-sm border-l-4 border-l-primary flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Team Productivity</p>
+<span class="material-symbols-outlined text-primary-container">trending_up</span>
+</div>
+<div class="mt-4">
+<p class="text-[32px] font-bold text-on-surface">+12%</p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full w-[72%] rounded-full"></div>
+</div>
+<p class="text-xs text-on-surface-variant mt-2">vs. previous period</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-6 rounded-2xl shadow-sm border-l-4 border-l-green-500 flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Retention Risk</p>
+<span class="material-symbols-outlined text-green-600">verified_user</span>
+</div>
+<div class="mt-4">
+<p class="text-[32px] font-bold text-on-surface">Low</p>
+<div class="flex items-center gap-2 mt-2">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<p class="text-xs text-green-700 font-medium">Healthy stability index</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-card p-6 rounded-2xl shadow-sm border-l-4 border-l-tertiary flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Budget Utilization</p>
+<span class="material-symbols-outlined text-tertiary">payments</span>
+</div>
+<div class="mt-4">
+<p class="text-[32px] font-bold text-on-surface">82%</p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-tertiary h-full w-[82%] rounded-full"></div>
+</div>
+<p class="text-xs text-on-surface-variant mt-2">$24.2k remaining</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="glass-card p-6 rounded-2xl shadow-sm border-l-4 border-l-orange-400 flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Open Roles</p>
+<span class="material-symbols-outlined text-orange-500">person_add</span>
+</div>
+<div class="mt-4">
+<p class="text-[32px] font-bold text-on-surface">5</p>
+<p class="text-xs text-on-surface-variant mt-2">3 Senior, 2 Mid-level</p>
+<button class="mt-3 text-primary text-xs font-bold hover:underline">View Pipeline</button>
+</div>
+</div>
+</section>
+<!-- Charts & Tables Layout -->
+<section class="grid grid-cols-1 xl:grid-cols-3 gap-gutter">
+<!-- Performance Bar Chart -->
+<div class="glass-card p-6 rounded-2xl shadow-sm xl:col-span-1">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-6">Department Performance</h3>
+<div class="space-y-6">
+<!-- Engineering -->
+<div class="space-y-2">
+<div class="flex justify-between text-body-md font-medium">
+<span>Engineering</span>
+<span>94%</span>
+</div>
+<div class="w-full bg-surface-container-high h-8 rounded-lg overflow-hidden relative">
+<div class="bg-primary h-full w-[94%] transition-all duration-1000" style="width: 94%;"></div>
+<span class="absolute inset-0 flex items-center px-3 text-[10px] text-white font-bold uppercase tracking-widest pointer-events-none">Optimal</span>
+</div>
+</div>
+<!-- Sales -->
+<div class="space-y-2">
+<div class="flex justify-between text-body-md font-medium">
+<span>Sales</span>
+<span>88%</span>
+</div>
+<div class="w-full bg-surface-container-high h-8 rounded-lg overflow-hidden relative">
+<div class="bg-tertiary h-full w-[88%] transition-all duration-1000" style="width: 88%;"></div>
+<span class="absolute inset-0 flex items-center px-3 text-[10px] text-white font-bold uppercase tracking-widest pointer-events-none">High</span>
+</div>
+</div>
+<!-- Marketing -->
+<div class="space-y-2">
+<div class="flex justify-between text-body-md font-medium">
+<span>Marketing</span>
+<span>76%</span>
+</div>
+<div class="w-full bg-surface-container-high h-8 rounded-lg overflow-hidden relative">
+<div class="bg-secondary h-full w-[76%] transition-all duration-1000" style="width: 76%;"></div>
+<span class="absolute inset-0 flex items-center px-3 text-[10px] text-white font-bold uppercase tracking-widest pointer-events-none">On Track</span>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-surface-container-low rounded-xl border border-outline-variant/20">
+<p class="text-xs text-secondary font-medium leading-relaxed italic">
+                            "Engineering output is currently exceeding quarterly targets by 6% due to streamlined CI/CD pipelines."
+                        </p>
+</div>
+</div>
+<!-- Attendance Table -->
+<div class="glass-card rounded-2xl shadow-sm xl:col-span-2 overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Attendance Overview</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-[10px] font-bold text-secondary bg-surface-container-high px-2 py-1 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> 7 PRESENT
+                            </span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-secondary bg-surface-container-high px-2 py-1 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> 2 REMOTE
+                            </span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-secondary bg-surface-container-high px-2 py-1 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> 1 LEAVE
+                            </span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low/50">
+<tr>
+<th class="p-4 font-label-md text-label-md text-secondary uppercase">Member</th>
+<th class="p-4 font-label-md text-label-md text-secondary uppercase">Role</th>
+<th class="p-4 font-label-md text-label-md text-secondary uppercase">Check-in</th>
+<th class="p-4 font-label-md text-label-md text-secondary uppercase">Status</th>
+<th class="p-4 font-label-md text-label-md text-secondary uppercase">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a young professional woman with glasses and dark hair, smiling warmly. The aesthetic is clean, minimalist, and corporate with soft lighting and a neutral grey background that emphasizes professional approachability and high-end SaaS UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACyVekj4fxzoQLRYJ4oBXaYrjwD75RCnm8SixnXfS__slg8dspe7ce1_u9LXbVmEnXY4aDdcrlPUwicjzSbB-uMxjOJXsVk51JpG7qLGv77XcztUIynMt3kVfimtEpdMsZeV16qnFOjL3YGXVjvHatXXSWDxWhn1jG2S4GTKvnzswM_-knY7xqCMCSX2iHoaByBGmVMp3mEtSHveKqI2NSxk2O_5t-nilh-9rKukOKvBMOWmfhmbmWWRdqvy0k7ZZeiNuEgG6YWZjp"/>
+</div>
+<span class="font-body-md font-medium">Sarah Jenkins</span>
+</td>
+<td class="p-4 font-body-md text-on-surface-variant">Lead Designer</td>
+<td class="p-4 font-body-md text-on-surface-variant">08:45 AM</td>
+<td class="p-4">
+<span class="px-2.5 py-1 rounded-full bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-tight">Present</span>
+</td>
+<td class="p-4">
+<button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a South Asian male developer wearing a headset, looking focused at his screen in a modern co-working environment. The image uses a cool blue and white palette with sharp focus and bokeh background, reflecting an enterprise software development setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX-He6iNqlB0CxHMc_P5Lu54WgGD3Tf8tXYX14qOqrdVO79qypiCERYuoVuq3ql0Z4D6GI0O81E0Xc0fFdvk0w-bcGCWKCqGCRtt_oNluBRuZleEN6_pf9ot1aue1UcpGXAZYBsaRn_xRzwq6ZKq0KLLzHzRnkEJ7OPFkDCWDcXSjCQ1YVM9s6suIluZdo6OiBAhLCWIhP7F6kW04Lz-Y0-7J8zJvGmjCFpvsHaCooq7i7bJ7aF6x6AtyLWGEKnRcTPit_rxz-D2Ow"/>
+</div>
+<span class="font-body-md font-medium">Marcus Chen</span>
+</td>
+<td class="p-4 font-body-md text-on-surface-variant">Backend Dev</td>
+<td class="p-4 font-body-md text-on-surface-variant">09:12 AM</td>
+<td class="p-4">
+<span class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 text-[10px] font-bold uppercase tracking-tight">Remote</span>
+</td>
+<td class="p-4">
+<button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of an African American woman in a bright professional blazer, standing in an airy modern office hallway with glass walls. Her expression is confident and friendly. The visual style is premium light-mode corporate photography with high-key lighting and vibrant professional colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChqsRL2B6qEMJTkdM2Kz6MtySPGSQvIr1LVJcwbwRYE2X7ub5IdXzwcpfET6Q4fHEi81YKgHRlbCyH6QODEW8er3vgvh7uNh2h8-o-NutPNrqmOL1oD7GEMknybcRKXBCXkdnFb2-QpokHsvGWqutP8j6hPrny-0y5Qd7VTSHvTiOxaHSPHBLJeKCDEBRXpP3llyEKSsdkgOx9_m4Ike6fMJ0DFMUGw6z8pORF2sV546y_o8DP2XzusN7QorNN8Ejzqmtsq3pcXX0N"/>
+</div>
+<span class="font-body-md font-medium">Elena Rodriguez</span>
+</td>
+<td class="p-4 font-body-md text-on-surface-variant">QA Specialist</td>
+<td class="p-4 font-body-md text-on-surface-variant">—</td>
+<td class="p-4">
+<span class="px-2.5 py-1 rounded-full bg-red-100 text-red-800 text-[10px] font-bold uppercase tracking-tight">On Leave</span>
+</td>
+<td class="p-4">
+<button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Row 4-10 Placeholder (Abbreviated for brevity but follows same pattern) -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden"><img class="w-full h-full object-cover" data-alt="Professional avatar of a male project manager with short hair and a beard, wearing a grey polo shirt in a bright office. Sharp, clean, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1n8ur2figixLm9l_clLrss5-b9hRlSf_bHtZShdjSt-5gbvLIeOE9xT8xnshh68CB201WIs408UPdCpOy32gXrtTrcyvSJOn3lXHrTmFmwy4uFAxWQWVPP2AjIWRSUKwo5x2-lXSoVCrG5jh4iJ_XiZAwDR85WplrCSLm1H0Pjtgl0b-LmfI_HJvUQ3UYbJpkW826r_xthfnEoBWjK-z3SUkqs9wAzckzc0Op2zYRbSUO-xf01sDNeG3Mvt539RzdcywE9GqJLutd"/></div>
+<span class="font-body-md font-medium">David Park</span>
+</td>
+<td class="p-4 font-body-md text-on-surface-variant">Project Manager</td>
+<td class="p-4 font-body-md text-on-surface-variant">08:30 AM</td>
+<td class="p-4"><span class="px-2.5 py-1 rounded-full bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-tight">Present</span></td>
+<td class="p-4"><button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button></td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-dim overflow-hidden"><img class="w-full h-full object-cover" data-alt="Professional avatar of a female data analyst with blonde hair, wearing a white shirt in a minimalist workspace. Clear lighting, high-end feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMx-uIwajRrCxDhogk5J4vcKvo-jYnSRu4u3XpT1_WVffEt9182r7XxjKQyc-VJKtRMc-cJC_8u7opTvc35fjNfOBznTH2-vxhLstm4EBFzx6RCqr6eK5xr1m4KYwowh5icNy8SOpvmLOL-RCQkhxVkXqrDVmWV36_CsRsDFhDQTFTWubUJSxzEW2iMqCGMQCgeyH5u7jDc-EAqjfyRu1W61FLl0TpINoI_VXDoeAIamUDfzlNa2pFd1KX_qdIBKZYr52EOw-mrgju"/></div>
+<span class="font-body-md font-medium">Julia Vance</span>
+</td>
+<td class="p-4 font-body-md text-on-surface-variant">Data Analyst</td>
+<td class="p-4 font-body-md text-on-surface-variant">09:05 AM</td>
+<td class="p-4"><span class="px-2.5 py-1 rounded-full bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-tight">Present</span></td>
+<td class="p-4"><button class="material-symbols-outlined text-outline hover:text-primary">more_vert</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 text-center border-t border-outline-variant/20">
+<button class="text-primary font-bold text-body-md hover:underline">View All 10 Members</button>
+</div>
+</div>
+</section>
+<!-- AI Team Insights Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">AI Team Insights</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Insight Card 1 -->
+<div class="ai-border glass-card p-6 rounded-2xl relative overflow-hidden group">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary-container p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Close-up face of Marcus Chen, looking slightly off-camera with a neutral professional expression. The photo is high-resolution with natural office lighting and a very shallow depth of field, emphasizing the subject as a key employee." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkJ1ah_tBhNJEzF_eRfBwppCRlAcW-C4pj8WhU77y1e2dj0bkYOWOUfsv40HHH5Z54Vcf1qFJijybTcPlUVu0SpjabQQBWeEgsU2d_KBKlZqQfGrrqg78XUMDFD3Jm_ctD9tdXDnX68GkKhLXtteq_neR9AytpbEpmIdaP1wjsQmqlHqyMy9ANtTpAX8apuFvkTRYlqMmWK-4ZZvjVAcH9pQ8FR7T4itgpEEsNIutNqMerEvp-OCiIYfLwEYnZYHWwNzR_vEW2wkyB"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Marcus Chen</p>
+<p class="text-xs text-on-surface-variant">Backend Engineer</p>
+</div>
+</div>
+<span class="text-[10px] font-bold bg-primary-container text-white px-2 py-0.5 rounded uppercase">Urgent</span>
+</div>
+<p class="text-body-md text-on-surface leading-snug mb-4">
+                            Marcus shows a <span class="font-bold text-primary">skill gap in Cloud Security Architecture</span> relative to upcoming Q4 projects.
+                        </p>
+<div class="bg-surface-container-high/40 p-3 rounded-lg flex items-center justify-between">
+<span class="text-xs font-semibold text-secondary">Recommended: AWS Security Specialty</span>
+<button class="text-primary material-symbols-outlined text-sm">arrow_forward_ios</button>
+</div>
+</div>
+<!-- Insight Card 2 -->
+<div class="ai-border glass-card p-6 rounded-2xl relative overflow-hidden group">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-tertiary-container p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Close-up of Elena Rodriguez smiling with confidence. Professional headshot in a bright, modern workplace with high-quality lens clarity and sophisticated color grading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO9NVpIXJycIgn5k1Xhhu90yvU9qmGM7bGN3dTbBakiFm3TWUVLR1RyrUwHfe0n29iQzjDowJXJzsX8ByutotZ1nndeemq8aX7cfgR2e_h76Kfmwfr2zsUNJaIjUjfOCU824AwdLGkF78OloCQhYnPUxzXqEmCLDfrrnHVqJ-TsPmjJ2y_n1MtoVC7y1KO4fg2wJSREaqpiEqwtqQdpqIe4YvG17gwuVaK2Iwi40mIIJgr_iReKjfm98CDafgMAtTC2lB-zLOiJMVw"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Elena Rodriguez</p>
+<p class="text-xs text-on-surface-variant">QA Specialist</p>
+</div>
+</div>
+<span class="text-[10px] font-bold bg-tertiary-container text-white px-2 py-0.5 rounded uppercase">Opportunity</span>
+</div>
+<p class="text-body-md text-on-surface leading-snug mb-4">
+                            Elena has consistently <span class="font-bold text-tertiary">overperformed in Automation</span>. Suggest promotion path to SDET.
+                        </p>
+<div class="bg-surface-container-high/40 p-3 rounded-lg flex items-center justify-between">
+<span class="text-xs font-semibold text-secondary">Path: Advanced Selenium Workshop</span>
+<button class="text-primary material-symbols-outlined text-sm">arrow_forward_ios</button>
+</div>
+</div>
+<!-- Insight Card 3 -->
+<div class="ai-border glass-card p-6 rounded-2xl relative overflow-hidden group">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-outline p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Close-up of Sarah Jenkins, looking thoughtful. Premium corporate photography, sharp focus, vibrant yet professional colors matching an enterprise manager dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtSK-uBaNl_Y4bCZnARh2zfHvbafGovh9B4mCN69cpGTcHvdHdG1ExTde5qClxKrBlXhsVxKVDxuf4oGDxZAGBlIs3pMh-NAEUHqZL0-Gx4MdMvZbBZncma_Gwb5dgEDFr9ehBVYeFriLLJFW4FIsCg-NyHbk2guKXaBBbGMXckZfL_HDuB1Ek_W4-DDdoBYIhNg_7TG1nIuDgPwwthB0B0Q89YNiN8B0e_RgSp6fYqjnRoHtn87g7Wkj5zRaz1wX84spXVwf-sRq_"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant">Lead Designer</p>
+</div>
+</div>
+<span class="text-[10px] font-bold bg-surface-container-highest text-secondary px-2 py-0.5 rounded uppercase">Soft Skill</span>
+</div>
+<p class="text-body-md text-on-surface leading-snug mb-4">
+                            Sarah is leading multiple teams. <span class="font-bold text-secondary">Strategic Leadership</span> training will assist her current scale.
+                        </p>
+<div class="bg-surface-container-high/40 p-3 rounded-lg flex items-center justify-between">
+<span class="text-xs font-semibold text-secondary">Rec: Executive Presence Seminar</span>
+<button class="text-primary material-symbols-outlined text-sm">arrow_forward_ios</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-unit px-container-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-bright dark:bg-surface-container-lowest border-t border-outline-variant/10 mt-12 relative z-[60]">
+<div class="flex flex-col md:flex-row items-center gap-4">
+<span class="font-body-lg text-body-lg font-semibold text-primary">Nexus Ecosystem</span>
+<span class="text-secondary font-label-md text-label-md">© 2024 Nexus Ecosystem. Enterprise Intelligence Platform.</span>
+</div>
+<div class="flex gap-6">
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Privacy Policy</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Terms of Service</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Security</a>
+<a class="text-secondary hover:text-primary transition-colors font-label-md text-label-md" href="#">Support</a>
+</div>
+</footer>
+<!-- Interactive Layer: Lightweight Micro-interactions -->
+<script>
+        // Simple hover lift effect for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+
+        // Search bar interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/40');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/40');
+        });
+    </script>
+</body></html>

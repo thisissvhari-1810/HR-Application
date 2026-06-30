@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Ecosystem | AI Insights &amp; Productivity</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#0040a2",
+                    "on-tertiary-fixed": "#1a0063",
+                    "surface-tint": "#0c56d0",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-surface": "#051a3e",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e1e8ff",
+                    "surface-container-highest": "#d8e2ff",
+                    "surface": "#faf9ff",
+                    "secondary-container": "#d4e0f8",
+                    "outline-variant": "#c3c6d6",
+                    "on-primary-container": "#c4d2ff",
+                    "surface-container": "#e9edff",
+                    "on-secondary-container": "#576377",
+                    "tertiary-fixed": "#e5deff",
+                    "on-error": "#ffffff",
+                    "primary-container": "#0052cc",
+                    "on-background": "#051a3e",
+                    "on-surface-variant": "#434654",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f1f3ff",
+                    "surface-dim": "#ccdaff",
+                    "secondary": "#535f73",
+                    "tertiary-fixed-dim": "#c9bfff",
+                    "on-tertiary-container": "#d5ccff",
+                    "background": "#faf9ff",
+                    "tertiary-container": "#5b49b5",
+                    "inverse-primary": "#b2c5ff",
+                    "tertiary": "#432f9c",
+                    "surface-variant": "#d8e2ff",
+                    "error": "#ba1a1a",
+                    "outline": "#737685",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#faf9ff",
+                    "on-secondary-fixed-variant": "#3b475b",
+                    "inverse-on-surface": "#edf0ff",
+                    "inverse-surface": "#1d3054",
+                    "secondary-fixed-dim": "#bbc7de",
+                    "on-tertiary-fixed-variant": "#4633a0",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#101c2d",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "primary": "#003d9b",
+                    "secondary-fixed": "#d7e3fb",
+                    "on-primary-fixed": "#001848",
+                    "primary-fixed": "#dae2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "container-margin-desktop": "32px",
+                    "navbar-height": "72px",
+                    "container-margin-mobile": "16px",
+                    "unit": "8px",
+                    "sidebar-width": "280px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #faf9ff; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05);
+        }
+        .ai-bubble-gradient {
+            border: 2px solid transparent;
+            background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(to right, #003d9b, #432f9c);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d6; border-radius: 10px; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-pulse-soft { animation: pulse-soft 3s infinite ease-in-out; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-screen w-sidebar-width bg-surface-container-low/90 backdrop-blur-xl border-r border-outline-variant/20 flex flex-col p-4 z-50 hidden md:flex">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-black text-primary leading-none">Nexus AI</h1>
+<p class="text-[10px] font-label-md tracking-wider text-secondary uppercase mt-1">Enterprise Assistant</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1 custom-scrollbar overflow-y-auto">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container rounded-lg font-semibold cursor-pointer active:opacity-80 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-md text-label-md">Social</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Learning</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">HR</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">Nexus AI</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">settings_suggest</span>
+<span class="font-label-md text-label-md">Admin</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/10 space-y-1">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-95 transition-all mb-4">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Request
+            </button>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high rounded-lg cursor-pointer hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-sidebar-width min-h-screen flex flex-col">
+<!-- TopNavBar Anchor -->
+<header class="sticky top-0 z-[1000] flex items-center justify-between px-gutter h-navbar-height w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-6 flex-1">
+<div class="hidden md:flex relative max-w-md w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-md focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search analytics, projects, or people..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 mr-4">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-xs font-label-md text-on-surface-variant">SYSTEM HEALTH: OPTIMAL</span>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container p-0.5 ml-2 cursor-pointer active:scale-95 transition-transform">
+<img class="w-full h-full rounded-full object-cover" data-alt="A professional headshot of a corporate executive in high-quality studio lighting. The background is a blurred office interior with soft blue and white tones. The subject is a woman with a confident, welcoming expression, perfectly reflecting the premium enterprise SaaS aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7vLLB7w-GHCv9XzbKm0-LBDrv_m2szzhDyhIqjQM-5ZERURXsiChChA03-rFh43GdTNW62MzbB-XYNERn114iqcZsVp1fRQvr35n4NGiUXP9ALY0SAt-OaN6_IDW69_Uk1yKXNYhG9ZARCLMrwTq2EWx_U8Eq7G_2GYjFSqjMcYV0WSXFZRAyzYHglsPA2cDUrCeGYZVpdCagOmEcb8ow6aNl6ERppaaJmhlnXgRVmgNygdmdrutzQoBIfukxb2YtXq_uQazN_iDe"/>
+</div>
+</div>
+</header>
+<div class="flex-1 p-gutter max-w-[1600px] mx-auto w-full">
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- AI Workplace Assistant Chat (Hero Section) -->
+<div class="lg:col-span-8 flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-headline-md text-primary">AI Workplace Assistant</h2>
+<span class="text-label-md bg-tertiary-container/10 text-tertiary px-3 py-1 rounded-full font-bold">LIVE INTELLIGENCE</span>
+</div>
+<div class="glass-card rounded-3xl h-[500px] flex flex-col overflow-hidden relative border border-white/40">
+<div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+<!-- System Greeting -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="ai-bubble-gradient p-4 rounded-2xl rounded-tl-none shadow-sm">
+<p class="text-body-md text-on-surface leading-relaxed">
+                                        Good morning, Director. I've analyzed today's operational workflow. I found 3 areas where productivity can be boosted by approximately 18%. Would you like me to present the optimization plan?
+                                    </p>
+<div class="mt-3 flex gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest text-primary font-label-md text-[11px] hover:bg-primary hover:text-white transition-all">Yes, show plan</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest text-secondary font-label-md text-[11px] hover:bg-surface-container-high transition-all">Later today</button>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 flex-row-reverse max-w-[85%] ml-auto">
+<div class="w-8 h-8 rounded-full bg-secondary-container shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male tech executive with a friendly smile, styled in a minimalist and clean aesthetic. The lighting is soft and natural, emphasizing clarity and professionalism. The color palette is composed of neutrals and subtle blues, matching an enterprise environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMlOo_HG6_sZf6hG7ETjTHHPL7Dm22nwmBQJLg6aRNwOgJE4q-keO_1M5uITQR9GpOu-bkdAU6n8kpD5xcAVtum6gubD8_mXVp5SUhhWvqXDhhS5BRKATrRhj3DgeMuTl1JEJW39TyuEesjn05sn8tiQ6QAg3S-sE_GxWgqXbkeQwFzIV5vmhBVI5xmUwQcYUnu_jCrx-FTw49nelURPJeGM7Hk6YL7X0jJAnPT4-FEcuLpks2wM9BZ37SNo0fNvqbJoPHrWHe8Q2c"/>
+</div>
+<div class="bg-surface-container p-4 rounded-2xl rounded-tr-none shadow-sm">
+<p class="text-body-md text-on-surface">Summarize the sentiment across the EMEA region for the last 48 hours.</p>
+</div>
+</div>
+<!-- AI Reasoning/Processing -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0 animate-pulse-soft">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+</div>
+<div class="ai-bubble-gradient p-4 rounded-2xl rounded-tl-none shadow-sm">
+<p class="text-body-md text-on-surface italic opacity-70">Analyzing 14,200 data points from London, Berlin, and Paris hubs...</p>
+</div>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="p-4 bg-white/40 backdrop-blur-md border-t border-white/20">
+<div class="relative flex items-center">
+<input class="w-full bg-white border border-outline-variant/30 rounded-2xl px-5 py-4 text-body-md focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all outline-none" placeholder="Ask Nexus AI about your workspace..." type="text"/>
+<div class="absolute right-3 flex items-center gap-2">
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="bg-primary text-white w-10 h-10 rounded-xl flex items-center justify-center hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Rail: Smart Recommendations & Stats -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Smart Recommendations -->
+<div class="glass-card rounded-3xl p-6 border border-white/40">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-lg text-title-lg text-primary">Smart Actions</h3>
+<span class="material-symbols-outlined text-primary-container">lightbulb</span>
+</div>
+<div class="space-y-4">
+<!-- Rec 1 -->
+<div class="group p-4 bg-surface-container-low/50 hover:bg-surface-container border border-outline-variant/10 rounded-2xl cursor-pointer transition-all">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface font-bold">Optimize meeting schedules</p>
+<p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed">Free up 4.5 hours of 'Deep Work' time for the engineering team by consolidating stand-ups.</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</div>
+</div>
+<!-- Rec 2 -->
+<div class="group p-4 bg-surface-container-low/50 hover:bg-surface-container border border-outline-variant/10 rounded-2xl cursor-pointer transition-all">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">account_tree</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface font-bold">Redistribute workload: Alpha</p>
+<p class="text-[11px] text-on-surface-variant mt-1 leading-relaxed">Project Alpha has 2 members at 110% capacity. Shift tasks to the Beta idle pool.</p>
+</div>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border-2 border-primary/10 text-primary font-bold text-label-md rounded-xl hover:bg-primary/5 transition-colors">View All Insights</button>
+</div>
+<!-- System Health Status -->
+<div class="glass-card rounded-3xl p-6 border border-white/40">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-title-lg text-title-lg text-on-surface">System Performance</h3>
+<span class="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded">99.9% Uptime</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<span class="text-label-md text-secondary">Neural Load</span>
+<span class="text-body-md font-bold">24%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 24%"></div>
+</div>
+<div class="flex justify-between items-end pt-2">
+<span class="text-label-md text-secondary">API Latency</span>
+<span class="text-body-md font-bold">12ms</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Predictive Analytics Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mt-gutter">
+<!-- NPS Forecast Gauge -->
+<div class="glass-card rounded-3xl p-6 border border-white/40 flex flex-col items-center justify-center text-center">
+<h3 class="font-label-md text-secondary uppercase tracking-widest mb-6">NPS Forecast (Q4)</h3>
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-dasharray="283" stroke-dashoffset="70" stroke-width="8"></circle>
+<circle class="text-primary" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-dasharray="283" stroke-dashoffset="100" stroke-width="8" style="transition: stroke-dashoffset 1s ease-out;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-black text-on-surface">82</span>
+<span class="text-[10px] font-bold text-green-600">+5.2% VS LY</span>
+</div>
+</div>
+<p class="mt-6 text-body-md text-on-surface-variant font-medium">Predicting high retention in Enterprise tier.</p>
+</div>
+<!-- Sentiment Heat Map -->
+<div class="glass-card rounded-3xl p-6 border border-white/40 lg:col-span-2">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-lg text-title-lg text-on-surface">Global Sentiment Heatmap</h3>
+<div class="flex gap-2">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span><span class="text-[10px]">Low</span></div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-400"></span><span class="text-[10px]">Mid</span></div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500"></span><span class="text-[10px]">High</span></div>
+</div>
+</div>
+<div class="grid grid-cols-6 grid-rows-3 gap-2 h-40">
+<!-- Simulated Heatmap Blocks -->
+<div class="bg-green-500/20 rounded-md border border-green-500/30 flex items-center justify-center text-[10px] font-bold text-green-700">NY</div>
+<div class="bg-green-500/40 rounded-md border border-green-500/40"></div>
+<div class="bg-yellow-400/30 rounded-md border border-yellow-500/30"></div>
+<div class="bg-green-500/10 rounded-md border border-green-500/20"></div>
+<div class="bg-green-500/60 rounded-md border border-green-500/60 flex items-center justify-center text-[10px] font-bold text-green-900">LDN</div>
+<div class="bg-yellow-400/20 rounded-md border border-yellow-500/30"></div>
+<div class="bg-green-500/30 rounded-md border border-green-500/30"></div>
+<div class="bg-error/20 rounded-md border border-error/30 flex items-center justify-center text-[10px] font-bold text-error">PAR</div>
+<div class="bg-yellow-400/40 rounded-md border border-yellow-500/40"></div>
+<div class="bg-green-500/20 rounded-md border border-green-500/30"></div>
+<div class="bg-green-500/10 rounded-md border border-green-500/20"></div>
+<div class="bg-green-500/80 rounded-md border border-green-500/80 flex items-center justify-center text-[10px] font-bold text-white">TOK</div>
+<div class="bg-yellow-400/10 rounded-md border border-yellow-500/20"></div>
+<div class="bg-green-500/20 rounded-md border border-green-500/30"></div>
+<div class="bg-green-500/50 rounded-md border border-green-500/50"></div>
+<div class="bg-green-500/30 rounded-md border border-green-500/30 flex items-center justify-center text-[10px] font-bold text-green-800">SFO</div>
+<div class="bg-green-500/10 rounded-md border border-green-500/20"></div>
+<div class="bg-yellow-400/50 rounded-md border border-yellow-500/50"></div>
+</div>
+<p class="mt-4 text-body-md text-on-surface-variant">Significant drop in sentiment detected in <span class="font-bold text-error">Paris Hub</span> following recent policy updates.</p>
+</div>
+<!-- Recent AI Automations Log -->
+<div class="glass-card rounded-3xl p-6 border border-white/40 overflow-hidden">
+<h3 class="font-label-md text-secondary uppercase tracking-widest mb-4">Recent Automations</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-label-md font-bold truncate">Payroll Synced</p>
+<p class="text-[10px] text-outline">2 mins ago</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm">mail</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-label-md font-bold truncate">Client Inquiry Routed</p>
+<p class="text-[10px] text-outline">15 mins ago</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm">storage</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-label-md font-bold truncate">DB Snapshot Created</p>
+<p class="text-[10px] text-outline">1 hour ago</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Anchor -->
+<footer class="w-full py-unit px-container-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-bright border-t border-outline-variant/10 mt-auto">
+<div class="flex items-center gap-2">
+<span class="font-body-lg text-body-lg font-semibold text-primary">Nexus Ecosystem</span>
+<span class="text-secondary font-label-md text-label-md">© 2024 Enterprise Intelligence Platform.</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Security</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</main>
+<!-- Mobile Navigation Shell (BottomNavBar) -->
+<nav class="fixed bottom-0 left-0 right-0 h-16 bg-surface-container-low/95 backdrop-blur-xl border-t border-outline-variant/20 flex md:hidden items-center justify-around px-4 z-50">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-[10px]">Social</span>
+</button>
+<div class="relative -top-5">
+<button class="w-14 h-14 rounded-2xl bg-primary text-white shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-[10px]">Projects</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px]">Admin</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Subtle lift effect
+                card.style.transform = 'translateY(-2px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simple NPS gauge animation simulation
+        window.addEventListener('load', () => {
+            const gauge = document.querySelector('circle.text-primary');
+            if(gauge) {
+                // Adjusting dashoffset to simulate the 82% fill
+                // Total circumference is 283 (approx 2*pi*45)
+                // 82% of 283 is 232.06
+                // Dashoffset for 82% is 283 - 232.06 = 50.94
+                setTimeout(() => {
+                    gauge.style.strokeDashoffset = '50.94';
+                }, 500);
+            }
+        });
+    </script>
+</body></html>

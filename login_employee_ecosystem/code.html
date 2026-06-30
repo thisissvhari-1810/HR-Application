@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Ecosystem | Secure Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        /* Custom Glassmorphism Blur */
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass-edge {
+            box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.15);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#faf9ff",
+                      "secondary": "#535f73",
+                      "on-tertiary-fixed-variant": "#4633a0",
+                      "surface": "#faf9ff",
+                      "on-tertiary-fixed": "#1a0063",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#e1e8ff",
+                      "on-surface-variant": "#434654",
+                      "outline-variant": "#c3c6d6",
+                      "on-tertiary-container": "#d5ccff",
+                      "surface-dim": "#ccdaff",
+                      "on-primary-fixed-variant": "#0040a2",
+                      "secondary-fixed": "#d7e3fb",
+                      "secondary-fixed-dim": "#bbc7de",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#dae2ff",
+                      "tertiary": "#432f9c",
+                      "on-primary-fixed": "#001848",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#051a3e",
+                      "error": "#ba1a1a",
+                      "outline": "#737685",
+                      "tertiary-fixed-dim": "#c9bfff",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#b2c5ff",
+                      "primary": "#003d9b",
+                      "surface-container-highest": "#d8e2ff",
+                      "on-primary": "#ffffff",
+                      "on-background": "#051a3e",
+                      "inverse-primary": "#b2c5ff",
+                      "on-secondary-fixed-variant": "#3b475b",
+                      "surface-container": "#e9edff",
+                      "on-secondary-container": "#576377",
+                      "inverse-surface": "#1d3054",
+                      "tertiary-container": "#5b49b5",
+                      "surface-tint": "#0c56d0",
+                      "secondary-container": "#d4e0f8",
+                      "background": "#faf9ff",
+                      "on-secondary": "#ffffff",
+                      "primary-container": "#0052cc",
+                      "tertiary-fixed": "#e5deff",
+                      "on-secondary-fixed": "#101c2d",
+                      "on-primary-container": "#c4d2ff",
+                      "surface-container-low": "#f1f3ff",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#edf0ff",
+                      "surface-variant": "#d8e2ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin-mobile": "16px",
+                      "navbar-height": "72px",
+                      "sidebar-width": "280px",
+                      "gutter": "24px",
+                      "container-margin-desktop": "32px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface-bright text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Global Background Ornamentation -->
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-primary-container/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-[500px] h-[500px] bg-tertiary-container/10 rounded-full blur-[100px]"></div>
+</div>
+<!-- Login Container -->
+<main class="flex-grow flex items-center justify-center relative z-10 px-container-margin-mobile md:px-container-margin-desktop py-12">
+<div class="w-full max-w-[480px]">
+<!-- Brand Anchor -->
+<div class="flex flex-col items-center mb-10 text-center">
+<div class="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="hub">hub</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight mb-2">Nexus Ecosystem</h1>
+<p class="font-body-lg text-body-lg text-secondary">Enterprise Intelligence Platform</p>
+</div>
+<!-- Login Card -->
+<div class="glass-panel glass-edge bg-surface-container-lowest/70 p-8 md:p-10 rounded-[2rem] shadow-xl shadow-on-surface/5 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-primary"></div>
+<h2 class="font-headline-md text-headline-md mb-8 text-on-surface">Welcome back</h2>
+<form class="space-y-6" onsubmit="return false;">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="email">Work Email</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" data-icon="mail">mail</span>
+<input class="w-full h-12 pl-12 pr-4 bg-surface-container-high/40 border border-outline-variant/30 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-body-md placeholder:text-outline" id="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="block font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" for="password">Password</label>
+<a class="font-label-md text-label-md text-primary hover:underline transition-all" href="#">Forgot password?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" data-icon="lock">lock</span>
+<input class="w-full h-12 pl-12 pr-12 bg-surface-container-high/40 border border-outline-variant/30 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-body-md placeholder:text-outline" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Login Button -->
+<button class="w-full h-12 bg-primary text-on-primary font-body-lg font-semibold rounded-xl hover:bg-primary-container active:scale-[0.98] transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-2 group">
+                        Sign In
+                        <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- SSO Divider -->
+<div class="relative my-10">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant/30"></div>
+</div>
+<div class="relative flex justify-center text-label-md">
+<span class="bg-surface-container-lowest/70 px-4 text-on-surface-variant font-medium">Or continue with</span>
+</div>
+</div>
+<!-- SSO Options -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 h-12 px-4 border border-outline-variant/50 rounded-xl hover:bg-surface-container-high/50 transition-all active:scale-[0.98] group">
+<div class="w-5 h-5 flex items-center justify-center">
+<svg height="20" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="#EA4335"></path></svg>
+</div>
+<span class="font-body-md font-medium text-on-surface">Google</span>
+</button>
+<button class="flex items-center justify-center gap-3 h-12 px-4 border border-outline-variant/50 rounded-xl hover:bg-surface-container-high/50 transition-all active:scale-[0.98] group">
+<div class="w-5 h-5 flex items-center justify-center">
+<svg height="20" viewbox="0 0 23 23" width="20" xmlns="http://www.w3.org/2000/svg"><rect fill="#f25022" height="10" width="10" x="1" y="1"></rect><rect fill="#7fba00" height="10" width="10" x="12" y="1"></rect><rect fill="#00a4ef" height="10" width="10" x="1" y="12"></rect><rect fill="#ffb900" height="10" width="10" x="12" y="12"></rect></svg>
+</div>
+<span class="font-body-md font-medium text-on-surface">Microsoft</span>
+</button>
+</div>
+</div>
+<!-- Additional Actions -->
+<div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 px-4">
+<p class="font-body-md text-on-surface-variant">Don't have an account yet?</p>
+<button class="flex items-center gap-2 font-body-md font-bold text-primary group">
+                    Join Organization
+                    <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Global Footer (Suppressing Nav as per Transactional rule) -->
+<footer class="w-full py-unit px-container-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 border-t border-outline-variant/10 relative z-10">
+<div class="font-body-lg text-body-lg font-semibold text-primary">Nexus Ecosystem</div>
+<div class="flex gap-6">
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Security</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Support</a>
+</div>
+<div class="font-label-md text-label-md text-secondary dark:text-on-surface-variant opacity-60">
+            © 2024 Nexus Ecosystem. Enterprise Intelligence Platform.
+        </div>
+</footer>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Focus visual effect for input groups
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.closest('.group').classList.add('ring-2', 'ring-primary/10');
+                });
+                input.addEventListener('blur', () => {
+                    input.closest('.group').classList.remove('ring-2', 'ring-primary/10');
+                });
+            });
+
+            // Password Toggle Logic
+            const togglePass = document.querySelector('button span[data-icon="visibility"]');
+            if(togglePass) {
+                togglePass.parentElement.addEventListener('click', () => {
+                    const passInput = document.getElementById('password');
+                    if (passInput.type === 'password') {
+                        passInput.type = 'text';
+                        togglePass.innerText = 'visibility_off';
+                    } else {
+                        passInput.type = 'password';
+                        togglePass.innerText = 'visibility';
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

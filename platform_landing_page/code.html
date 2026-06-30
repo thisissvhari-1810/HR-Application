@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Ecosystem | Enterprise Intelligence Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf9ff",
+                    "secondary": "#535f73",
+                    "on-tertiary-fixed-variant": "#4633a0",
+                    "surface": "#faf9ff",
+                    "on-tertiary-fixed": "#1a0063",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e1e8ff",
+                    "on-surface-variant": "#434654",
+                    "outline-variant": "#c3c6d6",
+                    "on-tertiary-container": "#d5ccff",
+                    "surface-dim": "#ccdaff",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "secondary-fixed": "#d7e3fb",
+                    "secondary-fixed-dim": "#bbc7de",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#dae2ff",
+                    "tertiary": "#432f9c",
+                    "on-primary-fixed": "#001848",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#051a3e",
+                    "error": "#ba1a1a",
+                    "outline": "#737685",
+                    "tertiary-fixed-dim": "#c9bfff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "primary": "#003d9b",
+                    "surface-container-highest": "#d8e2ff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#051a3e",
+                    "inverse-primary": "#b2c5ff",
+                    "on-secondary-fixed-variant": "#3b475b",
+                    "surface-container": "#e9edff",
+                    "on-secondary-container": "#576377",
+                    "inverse-surface": "#1d3054",
+                    "tertiary-container": "#5b49b5",
+                    "surface-tint": "#0c56d0",
+                    "secondary-container": "#d4e0f8",
+                    "background": "#faf9ff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#0052cc",
+                    "tertiary-fixed": "#e5deff",
+                    "on-secondary-fixed": "#101c2d",
+                    "on-primary-container": "#c4d2ff",
+                    "surface-container-low": "#f1f3ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#edf0ff",
+                    "surface-variant": "#d8e2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin-mobile": "16px",
+                    "navbar-height": "72px",
+                    "sidebar-width": "280px",
+                    "gutter": "24px",
+                    "container-margin-desktop": "32px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf9ff;
+            color: #051a3e;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        }
+        .glass-nav {
+            background: rgba(250, 249, 255, 0.8);
+            backdrop-filter: blur(30px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #003d9b 0%, #432f9c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(at 0% 0%, rgba(216, 226, 255, 0.5) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(229, 222, 255, 0.5) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(212, 224, 248, 0.5) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(213, 204, 255, 0.5) 0px, transparent 50%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="antialiased">
+<div class="mesh-bg"></div>
+<!-- Navigation -->
+<header class="sticky top-0 z-[1000] flex items-center justify-between px-gutter h-navbar-height w-full glass-nav backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-300">
+<div class="flex items-center gap-8">
+<div class="font-title-lg text-title-lg font-bold text-primary">Nexus Ecosystem</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md cursor-pointer hover:bg-surface-container-high/50 transition-colors" href="#hero">Dashboard</a>
+<a class="text-on-surface-variant font-medium font-body-md text-body-md cursor-pointer hover:bg-surface-container-high/50 transition-colors" href="#features">Social</a>
+<a class="text-on-surface-variant font-medium font-body-md text-body-md cursor-pointer hover:bg-surface-container-high/50 transition-colors" href="#ecosystem">Projects</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container rounded-full px-4 py-2 gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-48" placeholder="Search ecosystem..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined text-secondary">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined text-secondary">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm ml-2">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a corporate executive in business casual attire. The lighting is soft and directional, creating a clean, high-end enterprise aesthetic. The background is a soft, out-of-focus modern office interior with tones of white and light blue to match the Nexus Ecosystem brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWeYQVBp9uIv-rbpUhcCJTLPNJx6rRVHMfZkJeWHaeJVgoBwDZg2vaQnpMkeZbm3qLJAuYSUoedH9W0vGr7CgTU1Jc_wsyJS9jedNxEkpprIjGIZ4hXITK1n_8bsny7KB2HyTjKFI6tBXFHElVvYcYnmVJy75lUhRslsP949XlulmwWq7uY6p5kwoV-yXE0artP1OVLDRywFPphaIA_zfPpQNOqH3G580rM6JwEb1xQQdZVA5KQanfiwihkrdUgXOxzw53biH9mxo4"/>
+</div>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center pt-20 px-container-margin-desktop overflow-hidden" id="hero">
+<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+<div class="z-10 space-y-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-container/10 border border-primary/20">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-primary font-label-md text-label-md font-semibold tracking-wider">NEW: NEXUS AI ENGINE v2.0</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface leading-tight">
+                        The Unified <span class="gradient-text">Employee Ecosystem</span> for Modern Enterprises.
+                    </h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-xl leading-relaxed">
+                        Nexus Ecosystem bridges the gap between productivity, people management, and collaborative intelligence. One platform to power your entire workforce.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="px-8 py-4 bg-primary text-on-primary rounded-xl font-semibold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300">
+                            Get Started Free
+                        </button>
+<button class="px-8 py-4 glass-card text-primary rounded-xl font-semibold flex items-center gap-2 hover:bg-white/60 transition-all duration-300">
+<span class="material-symbols-outlined">play_circle</span>
+                            Watch Demo
+                        </button>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-tertiary-container/20 rounded-full blur-3xl"></div>
+<div class="glass-card rounded-[32px] p-4 relative z-10 border border-white/40 shadow-2xl">
+<img class="rounded-[24px] shadow-sm w-full" data-alt="A clean, high-resolution screenshot of a modern enterprise dashboard interface. The UI features sleek glassmorphism cards, vibrant data visualizations in shades of blue and purple, and a sidebar with elegant icons. The overall layout is spacious and minimalist, conveying a sense of organized professional productivity and technological sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu7Q0RkAyQ-qhGJiTakX2muNROAQdOQLdu7zFl43lOVxNbAGgG0bdkyRKXLTULwo-DRng6xqVGmMyFzbYTwUAYCKFXlJqiJUrPCJ2at9kmlAtW1DSz6fGH66qLYQzHqSBkmYY1jlAHSHTSF0j0eDfNhXR2Lmg9W0Edjs2TGtWz1KrHAMKFdQSJKH_-6w4aO3ggAGzC3xAlxa1IjTjkiTtt9geZnBhak1w-ULZ997xotwN607Rz9KyGkrUNkwlsroqvWpPK1T95yc5i"/>
+<!-- Floating Glass Chips -->
+<div class="absolute -top-8 -left-8 glass-card p-4 rounded-2xl flex items-center gap-3 animate-bounce shadow-xl" style="animation-duration: 4s;">
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-secondary">Task Completed</p>
+<p class="font-title-lg text-body-md font-bold">HR Compliance Audit</p>
+</div>
+</div>
+<div class="absolute -bottom-6 -right-6 glass-card p-4 rounded-2xl flex items-center gap-3 animate-pulse shadow-xl">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">smart_toy</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-secondary">Nexus AI</p>
+<p class="font-title-lg text-body-md font-bold">Optimizing Workflow...</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trusted By Section -->
+<section class="py-24 border-y border-outline-variant/10 bg-surface-container-low/50">
+<div class="max-w-7xl mx-auto px-container-margin-desktop text-center">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-[0.2em] mb-12">Trusted by Global Enterprise Leaders</p>
+<div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="h-8 w-32 bg-secondary/20 rounded-full animate-pulse"></div>
+<div class="h-8 w-40 bg-secondary/20 rounded-full animate-pulse"></div>
+<div class="h-8 w-28 bg-secondary/20 rounded-full animate-pulse"></div>
+<div class="h-8 w-36 bg-secondary/20 rounded-full animate-pulse"></div>
+<div class="h-8 w-32 bg-secondary/20 rounded-full animate-pulse"></div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-32 px-container-margin-desktop max-w-7xl mx-auto" id="features">
+<div class="text-center mb-20">
+<h2 class="font-headline-lg text-headline-lg mb-4">Powerful Core Modules</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl mx-auto">
+                    A holistic approach to enterprise management, connecting every facet of your organization in one fluid interface.
+                </p>
+</div>
+<div class="grid md:grid-cols-12 gap-8">
+<!-- Feature Card: HRMS -->
+<div class="md:col-span-8 group relative overflow-hidden glass-card rounded-[2rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+<div class="relative z-10 flex flex-col h-full justify-between">
+<div class="space-y-4">
+<span class="material-symbols-outlined text-[40px] text-primary p-4 bg-primary/10 rounded-2xl">badge</span>
+<h3 class="font-headline-md text-headline-md">Advanced HRMS</h3>
+<p class="text-on-surface-variant font-body-md text-body-md max-w-md">
+                                Streamline employee lifecycles from onboarding to retirement with automated workflows and unified data governance.
+                            </p>
+</div>
+<div class="mt-8">
+<button class="flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all">
+                                Explore HR Features <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute top-0 right-0 w-1/2 h-full hidden lg:block opacity-40 group-hover:opacity-100 transition-opacity">
+<img class="w-full h-full object-cover rounded-l-[3rem]" data-alt="A sophisticated data dashboard view showing employee performance metrics and organizational charts. The design uses clean lines, translucent layers, and a palette of soft primary blues. High-quality abstract UI elements representing connectivity and human resources are integrated into the composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCubyMffCLQUPf1HIRUETArDYQ2GjepqB_x3mQ9eNTG0up9dZuyeJCKnGibZtqfOeOCtx5ElJLN8ZJ1oJZxPQMrg3gkt5eFeGOfo4Dshqt9P1Ur8Nz2wCqRGCNB5AU663mwcRqLEmlQMevqyZlVzi0WKrwQeO1fRRXKiiZjDUfgyB2DpJK9aH0TVIl0koJoKVp3YVKX4Z9T8ppc_lJJJfLTE_AeUyxa88JLvNcwPG7r3OrM_8Km3fVuVqlkRG4rz4zPMtiivX4e50bu"/>
+</div>
+</div>
+<!-- Feature Card: AI -->
+<div class="md:col-span-4 group relative overflow-hidden bg-tertiary text-on-tertiary rounded-[2rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+<div class="relative z-10 space-y-4 h-full flex flex-col">
+<span class="material-symbols-outlined text-[40px] p-4 bg-white/10 rounded-2xl">smart_toy</span>
+<h3 class="font-headline-md text-headline-md">Nexus AI</h3>
+<p class="text-on-tertiary/80 font-body-md text-body-md">
+                            Predictive analytics and automated scheduling powered by our proprietary enterprise large language model.
+                        </p>
+<div class="mt-auto pt-8">
+<button class="px-6 py-3 bg-white text-tertiary rounded-xl font-bold hover:scale-105 transition-transform">Get Insights</button>
+</div>
+</div>
+<!-- Shader Placeholder -->
+
+</div>
+<!-- Feature Card: Social -->
+<div class="md:col-span-4 group relative overflow-hidden glass-card rounded-[2rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+<div class="space-y-4">
+<span class="material-symbols-outlined text-[40px] text-on-tertiary-fixed-variant p-4 bg-tertiary-fixed/30 rounded-2xl">hub</span>
+<h3 class="font-headline-md text-headline-md">Social Connectivity</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">
+                            Foster internal culture with intuitive social feeds, group recognition, and peer-to-peer engagement tools.
+                        </p>
+</div>
+<div class="mt-8 flex -space-x-4">
+<div class="w-10 h-10 rounded-full border-2 border-white bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up headshot of a smiling professional woman with a soft blurred office background. The aesthetic is clean and corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeOlsAH5BTSpJEXaRMceDXxqNnxJJigVywtzoGpMgIQz9TbPCKQloOfTinUCrBrhziwbfDTrBU7G_aXGhIU-_HCsBvYszejgcsxMq_QjKNH7Bb1LADVNs1Ak_y4Kz8tAQKJ0pH4VTzupmm9F6NuVwD1aTJbwTQtbkYdBYJF70Te7p87jQbVRLPKZnvtAXewuNNj25hTY99Bb7yKd2lKZkSYN8ACZho-wqMyhjBr0qPtI65q6xSgGQnp0eh54ZeokeYXzgv5oQID31f"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young creative professional in a modern architectural space. Soft lighting and warm tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBalsc31YXZMvuNnlIQQL5lsJOio-1BrW0CiCLzB-kitizrqkBzM-bt8k2fbfAXSGDxc3j67slo9yVPZfv74d9TMBq-7g05F-VNEPRQfNyfMcsXTDl-RHgoQKs9qO9iBM-YByIHkPj9Bh8up6d4IAU7DjE39kIPkuGB_uBsgtxooRvnqTyUq3qdHDT4XjP0a_uxv47cTiLWtTMoB5oYcf7AZr2Fa5kOtw-9hM7OZMs7n-ouE71rswS3_hJglRhGY-O_gcW8u8kc7oiZ"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Executive male portrait with professional business attire, sharp focus and neutral grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ8VEyRGOJWnVgtwsOv_JRfP1Pc_EYGqqLDexJ46qIbTD7XHU81GKv-Gu3qQgnNeUpCobHgwA1xMAob5qfbuz7z6eLjs6es4P-DrkrC-qhXgUpfuDhCymYX4jTw4gcuwLZvgn-8Q-WAwKgWyOAGdFsYq-rEoEApGeb6JOppd2gEgHNSTi9ciW5OALOT0ct-j47Rbpc570_ERUQaMR43hPpdy8bRcWXy8QnrUNo6H_e_oBbcuydaKh6UiCI9ViDqD1kL8SJxm3mrC_x"/>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-[12px] font-bold border-2 border-white">+24</div>
+</div>
+</div>
+<!-- Feature Card: Projects -->
+<div class="md:col-span-8 group relative overflow-hidden glass-card rounded-[2rem] p-10 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+<div class="grid lg:grid-cols-2 gap-8 items-center h-full">
+<div class="space-y-4">
+<span class="material-symbols-outlined text-[40px] text-primary p-4 bg-primary/10 rounded-2xl">assignment</span>
+<h3 class="font-headline-md text-headline-md">Project Management</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">
+                                From agile sprints to complex waterfalls, manage every task within the context of your team's wider ecosystem.
+                            </p>
+<ul class="space-y-2 mt-4">
+<li class="flex items-center gap-2 font-label-md text-label-md"><span class="material-symbols-outlined text-[18px] text-green-500">check_circle</span> Real-time Gantt Charts</li>
+<li class="flex items-center gap-2 font-label-md text-label-md"><span class="material-symbols-outlined text-[18px] text-green-500">check_circle</span> Resource Load Balancing</li>
+<li class="flex items-center gap-2 font-label-md text-label-md"><span class="material-symbols-outlined text-[18px] text-green-500">check_circle</span> Automated Reporting</li>
+</ul>
+</div>
+<div class="relative h-48 lg:h-full min-h-[200px]">
+<img class="absolute inset-0 w-full h-full object-contain" data-alt="A sleek, modern 3D visualization of a project timeline. The image features glowing neon lines in primary blue and teal against a dark, minimalist background. Floating UI cards represent different project milestones with elegant typography and clean status icons." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFp6yRYOZPHctvIR7yoidg_ndIeoGq1C87HJeYfOa0b4nGduE51APBElbJ4cklJKGw4rbTWE72RuVK536o8EGxRwbZJn_55y8qKU9ujp96azRvEJpS31hr0wjilkmubhR09rV3skaPilZdUFOJaat7gIHV_b1QtT2-rf9cblniTnM1aPt8dE4yCvrINf0vBEnRbeJ0Yttd4HwXolF9QWA4B70ZWuPw1Z1mvxiEZjChJLvyT5GiA7XcAIEHuhEForyiF2TacXeiqjlP"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 px-container-margin-desktop">
+<div class="max-w-7xl mx-auto relative overflow-hidden rounded-[3rem] bg-on-surface p-12 lg:p-24 text-center">
+<div class="absolute inset-0 opacity-20">
+
+</div>
+<div class="relative z-10 max-w-3xl mx-auto space-y-8">
+<h2 class="font-display-lg text-display-lg text-white">Ready to Evolve Your Workforce?</h2>
+<p class="text-white/70 font-body-lg text-body-lg">
+                        Join 2,000+ global enterprises transforming their internal operations with Nexus. Start your 30-day premium trial today.
+                    </p>
+<div class="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+<button class="px-10 py-5 bg-primary-container text-white rounded-2xl font-bold text-lg hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary-container/20">
+                            Book a Strategy Session
+                        </button>
+<button class="px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-2xl font-bold text-lg hover:bg-white/20 transition-all">
+                            View Pricing Plans
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-unit px-container-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-bright border-t border-outline-variant/10">
+<div class="flex flex-col gap-1 items-center md:items-start">
+<div class="font-body-lg text-body-lg font-semibold text-primary">Nexus Ecosystem</div>
+<p class="font-label-md text-label-md text-secondary">© 2024 Nexus Ecosystem. Enterprise Intelligence Platform.</p>
+</div>
+<nav class="flex gap-6">
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Security</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<div class="flex gap-4">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-secondary">language</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-secondary">help_center</span>
+</button>
+</div>
+</footer>
+<script>
+        // Micro-interactions and scroll effects
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-lg', 'bg-opacity-95');
+            } else {
+                header.classList.remove('shadow-lg', 'bg-opacity-95');
+            }
+        });
+
+        // Intersection Observer for fade-in effects
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

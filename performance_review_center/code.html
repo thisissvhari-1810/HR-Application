@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Performance Review Management | Nexus HRMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#1a0063",
+                "on-background": "#051a3e",
+                "on-tertiary": "#ffffff",
+                "on-error-container": "#93000a",
+                "error-container": "#ffdad6",
+                "on-tertiary-container": "#d5ccff",
+                "primary": "#003d9b",
+                "inverse-primary": "#b2c5ff",
+                "on-secondary-fixed-variant": "#3b475b",
+                "surface-dim": "#ccdaff",
+                "on-tertiary-fixed-variant": "#4633a0",
+                "on-primary-container": "#c4d2ff",
+                "outline-variant": "#c3c6d6",
+                "surface-container": "#e9edff",
+                "tertiary-container": "#5b49b5",
+                "tertiary-fixed-dim": "#c9bfff",
+                "secondary-fixed-dim": "#bbc7de",
+                "surface-container-highest": "#d8e2ff",
+                "secondary-fixed": "#d7e3fb",
+                "outline": "#737685",
+                "background": "#faf9ff",
+                "surface-tint": "#0c56d0",
+                "secondary-container": "#d4e0f8",
+                "on-primary-fixed-variant": "#0040a2",
+                "tertiary-fixed": "#e5deff",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed": "#101c2d",
+                "on-surface": "#051a3e",
+                "surface-variant": "#d8e2ff",
+                "on-primary-fixed": "#001848",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#434654",
+                "on-error": "#ffffff",
+                "inverse-surface": "#1d3054",
+                "on-secondary-container": "#576377",
+                "error": "#ba1a1a",
+                "surface-bright": "#faf9ff",
+                "primary-fixed": "#dae2ff",
+                "surface-container-high": "#e1e8ff",
+                "on-primary": "#ffffff",
+                "secondary": "#535f73",
+                "primary-container": "#0052cc",
+                "inverse-on-surface": "#edf0ff",
+                "surface-container-low": "#f1f3ff",
+                "tertiary": "#432f9c",
+                "surface": "#faf9ff",
+                "primary-fixed-dim": "#b2c5ff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "unit": "8px",
+                "navbar-height": "72px",
+                "sidebar-width": "280px",
+                "gutter": "24px",
+                "container-margin-mobile": "16px",
+                "container-margin-desktop": "32px"
+            },
+            "fontFamily": {
+                "title-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "headline-md": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-lg": ["Inter"],
+                "body-lg": ["Inter"],
+                "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .nine-box-cell {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nine-box-cell:hover {
+            transform: scale(1.02);
+            z-index: 10;
+        }
+        .progress-segment {
+            height: 6px;
+            border-radius: 9999px;
+            transition: width 1s ease-in-out;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-[1000] bg-surface/80 backdrop-blur-[30px] border-b border-white/10 shadow-sm flex justify-between items-center h-[72px] px-gutter">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary">Nexus HRMS</span>
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant/30 w-96">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full" placeholder="Search employees or reviews..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/5 p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/5 p-2 rounded-full transition-colors">help</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/5 p-2 rounded-full transition-colors">settings</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate human resources director, styled with soft rim lighting and a neutral blurred office background. The lighting is crisp, and the aesthetic matches a high-end enterprise SaaS platform with a focus on clean professional identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGVaLi5OLHBycS-uLXSdU2JpJzefSEVTdKdnuIhM8qovj0RJd9qTDkyShtgGLcyS0vTcUCTwA7e6hv_9rJqBJJt9BHvoIthEzoPDNNk7AR6N5Kz1dPBUAVVbxp9W1YIRwN-bc0Y452MERJznwvdNKPvFfwdzxe5GYdM1NNvqHq5bDDfaOqN8DbkwSBKH1aLuETNXS7UMGUkR2TF2udhM5bo8RiUcJW10gIoZareu4Eu_X_MR4BaNlGEa7euDa-XD-1mM_4jAsqpJEP"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] z-[900] bg-surface-container-low border-r border-outline-variant/30 flex flex-col pt-[72px] pb-gutter px-4 hidden md:flex">
+<div class="flex items-center gap-3 py-6 px-2">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg font-semibold text-on-surface">Nexus AI</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">HR Intelligence</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl flex items-center justify-center gap-2 font-semibold mb-6 shadow-lg shadow-primary/20 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">add</span>
+            New Request
+        </button>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">group_add</span>
+<span class="font-label-md text-label-md">Recruitment</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">assignment_ind</span>
+<span class="font-label-md text-label-md">Onboarding</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-semibold transition-all" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-md text-label-md">Performance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-md text-label-md">Organization</span>
+</a>
+</nav>
+<div class="border-t border-outline-variant/30 pt-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-fixed-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:pl-[280px] pt-[72px] min-h-screen">
+<div class="p-gutter max-w-[1440px] mx-auto space-y-8">
+<!-- Page Header & AI Insight -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Performance Review</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Oversee employee growth and evaluation lifecycles.</p>
+</div>
+<div class="glass-card flex items-center gap-3 px-6 py-3 rounded-2xl border-primary/20">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<p class="font-label-md text-label-md text-on-surface-variant">
+<span class="font-bold text-primary">Nexus AI:</span> Review completion is up <span class="text-green-600 font-bold">12%</span> compared to Mid-Year 2023.
+                    </p>
+</div>
+</header>
+<!-- Top Row: Review Cycles & Team Aggregate -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Review Cycles (4 Cols) -->
+<section class="lg:col-span-5 space-y-4">
+<h2 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">sync</span> Review Cycles
+                    </h2>
+<div class="space-y-3">
+<!-- Active Cycle -->
+<div class="glass-card p-5 rounded-2xl border-l-4 border-l-primary relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-label-md text-label-md">Active</span>
+</div>
+<h3 class="font-title-lg text-title-lg mb-1">Annual 2024</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Focus: Year-end growth &amp; calibration</p>
+<div class="flex justify-between font-label-md text-label-md mb-2">
+<span>Completion</span>
+<span>68%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 68%;"></div>
+</div>
+<div class="mt-4 flex gap-4 text-on-surface-variant font-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_today</span> Dec 31 Deadline</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> 124 Participants</span>
+</div>
+</div>
+<!-- Previous Cycle -->
+<div class="glass-card p-5 rounded-2xl opacity-80 hover:opacity-100 transition-all cursor-pointer">
+<div class="flex justify-between items-center">
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold">Mid-Year Check-in 2024</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Completed July 15</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Performance Aggregate (7 Cols) -->
+<section class="lg:col-span-7 space-y-4">
+<h2 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">bar_chart</span> Performance Distribution
+                    </h2>
+<div class="glass-card p-6 rounded-3xl h-[280px] flex items-end justify-between gap-4">
+<!-- Simulated Bar Chart -->
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<div class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">8%</div>
+<div class="w-full bg-error-container/50 rounded-t-lg transition-all group-hover:bg-error-container" style="height: 15%"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Low</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<div class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">22%</div>
+<div class="w-full bg-secondary-container/50 rounded-t-lg transition-all group-hover:bg-secondary-container" style="height: 40%"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Meeting</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<div class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">45%</div>
+<div class="w-full bg-primary/50 rounded-t-lg transition-all group-hover:bg-primary" style="height: 80%"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">High</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<div class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">15%</div>
+<div class="w-full bg-tertiary-container/50 rounded-t-lg transition-all group-hover:bg-tertiary-container" style="height: 30%"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Exceeding</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+<div class="font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">10%</div>
+<div class="w-full bg-on-tertiary-fixed-variant/50 rounded-t-lg transition-all group-hover:bg-on-tertiary-fixed-variant" style="height: 20%"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">Top Tier</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Bento Grid Section: Pending Reviews & 9-Box Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Pending Reviews (8 Cols) -->
+<section class="xl:col-span-8 space-y-4">
+<div class="flex justify-between items-center">
+<h2 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">hourglass_top</span> Pending Actions
+                        </h2>
+<button class="text-primary font-label-md flex items-center gap-1 hover:underline">View All <span class="material-symbols-outlined text-sm">open_in_new</span></button>
+</div>
+<div class="glass-card rounded-3xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant">
+<th class="px-6 py-4 font-label-md">Employee</th>
+<th class="px-6 py-4 font-label-md">Phase</th>
+<th class="px-6 py-4 font-label-md">Review Progress</th>
+<th class="px-6 py-4 font-label-md">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a software engineer in their late 20s, with a clean background, soft indoor lighting, and a modern minimal aesthetic consistent with high-end corporate UI. The subject wears a simple professional sweater." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIRypvEo0MGPqpAqxTwkXZFrDTK1w8ZTMYsLowta7M-5tgL8xtOZFPDuORh0oD5J4wpYRJuI_EtEXgdHIHgn_HqbhDIOoMY40vT_dJj27LKv1vUkMDmW0Mi0RmxOoZ4HDW5zKQSuYc2TcyomNNuDotMrHmxvWn-t3k6zkInU5L93sZ8mWizdejLqxc1o8eFJlFGmXOSoOW5b7G8Ib1gK3SX5prVolHf1F01aYaPRYZ_7kizZqxmCYwDy8J8BFIpyGh8VeaES8I_gRq"/>
+</div>
+<div>
+<div class="font-body-md font-semibold">Alex Rivera</div>
+<div class="font-label-md text-on-surface-variant">Senior Frontend Dev</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-secondary-container/50 text-on-secondary-container rounded-md font-label-md">Manager Review</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-1 w-32">
+<div class="flex-1 h-1.5 rounded-full bg-primary"></div>
+<div class="flex-1 h-1.5 rounded-full bg-primary/20"></div>
+<div class="flex-1 h-1.5 rounded-full bg-primary/20"></div>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1">1 of 3 steps complete</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-surface-container-high hover:bg-primary hover:text-white px-4 py-2 rounded-xl transition-all font-label-md">Complete</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a female marketing manager with a confident expression. High-quality lighting, soft shadows, pristine white background, 8k resolution, minimalist corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFoLkiLfdONSJ_bvBiuwuRpRGAlSaoY_C5EITfOideUdrxCYuFCep-rSyUcuq2739eJ4WL_4KlnRhJUCWEHfUOY1MjPRiZboQ4MbWEEjJpovDN7966Oc5wCNUZPJo0vTT_sDch0bApiZWE6jkDz-siloaYMnfkVpYQ8UUEPCYGEYIrCs5C2OgQcuUeKWTB8RzOIeiqoZrpi-Bqh1CegqRP21amp0r3RFBkgIW7WghKNPWn2ubkNJClcSFx1BQYvkIIH8cwUh1vR1qi"/>
+</div>
+<div>
+<div class="font-body-md font-semibold">Sarah Jenkins</div>
+<div class="font-label-md text-on-surface-variant">Product Manager</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary-container text-white rounded-md font-label-md">HR Approval</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-1 w-32">
+<div class="flex-1 h-1.5 rounded-full bg-primary"></div>
+<div class="flex-1 h-1.5 rounded-full bg-primary"></div>
+<div class="flex-1 h-1.5 rounded-full bg-primary/20"></div>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1">2 of 3 steps complete</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-surface-container-high hover:bg-primary hover:text-white px-4 py-2 rounded-xl transition-all font-label-md">Review</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-quality headshot of a mature executive male with salt and pepper hair, looking professional and approachable. The lighting is soft and flattering with a clean, high-end office atmosphere in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzVhPATHogqTINwiukC-nskdFAjFte60p6LImleAiZ-DdHRwEClv8I84kjag2UH5mJnKOaDLqV4oMqBOZAlsH1g-QUW2vYbU1BHiTQrjqixr59BPcp4gNo_1d0FoEqS42qEc5320MKXQk5yjs2fhveW2F24ck9fBTjBO7fqAa6sDcLFzcp77eY-55U9-Qxn0zjJJmmEDK-Ta79w4R2DuWDO74Nq85fNb1ULdlFDghdoFkm8GeevJsxTEXdnuheuQGO7BPihkQQ0__M"/>
+</div>
+<div>
+<div class="font-body-md font-semibold">Marcus Thorne</div>
+<div class="font-label-md text-on-surface-variant">Director of UX</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-tertiary-container text-white rounded-md font-label-md">Self-Review</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-1 w-32">
+<div class="flex-1 h-1.5 rounded-full bg-primary/20"></div>
+<div class="flex-1 h-1.5 rounded-full bg-primary/20"></div>
+<div class="flex-1 h-1.5 rounded-full bg-primary/20"></div>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1">0 of 3 steps complete</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant opacity-50 px-4 py-2 cursor-not-allowed font-label-md">Nudged</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Talent Matrix / 9-Box Grid (4 Cols) -->
+<section class="xl:col-span-4 space-y-4">
+<h2 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">grid_view</span> Talent Matrix
+                    </h2>
+<div class="glass-card p-4 rounded-3xl aspect-square flex flex-col">
+<div class="flex-1 grid grid-cols-3 grid-rows-3 gap-2 p-2">
+<!-- High Potential Row -->
+<div class="nine-box-cell bg-secondary-container/30 rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px]">Solid Performer</span>
+<div class="flex -space-x-2 mt-1">
+<div class="w-6 h-6 rounded-full border-2 border-white bg-gray-200"></div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-gray-300"></div>
+</div>
+</div>
+<div class="nine-box-cell bg-primary-container/20 rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px]">Future Star</span>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-blue-200 mt-1"></div>
+</div>
+<div class="nine-box-cell bg-primary text-white rounded-lg flex flex-col items-center justify-center p-1 text-center shadow-lg">
+<span class="font-label-md text-[10px] font-bold">Star</span>
+<div class="flex -space-x-2 mt-1">
+<div class="w-6 h-6 rounded-full border-2 border-primary bg-blue-100"></div>
+<div class="w-6 h-6 rounded-full border-2 border-primary bg-blue-100"></div>
+</div>
+</div>
+<!-- Medium Potential Row -->
+<div class="nine-box-cell bg-error-container/10 rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px]">Inconsistent</span>
+<span class="text-[10px] mt-1 text-on-surface-variant">3 empl.</span>
+</div>
+<div class="nine-box-cell bg-surface-container-high rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px]">Core Performer</span>
+<span class="text-[10px] mt-1 text-on-surface-variant">12 empl.</span>
+</div>
+<div class="nine-box-cell bg-primary-container/20 rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px]">High Professional</span>
+<span class="text-[10px] mt-1 text-on-surface-variant">5 empl.</span>
+</div>
+<!-- Low Potential Row -->
+<div class="nine-box-cell bg-error-container/40 rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px] text-error font-bold">Underperformer</span>
+</div>
+<div class="nine-box-cell bg-error-container/10 rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px]">Solid Support</span>
+</div>
+<div class="nine-box-cell bg-surface-container-high rounded-lg flex flex-col items-center justify-center p-1 text-center">
+<span class="font-label-md text-[10px]">Workhorse</span>
+</div>
+</div>
+<div class="flex justify-between px-2 pt-4 border-t border-outline-variant/30 mt-2">
+<span class="font-label-md text-[10px] rotate-[-90deg] origin-left -translate-x-4 translate-y-12 whitespace-nowrap text-on-surface-variant font-bold">POTENTIAL →</span>
+<span class="font-label-md text-[10px] text-on-surface-variant font-bold">PERFORMANCE →</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Floating Action for AI Chat (Nexus AI Input) -->
+<div class="fixed bottom-8 right-8 z-[1100]">
+<button class="w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group overflow-hidden" id="ai-trigger">
+<span class="material-symbols-outlined text-3xl group-hover:hidden">bolt</span>
+<span class="material-symbols-outlined text-3xl hidden group-hover:block animate-pulse">auto_awesome</span>
+</button>
+</div>
+<!-- AI Input Overlay (Hidden by default) -->
+<div class="fixed bottom-28 right-8 w-96 glass-card rounded-3xl shadow-2xl p-4 hidden flex-col transform translate-y-4 opacity-0 transition-all duration-300" id="ai-chat">
+<div class="flex items-center justify-between mb-4 px-2">
+<h4 class="font-title-lg text-title-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">bolt</span> Nexus AI
+            </h4>
+<button class="material-symbols-outlined text-on-surface-variant" onclick="toggleAI()">close</button>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl p-4 mb-4 text-body-md border border-outline-variant/20">
+            "I've analyzed the Talent Matrix. Sarah Jenkins is trending toward 'Star' status based on Q3 output. Would you like me to draft a recommendation for her upcoming review?"
+        </div>
+<div class="relative">
+<input class="w-full bg-surface-container-high border-none rounded-2xl py-4 pl-4 pr-12 focus:ring-2 focus:ring-primary/50 text-body-md" placeholder="Ask Nexus AI anything..." type="text"/>
+<button class="absolute right-3 top-3 bg-primary text-white p-1 rounded-lg">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+<script>
+        const aiTrigger = document.getElementById('ai-trigger');
+        const aiChat = document.getElementById('ai-chat');
+
+        aiTrigger.addEventListener('click', toggleAI);
+
+        function toggleAI() {
+            if (aiChat.classList.contains('hidden')) {
+                aiChat.classList.remove('hidden');
+                setTimeout(() => {
+                    aiChat.classList.remove('translate-y-4', 'opacity-0');
+                    aiChat.classList.add('translate-y-0', 'opacity-100');
+                }, 10);
+            } else {
+                aiChat.classList.add('translate-y-4', 'opacity-0');
+                aiChat.classList.remove('translate-y-0', 'opacity-100');
+                setTimeout(() => {
+                    aiChat.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Micro-interaction for table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateX(4px)';
+                row.style.transition = 'transform 0.2s ease';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus Ecosystem | Social Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .active-nav-indicator {
+            position: relative;
+        }
+        .active-nav-indicator::after {
+            content: '';
+            position: absolute;
+            bottom: -24px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #003d9b;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf9ff",
+                        "secondary": "#535f73",
+                        "on-tertiary-fixed-variant": "#4633a0",
+                        "surface": "#faf9ff",
+                        "on-tertiary-fixed": "#1a0063",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e1e8ff",
+                        "on-surface-variant": "#434654",
+                        "outline-variant": "#c3c6d6",
+                        "on-tertiary-container": "#d5ccff",
+                        "surface-dim": "#ccdaff",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "secondary-fixed": "#d7e3fb",
+                        "secondary-fixed-dim": "#bbc7de",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "tertiary": "#432f9c",
+                        "on-primary-fixed": "#001848",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#051a3e",
+                        "error": "#ba1a1a",
+                        "outline": "#737685",
+                        "tertiary-fixed-dim": "#c9bfff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "primary": "#003d9b",
+                        "surface-container-highest": "#d8e2ff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#051a3e",
+                        "inverse-primary": "#b2c5ff",
+                        "on-secondary-fixed-variant": "#3b475b",
+                        "surface-container": "#e9edff",
+                        "on-secondary-container": "#576377",
+                        "inverse-surface": "#1d3054",
+                        "tertiary-container": "#5b49b5",
+                        "surface-tint": "#0c56d0",
+                        "secondary-container": "#d4e0f8",
+                        "background": "#faf9ff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#0052cc",
+                        "tertiary-fixed": "#e5deff",
+                        "on-secondary-fixed": "#101c2d",
+                        "on-primary-container": "#c4d2ff",
+                        "surface-container-low": "#f1f3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#edf0ff",
+                        "surface-variant": "#d8e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin-mobile": "16px",
+                        "navbar-height": "72px",
+                        "sidebar-width": "280px",
+                        "gutter": "24px",
+                        "container-margin-desktop": "32px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md min-h-screen">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-[1000] flex items-center justify-between px-gutter h-navbar-height w-full bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-title-lg text-title-lg font-bold text-primary dark:text-primary-fixed">Nexus Ecosystem</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high/50 transition-colors px-3 py-2 rounded-lg cursor-pointer active:scale-95 duration-200" href="#">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 px-3 cursor-pointer active:scale-95 duration-200" href="#">Social</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high/50 transition-colors px-3 py-2 rounded-lg cursor-pointer active:scale-95 duration-200" href="#">Projects</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 w-64 focus:ring-2 focus:ring-primary/20 text-body-md transition-all" placeholder="Search Nexus..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 text-on-surface-variant transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 text-on-surface-variant transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md hover:bg-primary-container transition-colors cursor-pointer active:scale-95">Quick Action</button>
+<div class="w-10 h-10 rounded-full border-2 border-surface-container-highest overflow-hidden cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a modern tech executive with a friendly expression. The background is a soft, out-of-focus office setting with warm amber lighting and cool blue tones, matching a premium enterprise SaaS aesthetic. High clarity, 8k resolution, professional photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC_JeK7KZ7XqUUEBs5U4oV-oRfgetbkTacj7phFoj6MHZbu_m68ZgvOnFS6M6PXcWhutQzpLwUeo_w3Nx9bMXZ6nOjRgw7RLbw0Jfhf2Z7SUhScyxWMFL9chdOfPg3qbLXGmje1mp6gaA5f8Q0jF6j4KmgYnvmQvnR6xEDhbBEeQ8Ly_qddA10v2loWLzfYXveGa1xE_-Ti8X5GUcgrk6Qgo5wlUmUtS5fSTVu7yfYz6tXdsMYivlLMIaI7iIL8wI0PeFSu8-cDkVg"/>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex max-w-[1440px] mx-auto min-h-[calc(100vh-72px)]">
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden lg:flex flex-col w-sidebar-width p-4 sticky top-navbar-height h-[calc(100vh-72px)] bg-surface-container-low/90 backdrop-blur-xl border-r border-outline-variant/20">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[16px] leading-tight font-black text-primary">Nexus AI</h3>
+<p class="text-[10px] text-secondary uppercase tracking-widest font-bold">Enterprise Assistant</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="px-2 py-2 text-secondary font-label-md text-label-md uppercase tracking-wider opacity-60">Main</div>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-semibold transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hub</span>
+<span class="font-label-md text-label-md">Social</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Projects</span>
+</a>
+<div class="mt-6 px-2 py-2 text-secondary font-label-md text-label-md uppercase tracking-wider opacity-60">Resources</div>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Learning</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">HR</span>
+</a>
+</nav>
+<button class="mt-4 mb-8 w-full py-3 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+<span>New Request</span>
+</button>
+<div class="border-t border-outline-variant/30 pt-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-transform hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-error">logout</span>
+<span class="font-label-md text-label-md text-error">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Feed Content -->
+<main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8 space-y-8">
+<!-- Stories Bar -->
+<section class="relative">
+<div class="flex gap-4 overflow-x-auto hide-scrollbar py-2">
+<!-- Your Story -->
+<div class="flex-shrink-0 flex flex-col items-center gap-2 cursor-pointer group">
+<div class="relative w-16 h-16 rounded-full p-0.5 border-2 border-dashed border-outline group-hover:border-primary transition-colors">
+<div class="w-full h-full rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover opacity-60" data-alt="A close up of a diverse, modern workspace with a laptop, a coffee cup, and a small green plant. Bright sunlight streaks across the wooden desk, creating a warm and inviting atmosphere. 8k, photorealistic, premium lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE6KuNrKAUol0puxdfWgOoSgIuqfn8Hyco04jwRpZj9YGuOsgaZCmmqsmK8ktPdHmp2dFcu_PVShX7KsFFL9llPxdt_0sJ5myZoxrcuTSNo4H-Dk44GIAMBLsbp1qTW7GSThneOKIRTZx696NS5wNoFngReO-9bf6eR4ZMOzxu0eaJz1Ucuszv7aRmuqVHSIExE8_OHlxNppTsY6mDk9nUjw1gGIi6qSxQ0Ws3U_qSdrFzNC84xvdTU8HtiNNiOPhbJtIcpx9BoYjT"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary text-on-primary rounded-full w-5 h-5 flex items-center justify-center border-2 border-surface">
+<span class="material-symbols-outlined text-[14px]">add</span>
+</div>
+</div>
+<span class="text-[11px] font-medium text-secondary">Your Story</span>
+</div>
+<!-- Other Stories -->
+<script>
+                        const stories = [
+                            { name: "Sarah J.", color: "from-primary to-tertiary", img: "High-end corporate professional portrait of a woman in her late 20s, wearing a crisp white blazer, standing in a brightly lit glass atrium of a modern skyscraper. Soft lens flare, ethereal atmosphere, 8k resolution, minimalist style." },
+                            { name: "Design Team", color: "from-orange-400 to-pink-500", img: "A creative studio environment with mood boards, swatches of fabric, and digital tablets showing vibrant user interface designs. The lighting is colorful and dynamic, reflecting a high-energy collaborative session. Cinematic lighting, professional photography." },
+                            { name: "Product Sync", color: "from-green-400 to-blue-500", img: "Close up of hands gesturing over a sleek conference table with transparent glass tablets displaying complex data visualizations and charts. The vibe is future-forward and intelligent. Sharp focus, clean composition." },
+                            { name: "Alex K.", color: "from-purple-500 to-indigo-600", img: "A male executive in a navy suit looking thoughtfully out of a floor-to-ceiling window at a city skyline during blue hour. Reflections in the glass add depth. Sophisticated, calm, premium enterprise mood." },
+                            { name: "Global Dev", color: "from-red-400 to-yellow-500", img: "Night view of a coding workstation with multiple monitors displaying lines of elegant code in a dark mode editor. Subtle RGB lighting effects in the background. High-tech, focused, cinematic." }
+                        ];
+                        stories.forEach(s => {
+                            document.write(`
+                                <div class="flex-shrink-0 flex flex-col items-center gap-2 cursor-pointer group">
+                                    <div class="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr ${s.color} group-hover:scale-105 transition-transform">
+                                        <div class="w-full h-full rounded-full border-2 border-surface overflow-hidden bg-surface-container-high">
+                                            <img src="placeholder" data-alt="${s.img}" class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
+                                    <span class="text-[11px] font-medium text-on-surface truncate w-16 text-center">${s.name}</span>
+                                </div>
+                            `);
+                        });
+                    </script>
+</div>
+</section>
+<!-- Create Post -->
+<section class="glass-card rounded-2xl p-6 shadow-sm">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a modern tech executive with a friendly expression. The background is a soft, out-of-focus office setting with warm amber lighting and cool blue tones, matching a premium enterprise SaaS aesthetic. High clarity, 8k resolution, professional photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBekedMNKN_v0sJ5f1FSQDLfPoooW4Q9Hnv_6ND89BsDLLRpS1Gu5czVBMR-7I8nVcWcd8H_Pi7oVfCzPdSCvPAMFAxE0Lc4tRUoMl9cqCs9f5gES_AfG5adf2bRIkbKdfkD1qCA5tvYWZU9PGjmGEui7LGaAYEMPZhO1XbILS4h7FnRvC0L4SkmFk1Z0vAVV9Mxwkn-cPJvl3UWyJbcVI71xpBUDM8V3XERoxOwCzIW0qAC5ZXZOC6hyOXR9XJtyYCFcvrUS5IYwi7"/>
+</div>
+<div class="flex-1">
+<textarea class="w-full bg-surface-container-lowest border-none rounded-xl p-4 text-body-md focus:ring-2 focus:ring-primary/20 min-h-[100px] resize-none transition-shadow" placeholder="Share an update, announcement, or poll with the ecosystem..." rows="3"></textarea>
+<div class="flex items-center justify-between mt-4">
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-surface-container-high transition-colors text-secondary cursor-pointer">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">image</span>
+<span class="font-label-md text-label-md">Media</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-surface-container-high transition-colors text-secondary cursor-pointer">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">poll</span>
+<span class="font-label-md text-label-md">Poll</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-surface-container-high transition-colors text-secondary cursor-pointer">
+<span class="material-symbols-outlined text-orange-500" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="font-label-md text-label-md">Announcement</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold hover:bg-primary-container transition-all active:scale-95 shadow-md shadow-primary/10">Post Update</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Feed Post: Announcement -->
+<article class="glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">corporate_fare</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Nexus Corporate</h4>
+<p class="text-[12px] text-secondary">Announcements • 2h ago</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full font-label-md text-[11px] uppercase font-bold tracking-wider">Official</span>
+</div>
+<p class="text-body-lg text-on-surface mb-4 leading-relaxed">
+                        We are thrilled to announce that the <span class="text-primary font-bold">Nexus Ecosystem Expansion</span> project has reached its phase 2 milestone. This includes new AI-driven resource allocation modules for all enterprise clients.
+                    </p>
+<div class="aspect-video w-full rounded-xl overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover" data-alt="A futuristic 3D architectural visualization of a sustainable glass and steel office building surrounded by lush greenery and integrated technology. The lighting is late afternoon golden hour, creating long, soft shadows and a warm, prestigious glow. Conceptual enterprise architecture, 8k, photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCI2sy77X1BdNo8-yiyE2b_k3VqZSIOTsIKWmgDQrZZNf8dETeVmmLO0z-SaZxYokIItksT1STXONVCuN7LZaTy_RGgMTViShJNlwHJS8vNOfxKwypHbjNJJNjl-jvakSi0_ewqxzAjPhEkAI31WPkgNv5fpKtPPu8jHIw0z0JRtILLV3iwiHw77tZMiPRMra9sqtjDNpW8ZnwBX6OxpG0Xp0J5KXIW69fkrmeG56hIgysWjCQ5a5XXqkd0boiPCNBuFO7TP8E0xmE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<div class="flex items-center gap-6 text-secondary border-t border-outline-variant/30 pt-4">
+<button class="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer group/btn">
+<span class="material-symbols-outlined group-active/btn:scale-125 transition-transform">favorite</span>
+<span class="font-label-md">1.2k</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer group/btn">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md">48</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer group/btn">
+<span class="material-symbols-outlined">share</span>
+<span class="font-label-md">Share</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Feed Post: Poll -->
+<article class="glass-card rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High-end corporate professional portrait of a woman in her late 20s, wearing a crisp white blazer, standing in a brightly lit glass atrium of a modern skyscraper. Soft lens flare, ethereal atmosphere, 8k resolution, minimalist style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtSFcjEWcI6NcWnpvhFJ1xJ6pJHB_1DjzXC8TTD7TV0B2XwlbljMlA4dUP61p_IaPFQdMbeox8OlpEB-t3sZG4Xxfk7VjmBjk4QT47UVEOPskvyJdfMVCmwZF1Dy80eX4JScEEpJJJbCcqg8T4dtmlRaolB2UUp8yfQ6EQL5OgtEqafp5ZKKn6dtdywaZoQkaYksaoVvx14gjh1DsJyuYRg9XPUU8587q4PeLo4-CTuxllwI3ERANJUaeG67bcqvF_M8990KoNPaqh"/>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Sarah Jenkins</h4>
+<p class="text-[12px] text-secondary">Product Lead • 5h ago</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface mb-6">Which new dashboard visualization style do you prefer for the upcoming Q3 release? We're aiming for maximum clarity.</p>
+<div class="space-y-3 mb-6">
+<div class="relative w-full h-12 bg-surface-container rounded-xl overflow-hidden cursor-pointer group border border-outline-variant/20">
+<div class="absolute left-0 top-0 h-full bg-primary-container/30 w-[64%] transition-all duration-1000"></div>
+<div class="relative h-full flex items-center justify-between px-4">
+<span class="font-medium text-on-surface">Glassmorphism Bento Grid</span>
+<span class="font-bold text-primary">64%</span>
+</div>
+</div>
+<div class="relative w-full h-12 bg-surface-container rounded-xl overflow-hidden cursor-pointer group border border-outline-variant/20">
+<div class="absolute left-0 top-0 h-full bg-primary-container/30 w-[24%] transition-all duration-1000"></div>
+<div class="relative h-full flex items-center justify-between px-4">
+<span class="font-medium text-on-surface-variant">Minimalist List View</span>
+<span class="font-bold text-secondary">24%</span>
+</div>
+</div>
+<div class="relative w-full h-12 bg-surface-container rounded-xl overflow-hidden cursor-pointer group border border-outline-variant/20">
+<div class="absolute left-0 top-0 h-full bg-primary-container/30 w-[12%] transition-all duration-1000"></div>
+<div class="relative h-full flex items-center justify-between px-4">
+<span class="font-medium text-on-surface-variant">Hybrid Cards</span>
+<span class="font-bold text-secondary">12%</span>
+</div>
+</div>
+</div>
+<p class="text-[12px] text-secondary mb-6">1,402 votes • 2 days remaining</p>
+<div class="flex items-center gap-6 text-secondary border-t border-outline-variant/30 pt-4">
+<button class="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-md">256</span>
+</button>
+<button class="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md">112</span>
+</button>
+</div>
+</article>
+</main>
+<!-- Right Sidebar (Trending & Suggestions) -->
+<aside class="hidden xl:flex flex-col w-[320px] p-6 sticky top-navbar-height h-[calc(100vh-72px)] space-y-8">
+<!-- Trending Hashtags -->
+<section class="glass-card rounded-2xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h5 class="font-bold text-on-surface">Trending Now</h5>
+<button class="text-primary font-bold text-[12px] hover:underline">View all</button>
+</div>
+<div class="space-y-4">
+<div class="cursor-pointer group">
+<p class="text-[11px] text-secondary uppercase font-bold tracking-wider">Enterprise Tech</p>
+<h6 class="font-bold text-on-surface group-hover:text-primary transition-colors">#NexusAI_Expansion</h6>
+<p class="text-[12px] text-secondary">2.4k posts</p>
+</div>
+<div class="cursor-pointer group">
+<p class="text-[11px] text-secondary uppercase font-bold tracking-wider">Company Culture</p>
+<h6 class="font-bold text-on-surface group-hover:text-primary transition-colors">#WorkLifeHarmony</h6>
+<p class="text-[12px] text-secondary">1.8k posts</p>
+</div>
+<div class="cursor-pointer group">
+<p class="text-[11px] text-secondary uppercase font-bold tracking-wider">Innovation</p>
+<h6 class="font-bold text-on-surface group-hover:text-primary transition-colors">#ProductRoadmap2024</h6>
+<p class="text-[12px] text-secondary">954 posts</p>
+</div>
+</div>
+</section>
+<!-- Suggested Communities -->
+<section class="glass-card rounded-2xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h5 class="font-bold text-on-surface">Communities</h5>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">design_services</span>
+</div>
+<div>
+<h6 class="font-bold text-[14px] text-on-surface truncate w-32">Nexus Design</h6>
+<p class="text-[12px] text-secondary">4.2k members</p>
+</div>
+</div>
+<button class="p-2 bg-surface-container hover:bg-primary/10 text-primary rounded-full transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div>
+<h6 class="font-bold text-[14px] text-on-surface truncate w-32">Dev Circle</h6>
+<p class="text-[12px] text-secondary">8.9k members</p>
+</div>
+</div>
+<button class="p-2 bg-surface-container hover:bg-primary/10 text-primary rounded-full transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div>
+<h6 class="font-bold text-[14px] text-on-surface truncate w-32">AI Lab</h6>
+<p class="text-[12px] text-secondary">2.1k members</p>
+</div>
+</div>
+<button class="p-2 bg-surface-container hover:bg-primary/10 text-primary rounded-full transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border-2 border-primary/20 text-primary font-bold rounded-xl hover:bg-primary/5 transition-colors">Explore All</button>
+</section>
+<!-- Copyright/Links -->
+<footer class="px-2 text-[12px] text-secondary space-y-4">
+<div class="flex flex-wrap gap-x-4 gap-y-2">
+<a class="hover:text-primary underline decoration-primary/30" href="#">Privacy Policy</a>
+<a class="hover:text-primary underline decoration-primary/30" href="#">Terms of Service</a>
+<a class="hover:text-primary underline decoration-primary/30" href="#">Security</a>
+<a class="hover:text-primary underline decoration-primary/30" href="#">Support</a>
+</div>
+<p>© 2024 Nexus Ecosystem. Enterprise Intelligence Platform.</p>
+</footer>
+</aside>
+</div>
+<!-- Mobile Navigation Shell (BottomNavBar) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface/80 backdrop-blur-md border-t border-outline-variant/30 flex items-center justify-around z-[1001]">
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hub</span>
+<span class="text-[10px] font-bold">Social</span>
+</button>
+<button class="w-12 h-12 bg-primary text-on-primary rounded-full -mt-8 shadow-lg shadow-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-[10px] font-bold">Projects</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-[10px] font-bold">Alerts</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for creating post modal (concept)
+        document.querySelector('textarea').addEventListener('focus', function() {
+            this.parentElement.parentElement.parentElement.classList.add('ring-2', 'ring-primary/10');
+        });
+        document.querySelector('textarea').addEventListener('blur', function() {
+            this.parentElement.parentElement.parentElement.classList.remove('ring-2', 'ring-primary/10');
+        });
+
+        // Simple Story Interaction
+        const storiesList = document.querySelectorAll('.flex-shrink-0.cursor-pointer');
+        storiesList.forEach(story => {
+            story.addEventListener('click', () => {
+                story.style.transform = 'scale(0.95)';
+                setTimeout(() => story.style.transform = 'scale(1)', 100);
+            });
+        });
+    </script>
+</body></html>

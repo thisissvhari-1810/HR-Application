@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Profile | Nexus Ecosystem</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#4633a0",
+                        "outline": "#737685",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-container-high": "#e1e8ff",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#faf9ff",
+                        "on-secondary-container": "#576377",
+                        "tertiary-fixed-dim": "#c9bfff",
+                        "error-container": "#ffdad6",
+                        "background": "#faf9ff",
+                        "outline-variant": "#c3c6d6",
+                        "tertiary": "#432f9c",
+                        "surface-container-highest": "#d8e2ff",
+                        "secondary": "#535f73",
+                        "on-tertiary-fixed": "#1a0063",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#101c2d",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "on-background": "#051a3e",
+                        "primary-container": "#0052cc",
+                        "inverse-surface": "#1d3054",
+                        "surface-tint": "#0c56d0",
+                        "inverse-on-surface": "#edf0ff",
+                        "secondary-fixed-dim": "#bbc7de",
+                        "on-surface": "#051a3e",
+                        "on-primary-fixed": "#001848",
+                        "surface-variant": "#d8e2ff",
+                        "secondary-fixed": "#d7e3fb",
+                        "on-secondary-fixed-variant": "#3b475b",
+                        "surface-dim": "#ccdaff",
+                        "primary-fixed": "#dae2ff",
+                        "on-primary-container": "#c4d2ff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e9edff",
+                        "surface": "#faf9ff",
+                        "secondary-container": "#d4e0f8",
+                        "primary": "#003d9b",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e5deff",
+                        "on-surface-variant": "#434654",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#d5ccff",
+                        "inverse-primary": "#b2c5ff",
+                        "tertiary-container": "#5b49b5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-margin-mobile": "16px",
+                        "navbar-height": "72px",
+                        "container-margin-desktop": "32px",
+                        "unit": "8px",
+                        "sidebar-width": "280px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(250, 249, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .sidebar-active {
+            background-color: #d4e0f8; /* secondary-container */
+            color: #576377; /* on-secondary-container */
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c3c6d6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-screen w-sidebar-width flex flex-col p-4 z-50 bg-surface-container-low/90 backdrop-blur-xl border-r border-outline-variant/20 hidden md:flex">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</div>
+<div>
+<h1 class="font-headline-md text-[18px] font-black text-primary leading-tight">Nexus AI</h1>
+<p class="font-label-md text-[10px] text-secondary uppercase tracking-widest">Enterprise Assistant</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-semibold cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-label-md text-label-md">Social</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="font-label-md text-label-md">Messaging</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-md text-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">Learning</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-label-md text-label-md">HR</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md">Nexus AI</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+<span class="font-label-md text-label-md">Admin</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/20 space-y-1">
+<button class="w-full mb-4 bg-primary text-on-primary py-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+<span>New Request</span>
+</button>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-error hover:bg-error-container/20 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-sidebar-width min-h-screen relative flex flex-col">
+<!-- TopAppBar (Shared Component) -->
+<header class="sticky top-0 z-[1000] flex items-center justify-between px-gutter h-navbar-height w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-title-lg text-title-lg font-bold text-primary">Nexus Ecosystem</span>
+<div class="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/30 w-80">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full p-0" placeholder="Search ecosystem..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex gap-6 mr-6">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Social</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Projects</a>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container-high/50 rounded-full transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-high/50 rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container cursor-pointer ml-2">
+<img class="w-full h-full object-cover" data-alt="A close-up professional portrait of a tech executive with a friendly expression. The background is a blurred modern office space with soft primary blue and white lighting, maintaining the clean Nexus Ecosystem aesthetic. High-quality photography, sharp focus, neutral professional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2lR2dlQCrAS5yykK1b0qJnEGclOU4b4jQ5v9EWzppNAudxEEC5wfj2DipUMqC5C9CZ6KfJXbl-zewog8EsgXuPNTC_M0Q3yopD59wLaxjy23R1hTR8iARM_aUZ1mS1p8IwJx1ezenzgB9WZBM56hanZJTD_m2InTsl5TKTLCyZsIkMJ08Z4k7NXq6oOtvyFr0Q2XSFG8FcgrnoWlFZOnVtsWD-aJVwp0v281mLWKabSdrLFuGoUOAfcf7RsF_1Osk8RcKBHdTTx2m"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Profile Content -->
+<div class="flex-1 overflow-y-auto">
+<!-- Hero Section / Cover -->
+<div class="relative h-64 md:h-80 w-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="A wide, panoramic aerial view of a futuristic tech campus at twilight. The architecture is minimalist glass and white steel, glowing with soft blue and indigo lights. The sky is a deep twilight purple and blue, creating a serene and professional atmosphere that matches the Nexus Ecosystem design system." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-n47zkPMJ1a3QdA_XgHUmKerIVuPsBCo88glwuVvJFsBAeNRhnIMXkoRBfLNAQJG-tvDPhHvOs45uqWDkalLTEh5lFC5-4pG0uU0eu28phe2ZbCz91LAL1K-uvo936OPyVi9Oh-pTfZl3xjau-4bNBbmQ-WthUVsLqElxBWF6E49gq-H4LUR_hzpzKSvoUgyq635uoZdIzZXiSv01Kwmrd95kHdvIlHZUmWdQexR7wKTdJS2S43gqt8S2Zhh_okHUDwaSCPNKhXce')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+</div>
+<!-- Profile Header Card -->
+<div class="max-w-7xl mx-auto px-gutter -mt-32 relative z-10">
+<div class="bg-surface-container-lowest rounded-3xl p-6 md:p-8 shadow-xl border border-outline-variant/10 flex flex-col md:flex-row items-end gap-6 md:gap-10">
+<div class="w-32 h-32 md:w-44 md:h-44 rounded-full border-8 border-surface-container-lowest shadow-lg overflow-hidden -mt-16 md:-mt-24 self-center md:self-auto">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged woman with glasses and a warm, confident smile. She is wearing a modern charcoal blazer. The background is a clean, minimalist studio set with soft, cool-toned lighting consistent with a premium enterprise SaaS environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-5afo42Ubh0GeZtQSLiwaIyU9X8Ywbmjf9xu48JfBgNt8XJbHP3-FNmoid94AjF4ttBEhcv88_X3kQTs1nH7haYb1g_M08XHLyW4GYq5eCGIN8a8jpUWN3cuk2QRwYNhKNJ2oiGIaae0EEBEGvyRYIAtteD_klWnePHMuaZ5DKsbgELiPyoGmd2IXduUrtUE06rQk1MDPePIKcdnGiJvKsPKXHS9awjQydpaBO4gogETqKPCSh9lPhLsv5Jen9DxrKOz-2tOs0GYn"/>
+</div>
+<div class="flex-1 text-center md:text-left">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Dr. Sarah Chen</h2>
+<p class="text-primary font-semibold text-body-lg">Senior Director of Product Innovation</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-4 mt-2 text-on-surface-variant font-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="business">business</span> Strategic Growth</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span> San Francisco, CA</span>
+<span class="flex items-center gap-1 text-tertiary font-bold"><span class="material-symbols-outlined text-[18px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span> Top Contributor</span>
+</div>
+</div>
+<div class="flex items-center justify-center gap-3">
+<button class="px-6 py-2.5 bg-primary text-on-primary rounded-full font-semibold shadow-md hover:shadow-lg transition-all active:scale-95">Follow</button>
+<button class="px-6 py-2.5 bg-surface-container border border-outline-variant/50 text-on-surface-variant rounded-full font-semibold hover:bg-surface-container-high transition-all active:scale-95">Message</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout for Sections -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter py-10">
+<!-- Left Column: About & Skills (4 cols) -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Bio Card -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/10 shadow-sm">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span> About
+                            </h3>
+<p class="text-on-surface-variant leading-relaxed">
+                                Leading the charge in next-generation ecosystem design. Over 15 years of experience in product strategy and human-centered design. I'm passionate about building tools that empower employees to reach their full potential.
+                            </p>
+<div class="mt-6 space-y-3">
+<div class="flex justify-between text-body-md">
+<span class="text-outline">Joined</span>
+<span class="text-on-surface font-medium">October 2019</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-outline">Reports to</span>
+<span class="text-primary font-medium">Marcus Sterling (VP)</span>
+</div>
+</div>
+</div>
+<!-- Skills Card -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/10 shadow-sm">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span> Expertise
+                            </h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-md font-medium">Product Strategy</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-md font-medium">UX Research</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-md font-medium">Growth Hacking</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-md font-medium">AI Integration</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-md font-medium">Team Leadership</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-md font-medium">Design Ops</span>
+</div>
+</div>
+<!-- Team Widget -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/10 shadow-sm">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4">Direct Team</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-3 group cursor-pointer">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Close-up headshot of a young professional man with short dark hair, wearing a navy blue polo shirt. Background is a bright, airy office space with soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASTA8oHlh48ebX5JrW3MCvGME6q69jsl2LW9xU-433t81f-LUSigWvAX9xM7q9bzUXKUY9E5h-_iZLEMWUiFC_SVfmEhtjD0KQutOME4PUgZgvkOe_HuqluIsaEgw2DAaN7XxbT8TxwlbWPgY6U4-Vz95lbnJsW6kDVVbvKiIe89diR-Fv2GZEfR8fSkFTCN63N4rSFU7UJ5uItaR6C_LcIy3rpg8Q8VDlF4W2cQNrYd2Fv4AGX3959jMpKYIFCf2PSq7ayaE30HP7"/>
+<div class="flex-1">
+<p class="text-on-surface font-semibold group-hover:text-primary transition-colors">James Wilson</p>
+<p class="text-label-md text-outline">Lead UI Designer</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Professional portrait of a woman with curly auburn hair, wearing a white blouse and a light grey blazer. Minimalist office backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-EWj9EBT3EbjALyZd5iSsoErY6kQnYNBDdhwuFGajHNuyG37Z7nbWS5IYCkdvRmZMTZY7ceSxgTG-H4ZH9c5p27-C7UU4CQEFrCZkleDXAMNbeFQDEJMkVIyyxfC-eHuyqf7k6u3LFxXlekVLxVJqfYpWjgPadmwu9Q0twHUFYPebrzrf3hEghRXunnkOTMRvk40a217kguhc7ixxg2iNGItbNS2BKK_PjywCAZZiMqKiwyOkDTrhHmTF7wRsYin4Rwju7wA7Udy8"/>
+<div class="flex-1">
+<p class="text-on-surface font-semibold group-hover:text-primary transition-colors">Elena Rodriguez</p>
+<p class="text-label-md text-outline">Product Manager</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Headshot of a man with spectacles and a friendly smile, wearing a professional black turtleneck. Modern tech office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8bZoKR21vY4O_pZhngvKuqpmUihgl-CXeLzt2vkmRNKVw7NZnzusB4ikTv5xES4fVZcLc6soADpxnLZqYsHVDeKG7yo9yXV8LJe_DGwi2Hp4BhzMAOGePbT61CfAZ55XZTnhVNXiWqbc68QBkwVXStGT5RIEqDEjf2E2ytb7YrMked-bqK924HFo3P83GLDcMwBKnYHwms_HChGaF6fESD2OSWb91z3IQgV9noiV28CF1ktMwXFg-ArtntfIC53EgZAvqHV-Bepsv"/>
+<div class="flex-1">
+<p class="text-on-surface font-semibold group-hover:text-primary transition-colors">David Kim</p>
+<p class="text-label-md text-outline">Senior Data Analyst</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Timeline & Recognition (8 cols) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Recognition / Badges Section -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/10 shadow-sm overflow-hidden relative">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="military_tech">military_tech</span> Recognition &amp; Badges
+                                </h3>
+<button class="text-primary font-semibold text-label-md hover:underline">View all (12)</button>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+<div class="flex-shrink-0 flex flex-col items-center gap-2 w-24">
+<div class="w-16 h-16 rounded-2xl bg-tertiary-container/10 flex items-center justify-center border border-tertiary-container/30 relative overflow-hidden group">
+<span class="material-symbols-outlined text-tertiary-container text-4xl" data-icon="rocket_launch" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</div>
+<p class="text-center text-label-md font-semibold text-on-surface">Innovation Catalyst</p>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 w-24">
+<div class="w-16 h-16 rounded-2xl bg-primary-container/10 flex items-center justify-center border border-primary-container/30 relative overflow-hidden group">
+<span class="material-symbols-outlined text-primary-container text-4xl" data-icon="groups" style="font-variation-settings: 'FILL' 1;">groups</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</div>
+<p class="text-center text-label-md font-semibold text-on-surface">Culture Hero</p>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 w-24">
+<div class="w-16 h-16 rounded-2xl bg-secondary-container/10 flex items-center justify-center border border-secondary-container/30 relative overflow-hidden group">
+<span class="material-symbols-outlined text-secondary-container text-4xl" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</div>
+<p class="text-center text-label-md font-semibold text-on-surface">Nexus Expert</p>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 w-24">
+<div class="w-16 h-16 rounded-2xl bg-error-container/10 flex items-center justify-center border border-error-container/30 relative overflow-hidden group">
+<span class="material-symbols-outlined text-error-container text-4xl" data-icon="volunteer_activism" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</div>
+<p class="text-center text-label-md font-semibold text-on-surface">Impact Maker</p>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 w-24">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center border border-outline-variant/30 relative overflow-hidden group">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</div>
+<p class="text-center text-label-md font-semibold text-on-surface">5 Year Service</p>
+</div>
+</div>
+</div>
+<!-- Timeline / Recent Posts Section -->
+<div class="space-y-6">
+<h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="history">history</span> Activity Timeline
+                            </h3>
+<!-- Post 1 -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/10 shadow-sm space-y-4 hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full" data-alt="Sarah Chen professional avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu96hS0wEWn3kOp-r0aVsbNENymGH7dxWASeeLVEyovhyZLPryy4ijAQXlSw_gLRcwbr7HzqXiF1V_BoFanQDTDYF8J8oRQuMA5PuKqJwViMtJgeazkiy9auY0wnCAwJDY4qO8foec9J68KOUYyrJP-NDtdAlXAF0uDG6NdCgcH-jgAZq9HtXqmG-FtuchBdX8xvACDHwm7o-_0aKcC3XUhFfscWuE3s8cr16c0ydI8AnxMpX6fhvXFYAUvggudiC4Nh9jwoUmTvOR"/>
+<div>
+<p class="text-on-surface font-bold">Sarah Chen <span class="text-outline font-normal">published a new article</span></p>
+<p class="text-label-md text-outline">2 hours ago</p>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-4 border border-outline-variant/5">
+<h4 class="font-title-lg text-on-surface mb-2">The Future of AI-Driven Ecosystems</h4>
+<p class="text-on-surface-variant text-body-md line-clamp-2">Exploring how generative AI will reshape our internal collaboration tools by 2025. This deep dive focuses on predictive workflow automation...</p>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="flex items-center gap-1 hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span> 124</button>
+<button class="flex items-center gap-1 hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="chat_bubble">chat_bubble</span> 18</button>
+</div>
+<button class="text-primary font-bold text-label-md">Read Article</button>
+</div>
+</div>
+</div>
+<!-- Post 2 -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 border border-outline-variant/10 shadow-sm space-y-4 hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full" data-alt="Sarah Chen professional avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeh1wJvfag30DYWWRUQJ75GytUNUmKzFv14zAuTgEGuKCAf0WYYZ12MrrUB8cgT4bGqZQifMNd0Z5H9V_Yc60cupVK8HM-Iq3m0X1I19R6RyQV0PhlyeGwh3exijYf_7_eFCghibqGeoh82D3t6J4HEXq5gunZtpaIUxRJltDnV5A3NWSfnO4uD2H3SJQPg5RXeZauaoiFOuJFjgFffbQhtUye9MZ-ZZzi9FsyAQiz4XEyhU9F9tpV5G7yWOqCnLYMF9QEYtby6bQ_"/>
+<div>
+<p class="text-on-surface font-bold">Sarah Chen <span class="text-outline font-normal">celebrated a milestone with</span> <span class="text-primary">Design Team</span></p>
+<p class="text-label-md text-outline">Yesterday at 4:15 PM</p>
+</div>
+</div>
+<p class="text-on-surface-variant">So proud of the team for hitting our quarterly targets ahead of schedule! The new Nexus UI framework is officially live across all regions. 🚀</p>
+<div class="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden h-48">
+<div class="bg-cover bg-center" data-alt="A diverse team of professionals laughing and celebrating in a modern office lounge. They are holding coffee mugs and looking at a large screen displaying positive growth charts. High-key lighting, professional yet celebratory vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwPrnehpsR-qEDa5NaGlw5Oc6bn061SzsSl0Zi6PPBp_t524tVdP1onrse7yD6A2b6jzqvzg4kLORuCH--6Swim58PV5fcXtKusudPQ32A9O2V-xq8Q9rkuVjSu-fd2S3LQzkgcY9GJ4Jlm_-78E-_1G2Cow3eTB-eukfhVt4NsVxH3euL0mHuGYKN8wgkfjjDsFT0oZegp1ZpHEtNoXBdGJB7LBULMjP8GK8yV0K08MRSe0b64TSXwgeEDFf26LNsZr-92M6SvuGV')"></div>
+<div class="bg-cover bg-center" data-alt="A close-up shot of a modern office whiteboard covered in colorful sticky notes and architectural sketches. The lighting is soft and focused, emphasizing a creative and collaborative environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDKyQOrY8Xov1-KyT8CBV5ecvwuHeplX6oB3BkTDTfsWyA-sERPhPcBxMtTOfcepZHbC6V7O2UAY-ZT0qWUiU0-DswnLLoNcX2B77_paDL3yGiAAD1R8zqldmEh4PRNsdXTwgxOk5tZbCOTgvkbLP4IyWzRsgy2f61KFhKF4QyjUnWagcrmjwyjkd1y0vdb4Zfu0bMJk7SFkRbYLT1B-J4mr6ISLGuU9_jWEWbH9pYkBA6UOaNJ4Nzmfv7ps9D6nFbW8DvWPRzuLRsc')"></div>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant pt-2">
+<button class="flex items-center gap-1 hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="favorite">favorite</span> 342</button>
+<button class="flex items-center gap-1 hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="share">share</span> 56</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-unit px-container-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-bright border-t border-outline-variant/10">
+<div class="flex items-center gap-2">
+<span class="font-body-lg text-body-lg font-semibold text-primary">Nexus Ecosystem</span>
+<span class="text-secondary font-label-md">|</span>
+<p class="text-secondary font-label-md">© 2024 Nexus Ecosystem. Enterprise Intelligence Platform.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-secondary font-label-md hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-secondary font-label-md hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-secondary font-label-md hover:text-primary transition-colors" href="#">Security</a>
+<a class="text-secondary font-label-md hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</main>
+<!-- FAB for Quick Post -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-[1001] md:hidden">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.bg-surface-container-lowest').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.transition = 'all 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput?.parentElement;
+        if(searchInput && searchContainer) {
+            searchInput.addEventListener('focus', () => {
+                searchContainer.classList.add('border-primary', 'ring-2', 'ring-primary/10');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchContainer.classList.remove('border-primary', 'ring-2', 'ring-primary/10');
+            });
+        }
+    </script>
+</body></html>

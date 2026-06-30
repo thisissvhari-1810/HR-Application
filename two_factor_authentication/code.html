@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Secure Verification | Nexus Ecosystem</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 61, 155, 0.05);
+        }
+
+        .otp-input:focus {
+            box-shadow: 0 0 0 2px rgba(0, 61, 155, 0.15);
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Hide number spin buttons */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf9ff",
+                        "secondary": "#535f73",
+                        "on-tertiary-fixed-variant": "#4633a0",
+                        "surface": "#faf9ff",
+                        "on-tertiary-fixed": "#1a0063",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e1e8ff",
+                        "on-surface-variant": "#434654",
+                        "outline-variant": "#c3c6d6",
+                        "on-tertiary-container": "#d5ccff",
+                        "surface-dim": "#ccdaff",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "secondary-fixed": "#d7e3fb",
+                        "secondary-fixed-dim": "#bbc7de",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "tertiary": "#432f9c",
+                        "on-primary-fixed": "#001848",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#051a3e",
+                        "error": "#ba1a1a",
+                        "outline": "#737685",
+                        "tertiary-fixed-dim": "#c9bfff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "primary": "#003d9b",
+                        "surface-container-highest": "#d8e2ff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#051a3e",
+                        "inverse-primary": "#b2c5ff",
+                        "on-secondary-fixed-variant": "#3b475b",
+                        "surface-container": "#e9edff",
+                        "on-secondary-container": "#576377",
+                        "inverse-surface": "#1d3054",
+                        "tertiary-container": "#5b49b5",
+                        "surface-tint": "#0c56d0",
+                        "secondary-container": "#d4e0f8",
+                        "background": "#faf9ff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#0052cc",
+                        "tertiary-fixed": "#e5deff",
+                        "on-secondary-fixed": "#101c2d",
+                        "on-primary-container": "#c4d2ff",
+                        "surface-container-low": "#f1f3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#edf0ff",
+                        "surface-variant": "#d8e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin-mobile": "16px",
+                        "navbar-height": "72px",
+                        "sidebar-width": "280px",
+                        "gutter": "24px",
+                        "container-margin-desktop": "32px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-bright font-body-md text-on-surface min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Background Atmosphere -->
+<div class="fixed inset-0 z-0">
+
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full max-w-md px-container-margin-mobile md:px-0">
+<!-- Auth Card -->
+<div class="glass-panel p-8 md:p-12 rounded-xl flex flex-col items-center text-center">
+<!-- Branding/Security Icon -->
+<div class="mb-8 w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="shield_lock" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-2">Two-Factor Authentication</h1>
+<p class="font-body-md text-on-surface-variant mb-10 px-4">
+                We've sent a 6-digit security code to your registered device. Enter it below to secure your session.
+            </p>
+<!-- OTP Input Form -->
+<form class="w-full space-y-10" id="otp-form">
+<div class="flex justify-between gap-2 md:gap-3">
+<input autofocus="" class="otp-input w-full aspect-square text-center font-headline-md text-headline-md bg-surface-container-low border border-outline-variant/30 rounded-lg focus:outline-none focus:border-primary transition-all duration-200" maxlength="1" oninput="moveToNext(this, 0)" required="" type="number"/>
+<input class="otp-input w-full aspect-square text-center font-headline-md text-headline-md bg-surface-container-low border border-outline-variant/30 rounded-lg focus:outline-none focus:border-primary transition-all duration-200" maxlength="1" oninput="moveToNext(this, 1)" required="" type="number"/>
+<input class="otp-input w-full aspect-square text-center font-headline-md text-headline-md bg-surface-container-low border border-outline-variant/30 rounded-lg focus:outline-none focus:border-primary transition-all duration-200" maxlength="1" oninput="moveToNext(this, 2)" required="" type="number"/>
+<input class="otp-input w-full aspect-square text-center font-headline-md text-headline-md bg-surface-container-low border border-outline-variant/30 rounded-lg focus:outline-none focus:border-primary transition-all duration-200" maxlength="1" oninput="moveToNext(this, 3)" required="" type="number"/>
+<input class="otp-input w-full aspect-square text-center font-headline-md text-headline-md bg-surface-container-low border border-outline-variant/30 rounded-lg focus:outline-none focus:border-primary transition-all duration-200" maxlength="1" oninput="moveToNext(this, 4)" required="" type="number"/>
+<input class="otp-input w-full aspect-square text-center font-headline-md text-headline-md bg-surface-container-low border border-outline-variant/30 rounded-lg focus:outline-none focus:border-primary transition-all duration-200" maxlength="1" oninput="moveToNext(this, 5)" required="" type="number"/>
+</div>
+<div class="space-y-4">
+<button class="w-full h-12 bg-primary text-on-primary font-body-lg text-body-lg font-semibold rounded-full hover:bg-primary-container active:scale-95 transition-all duration-200 shadow-md shadow-primary/10" type="submit">
+                        Verify Identity
+                    </button>
+<div class="flex items-center justify-center gap-2 pt-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Didn't receive the code?</span>
+<button class="font-label-md text-label-md text-primary font-bold hover:underline cursor-pointer transition-all" id="resend-btn" type="button">
+                            Resend Code
+                        </button>
+</div>
+</div>
+</form>
+<!-- Status Indicator -->
+<div class="mt-8 flex items-center gap-2 text-primary font-label-md text-label-md hidden" id="status-message">
+<span class="material-symbols-outlined text-sm animate-spin" data-icon="sync">sync</span>
+                Verifying secure credentials...
+            </div>
+</div>
+<!-- Security Footer Info -->
+<footer class="mt-8 flex flex-col items-center gap-4">
+<div class="flex items-center gap-2 text-secondary opacity-60">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span class="font-label-md text-label-md">End-to-end encrypted connection</span>
+</div>
+<div class="flex gap-6 opacity-40 font-label-md text-label-md">
+<a class="hover:text-primary hover:opacity-100 transition-all" href="#">Help Center</a>
+<a class="hover:text-primary hover:opacity-100 transition-all" href="#">Terms of Use</a>
+</div>
+</footer>
+</main>
+<!-- Contextual Security Background Imagery -->
+<div class="fixed top-20 right-[10%] opacity-10 pointer-events-none hidden xl:block">
+<div class="w-64 h-64 rounded-2xl overflow-hidden grayscale contrast-125 rotate-12" data-alt="A macro close-up of a high-tech obsidian keyboard with ethereal blue backlighting in a minimalist, clean-room environment. The lighting is cold and precise, suggesting a secure, high-stakes enterprise technology setting. The composition uses deep shadows and sharp highlights to emphasize a modern, premium SaaS aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9BTUdXGijKzW5PuiaQvKbifS57C6a0w8ttJ1-_UMOnGRdeQi-HmKTVh9lmgOKYFTPe-a4HnlC7cRWaA2AkhGQiF-URVner4nUhPmGd3mk-jLgfLmNrw9zwfXf9k6B4QG6i0JUOfADpvXK1Q76DkDcBrWTHtoHfswyC5UJWGSSUFi_pnD6d5fC0GqJUkGAfiS9pVckhjW0hQGJ8HVQ41FG_0csQ1xL59Bfkbt7Ms0PRHttW3cSxbWDBuBaFONBxdp8u8dsBrCONd_-')"></div>
+</div>
+<div class="fixed bottom-20 left-[10%] opacity-10 pointer-events-none hidden xl:block">
+<div class="w-48 h-48 rounded-full overflow-hidden grayscale contrast-125 -rotate-6" data-alt="Abstract architectural photography of a glass and steel data center facility. The view is upward, capturing rhythmic patterns of support beams and reflective glass panels against a clear, high-key sky. The mood is structural, transparent, and professional, perfectly aligning with an enterprise security brand identity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCBtLF20lEQSux1M9MJg2gUJipImFhInfPzgY8Qvkrn1Hh1Mkjthjokm71mBkJss9dVU9ybsweQB4g9eyT2Ajl0cKiAeTTWrOPtUyqZ0x3aWp7V92pRPtiU98nLygnJZb2NXPgzXHTNi_4gZY2XWGFTzzmEmBs4cQ6LVV3NFqTBt1NQahttuFgFPIRqP2bfhNuroqVOH0nxbkGWxIe0q6YzvZparxSpqT9SP6UC6MgPMpY8cxIt8B_J6l7OMANONHEYzZ58SzyEsq5r')"></div>
+</div>
+<script>
+        function moveToNext(field, index) {
+            const inputs = document.querySelectorAll('.otp-input');
+            if (field.value.length >= 1) {
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            }
+        }
+
+        // Handle Backspace
+        document.querySelectorAll('.otp-input').forEach((input, index) => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) {
+                    document.querySelectorAll('.otp-input')[index - 1].focus();
+                }
+            });
+            
+            // Handle paste
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pasteData = e.clipboardData.getData('text').slice(0, 6);
+                const inputs = document.querySelectorAll('.otp-input');
+                [...pasteData].forEach((char, i) => {
+                    if (inputs[i]) {
+                        inputs[i].value = char;
+                        if (i < inputs.length - 1) inputs[i+1].focus();
+                    }
+                });
+            });
+        });
+
+        // Form Submission Simulation
+        document.getElementById('otp-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const status = document.getElementById('status-message');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span>`;
+            status.classList.remove('hidden');
+
+            // Simulate API call
+            setTimeout(() => {
+                btn.innerHTML = `<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span> Verified`;
+                btn.classList.replace('bg-primary', 'bg-green-600');
+                status.innerHTML = `<span class="text-green-600 font-bold">Access Granted. Redirecting...</span>`;
+            }, 1800);
+        });
+
+        // Resend Timer Simulation
+        let cooldown = 0;
+        document.getElementById('resend-btn').addEventListener('click', (e) => {
+            if (cooldown > 0) return;
+            
+            const btn = e.target;
+            cooldown = 60;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.innerHTML = `Resend in ${cooldown}s`;
+            
+            const timer = setInterval(() => {
+                cooldown--;
+                if (cooldown <= 0) {
+                    clearInterval(timer);
+                    btn.innerHTML = 'Resend Code';
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    btn.innerHTML = `Resend in ${cooldown}s`;
+                }
+            }, 1000);
+        });
+    </script>
+</body></html>
