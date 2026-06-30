@@ -39,32 +39,14 @@ services:
       retries: 3
       start_period: 10s
 
-    # Mount the source read-only so edits to any code.html, shared/*.css or
-    # shared/*.js show up on refresh — comment out for an immutable image.
-    volumes:
-      - ./shared:/usr/share/nginx/html/shared:ro
-      - ./platform_landing_page:/usr/share/nginx/html/platform_landing_page:ro
-      - ./login_employee_ecosystem:/usr/share/nginx/html/login_employee_ecosystem:ro
-      - ./create_enterprise_account:/usr/share/nginx/html/create_enterprise_account:ro
-      - ./two_factor_authentication:/usr/share/nginx/html/two_factor_authentication:ro
-      - ./nexus_enterprise:/usr/share/nginx/html/nexus_enterprise:ro
-      - ./personal_employee_dashboard:/usr/share/nginx/html/personal_employee_dashboard:ro
-      - ./hr_administration_dashboard:/usr/share/nginx/html/hr_administration_dashboard:ro
-      - ./executive_dashboard:/usr/share/nginx/html/executive_dashboard:ro
-      - ./managerial_insights_dashboard:/usr/share/nginx/html/managerial_insights_dashboard:ro
-      - ./enterprise_messaging_chat:/usr/share/nginx/html/enterprise_messaging_chat:ro
-      - ./communities_groups_hub:/usr/share/nginx/html/communities_groups_hub:ro
-      - ./company_news_feed:/usr/share/nginx/html/company_news_feed:ro
-      - ./social_news_feed_stories:/usr/share/nginx/html/social_news_feed_stories:ro
-      - ./performance_review_center:/usr/share/nginx/html/performance_review_center:ro
-      - ./payroll_benefits:/usr/share/nginx/html/payroll_benefits:ro
-      - ./project_kanban_board:/usr/share/nginx/html/project_kanban_board:ro
-      - ./recruitment_pipeline_dashboard:/usr/share/nginx/html/recruitment_pipeline_dashboard:ro
-      - ./employee_onboarding_workflow:/usr/share/nginx/html/employee_onboarding_workflow:ro
-      - ./employee_social_profile:/usr/share/nginx/html/employee_social_profile:ro
-      - ./organizational_hierarchy_chart:/usr/share/nginx/html/organizational_hierarchy_chart:ro
-      - ./ai_intelligence_hub:/usr/share/nginx/html/ai_intelligence_hub:ro
-      - ./index.html:/usr/share/nginx/html/index.html:ro
+    # NOTE: Intentionally NO bind mounts.
+    #   - For CI/CD (Jenkins): the Dockerfile already `COPY . .` bakes every
+    #     file into the image, and bind mounts break when Jenkins itself runs
+    #     in a container against the host docker daemon (the source paths
+    #     don't exist on the host).
+    #   - For local dev hot-reload: create a docker-compose.override.yml
+    #     beside this file with a `volumes:` section pointing at ./ → /usr/share/nginx/html.
+    #     Compose auto-merges overrides on `docker compose up`.
 
     # Drop everything we don't need; nginx only needs to bind 3000 and read.
     security_opt:

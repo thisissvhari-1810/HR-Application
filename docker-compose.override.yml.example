@@ -1,0 +1,14 @@
+# =============================================================================
+# LOCAL DEV ONLY — rename to docker-compose.override.yml to enable.
+# Compose auto-merges any file named docker-compose.override.yml on top of the
+# main docker-compose.yml. Do NOT commit the merged override to git, and do
+# NOT use this on Jenkins / the deploy VM (the bind mounts break when Docker
+# is being driven from inside another container).
+# =============================================================================
+
+services:
+  web:
+    # Mount the whole repo into nginx's web root so edits to any code.html
+    # or shared/*.css|js show up on browser refresh — no rebuild required.
+    volumes:
+      - ./:/usr/share/nginx/html:ro
