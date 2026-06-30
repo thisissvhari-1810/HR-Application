@@ -1,0 +1,26 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+.dockerignore
+
+# IDE & OS junk
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temp
+*.log
+*.tmp
+node_modules
+npm-debug.log*
+yarn-error.log*
+
+# Documentation that doesn't need to ship in the image
+DESIGN.md
+*/DESIGN.md
