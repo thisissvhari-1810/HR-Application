@@ -143,23 +143,34 @@ EOF
                 sh '''
                 set -e
 
-                echo "Hitting the landing page through the published port..."
+                # We run the smoke test INSIDE the container via `docker exec`
+                # rather than from the Jenkins agent. Reason: when Jenkins
+                # itself runs in a container, its 127.0.0.1 is its own
+                # loopback — not the host where nexus-web publishes port 3000.
+                # Running inside the container side-steps all network
+                # topology assumptions and uses nginx's own listener.
 
-                # We test against localhost on the Jenkins agent (= deploy VM)
-                # because the container publishes HOST_PORT there.
-                STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:${HOST_PORT}/")
+                echo "Hitting the landing page from inside ${WEB_CONTAINER}..."
+
+                STATUS=$(docker exec ${WEB_CONTAINER} \
+                    wget -q -S -O /dev/null http://127.0.0.1:3000/ 2>&1 \
+                    | awk '/HTTP\\// {print $2; exit}')
 
                 if [ "$STATUS" != "200" ] && [ "$STATUS" != "302" ] && [ "$STATUS" != "301" ]; then
-                    echo "Unexpected HTTP status from / : $STATUS"
+                    echo "Unexpected HTTP status from / : ${STATUS:-no-response}"
+                    docker compose logs --tail=100 web || true
                     exit 1
                 fi
-
                 echo "Root page returned $STATUS — OK."
 
                 # Also confirm a deep module URL routes correctly via try_files.
-                STATUS=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:${HOST_PORT}/nexus_enterprise/code.html")
+                STATUS=$(docker exec ${WEB_CONTAINER} \
+                    wget -q -S -O /dev/null http://127.0.0.1:3000/nexus_enterprise/code.html 2>&1 \
+                    | awk '/HTTP\\// {print $2; exit}')
+
                 if [ "$STATUS" != "200" ]; then
-                    echo "Welcome page returned $STATUS — expected 200."
+                    echo "Welcome page returned ${STATUS:-no-response} — expected 200."
+                    docker compose logs --tail=100 web || true
                     exit 1
                 fi
                 echo "Welcome page returned 200 — OK."
